@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<x-layout>
 
-    @vite('resources/css/app.css')
-
-    <link rel="icon" type="image/png" href="images/new-memo-logo.png">
-    <title>Memories Cake</title>
-</head>
-<body class="bg-[#F3D2C1]">
     <div class="w-full relative flex flex-row-reverse">
         <div class="w-[850px] min-w-[850px] bg-[#FEF6E4] shadow-xl rounded-l-3xl">
             <div class="w-9/12 m-auto mt-20">
@@ -101,5 +90,5 @@
             }
         });
     </script>
-</body>
-</html>
+
+</x-layout>

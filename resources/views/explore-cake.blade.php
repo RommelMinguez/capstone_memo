@@ -1,69 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    @vite('resources/css/app.css')
-
-    <link rel="icon" type="image/png" href="images/new-memo-logo.png">
-    <title>Memories Cake</title>
-
-    <style>
-        .animate-show-details {
-            animation: showDetails 1s forwards;
-        }
-        @keyframes showDetails {
-            from {
-                top: 100%;
-            }
-            to {
-                top: 15%;
-            }
-        }
-
-        .animate-show-details-container {
-            animation: showDetailsContainer 1s forwards;
-        }
-        @keyframes showDetailsContainer {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-                display: block;
-            }
-        }
-
-        .animate-hide-details {
-            animation: hideDetails 1s forwards;
-        }
-        @keyframes hideDetails {
-            from {
-                top: 15%;
-            }
-            to {
-                top: 100% ;
-            }
-        }
-
-        .animate-hide-details-container {
-            animation: hideDetailsContainer 1s forwards;
-        }
-        @keyframes hideDetailsContainer {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-                display: none;
-            }
-        }
-    </style>
-
-</head>
-<body class="bg-[#F3D2C1]">
+<x-layout>
 
     <x-header></x-header>
 
@@ -245,5 +180,5 @@
 
         });
     </script>
-</body>
-</html>
+
+</x-layout>
