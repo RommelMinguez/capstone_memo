@@ -9,7 +9,7 @@
             <img src="images/cake-sample-1.jpeg" alt="featured background cake" class="absolute top-0 left-0 w-full h-full object-cover z-[0]">
             <div class="bg-[#9D9595] w-full h-full absolute top-0 left-0 opacity-70 z-10"></div>
             <div class="relative flex flex-col items-start justify-center px-40 z-20 w-full h-full">
-                <h1 class="text-6xl font-bold font-localLobster">
+                <h1 class="text-6xl font-localLobster">
                     Bake Your Memories <br>
                     Every time!
                 </h1>
@@ -31,7 +31,7 @@
                 <img src="images/cake-sample-1.jpeg" alt="bakeshop" class="w-full h-full object-cover">
             </div>
             <div id="about-def" class="w-[600px] h-[720px] flex flex-col -left-5 relative ">
-                <div class="w-full h-[150px] text-3xl font-bold font-serif px-20 flex items-center">
+                <div class="w-full h-[150px] text-3xl font-localLobster px-20 flex items-center">
                     About <br> Memories Cake
                 </div>
                 <div class="w-full h-[500px] bg-white p-28 shadow-md shadow-gray-500">
@@ -51,14 +51,19 @@
         {{-- CAKE SECTION --}}
         <div class="w-full p-20  overflow-hidden">
             <div class="flex justify-between px-20 overflow-hidden">
-                <p class="font-bold text-xl font-serif" id="featured-title">
+                <p class="text-3xl font-localLobster" id="featured-title">
                     Hot Selling Cakes
                 </p>
                 <span>more</span>
             </div>
             <div class="flex justify-evenly mt-10" id="featured-card">
-                @for ($i = 0; $i < 4; $i++)
-                    <x-cake-card></x-cake-card>
+                @for ($i = 0, $cake = $cakes[$i]; $i < 4; $cake = $cakes[++$i])
+                    <x-cake-card
+                        cakeImage="{{ $cake['image'] }}"
+                        cakeName="{{ $cake['name'] }}"
+                        cakePrice="{{ $cake['price'] }}"
+                        >
+                    </x-cake-card>
                 @endfor
             </div>
         </div>

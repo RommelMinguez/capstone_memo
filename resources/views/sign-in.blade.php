@@ -11,7 +11,7 @@
                 <img src="images/new-memo-logo.png" alt="Logo" class="h-20 w-20 rounded-xl shadow-md shadow-gray-400">
             </a>
 
-            <p class="font-bold text-3xl font-serif p-8">Welcome Back!</p>
+            <p class="font-localLobster text-3xl p-8">Welcome Back!</p>
 
             <form action="/" method="POST" class="p-5 w-full">
                 <label for="username" class="font-semibold">Username</label>

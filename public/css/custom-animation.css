@@ -23,10 +23,11 @@
 }
 .animate-feat-title {
     animation: moveFeatTitle 1s forwards;
+    animation-delay: 500ms;
 }
 @keyframes moveFeatCard {
     from {
-        translate: 0% 100%;
+        translate: 0% -100%;
         opacity: 0;
     }
     to {
@@ -98,3 +99,5 @@
         display: none;
     }
 }
+
+

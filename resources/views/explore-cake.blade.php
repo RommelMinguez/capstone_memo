@@ -36,9 +36,14 @@
             </div>
             {{-- CATALOG --}}
             <div class="flex flex-wrap justify-evenly gap-10 ">
-                @for ($i = 0; $i < 9; $i++)
-                    <x-cake-card></x-cake-card>
-                @endfor
+                @foreach ($cakes as $cake)
+                    <x-cake-card
+                        cakeImage="{{ $cake['image'] }}"
+                        cakeName="{{ $cake['name'] }}"
+                        cakePrice="{{ $cake['price'] }}"
+                        >
+                    </x-cake-card>
+                @endforeach
             </div>
         </div>
 
@@ -55,7 +60,7 @@
     </div>
 
     <div class="hidden bg-opacity-75 bg-black fixed z-50 w-full h-lvh inset-0 overflow-hidden" id="cake-details-container">
-        <div class="h-[15%] w-full flex items-center justify-center" id="hide-details">
+        <div class="h-[15%] w-full flex items-center justify-center cursor-pointer" id="hide-details">
             <svg
                 class="bordr-4 w-14 h-14 bg-black bg-opacity-50 rounded-full p-3 shadow-sm shadow-gray-700"
                 xmlns="http://www.w3.org/2000/svg"
@@ -67,12 +72,15 @@
         <div class="bg-[#F3D2C1] w-full h-[85%] overflow-y-auto rounded-xl absolute" id="cake-details">
             <div class="w-full flex justify-evenly p-10">
                 <div class="w-[540px] h-[740px] bg-gray-400 relative shadow-sm shadow-gray-700" >
-                    <img src="images/cake-sample-1.jpeg" alt="bakeshop" class="w-full h-full object-cover">
+                    <img src="images/cake-sample-1.jpeg" alt="bakeshop" id="cake-image" class="w-full h-full object-cover">
                 </div>
                 <div class="w-[540px] h-[740px] bg-[#FEF6E4] p-10 shadow-sm rounded-md overflow-auto">
-                    <div class="text-3xl font-bold font-serif mb-2">Cake name</div>
+                    <div id="cake-name" class="text-3xl font-localLobster mb-2">Cake name</div>
                     <div class="mb-5 text-lg">* * * * * (0)</div>
-                    <div class="mb-10 text-xl font-bold text-[#F44336]">00.00</div>
+                    <div class="mb-10 text-xl font-bold text-[#F44336]">
+                        <span class="mr-1 text-2xl">&#8369;</span>
+                        <span id="cake-price"></span>
+                    </div>
                     <div class="mb-1 w-full h-12 overflow-hidden" style="box-shadow: inset 0px -20px 20px -20px black" id="cake-desc">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae a distinctio praesentium neque. Consequatur animi, distinctio consectetur error rem, cum autem, laborum odio aliquid labore ut qui est numquam voluptate.
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit minus sunt odio! Nostrum nam earum quam error? Corporis autem praesentium libero voluptate, sapiente temporibus in iusto, odit, repellat qui enim!
@@ -135,6 +143,10 @@
         let hideDetail = document.getElementById('hide-details');
         let cakeCard = document.querySelectorAll('.cake-card');
 
+        let cakeImage = document.getElementById('cake-image');
+        let cakeName = document.getElementById('cake-name');
+        let cakePrice = document.getElementById('cake-price');
+
         hideDetail.addEventListener('click', function () {
             cakeDetail.classList.remove('animate-show-details');
             cakeDetailContainer.classList.remove('animate-show-details-container');
@@ -144,22 +156,24 @@
 
         cakeCard.forEach(function(cake) {
             cake.addEventListener('click', function() {
-                // Code to run when the element is clicked
+
+                cakeImage.src = cake.dataset.image;
+                cakeName.textContent = cake.getAttribute('data-name');
+                cakePrice.textContent = cake.getAttribute('data-price');
+
                 showCakeDetails();
             });
         });
 
         function showCakeDetails() {
-
             cakeDetailContainer.style.display = 'block';
-
             cakeDetail.classList.remove('animate-hide-details');
             cakeDetailContainer.classList.remove('animate-hide-details-container');
             cakeDetail.classList.add('animate-show-details');
             cakeDetailContainer.classList.add('animate-show-details-container');
         };
 
-
+        // Cake Description toggle show-more/less
         let toggleDesc = document.getElementById('show-hide-desc');
         let isShowMore = true;
         let cakeDesc = document.getElementById('cake-desc');

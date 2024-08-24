@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Cake;
 
 Route::get('/laravel', function () {
     return view('laravel-welcome');
 });
 
 Route::get('/', function () {
-    return view('memories-cake');
+    return view('memories-cake', ['cakes' => Cake::allCake()]);
 });
 
 Route::get('sign-in', function () {
@@ -19,5 +20,7 @@ Route::get('sign-up', function () {
 });
 
 Route::get('cakes', function () {
-    return view('explore-cake');
+
+
+    return view('explore-cake', ['cakes' => Cake::allCake()]);
 });

@@ -51,8 +51,10 @@
             </div>
         </div>
         <div class="w-full px-20 py-10">
-            <a href="/"><img src="images/new-memo-logo.png" alt="Logo" class="h-20 w-20 rounded-xl shadow-md shadow-gray-400"></a>
-            <h1 class="text-3xl font-serif font-bold my-16">
+            <div class="px-10">
+                <a href="/" class="inline-block"><img src="images/new-memo-logo.png" alt="Logo" class="h-20 w-20 rounded-xl shadow-md shadow-gray-400"></a>
+            </div>
+            <h1 class="text-5xl font-localLobster my-16 px-10">
                 Join Memories Cake and Savor the Sweetest Moments!
             </h1>
             <div class="m-auto h-[330px] w-[400px]">
