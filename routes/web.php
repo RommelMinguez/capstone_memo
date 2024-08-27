@@ -8,7 +8,7 @@ Route::get('/laravel', function () {
 });
 
 Route::get('/', function () {
-    return view('memories-cake', ['cakes' => Cake::allCake()]);
+    return view('memories-cake', ['cakes' => Cake::limit(4)->get()]);
 });
 
 Route::get('sign-in', function () {
@@ -22,5 +22,5 @@ Route::get('sign-up', function () {
 Route::get('cakes', function () {
 
 
-    return view('explore-cake', ['cakes' => Cake::allCake()]);
+    return view('explore-cake', ['cakes' => Cake::all()]);
 });

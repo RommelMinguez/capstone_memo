@@ -89,6 +89,8 @@
 
 .animate-hide-details-container {
     animation: hideDetailsContainer 1s forwards;
+
+
 }
 @keyframes hideDetailsContainer {
     from {

@@ -1,12 +1,13 @@
-@props(['cakeImage', 'cakeName', 'cakePrice', 'cakeItem'])
+@props(['cakeImage', 'cakeName', 'cakePrice', 'cakeItem', 'cakeDesc'])
 
 <div class="w-[260px] h-[380px] bg-[#FEF6E4] rounded-xl shadow-xl overflow-hidden cursor-pointer cake-card"
     data-image="{{ $cakeImage }}"
     data-name="{{ $cakeName }}"
     data-price="{{ $cakePrice }}"
+    data-desc="{{ $cakeDesc }}"
     >
     <div class="w-full h-[255px] relative rounded-xl overflow-hidden" >
-        <img src="{{ $cakeImage }}" alt="bakeshop" class="w-full h-full object-cover">
+        <img src="{{ $cakeImage }}" alt="cake" class="w-full h-full object-cover">
     </div>
 
     <div class="h-[125px] flex flex-col justify-center items-center font-bold">
