@@ -2,7 +2,7 @@
     <div class="container mx-auto flex items-center justify-between py-3  px-10">
         <!-- Left side: Logo and Name -->
         <a href="/" class="flex items-center">
-            <img src="images/new-memo-logo.png" alt="Logo" class="h-12 w-12 mr-2 rounded-full shadow-md shadow-gray-400">
+            <img src="{{ asset('images/new-memo-logo.png') }}" alt="Logo" class="h-12 w-12 mr-2 rounded-full shadow-md shadow-gray-400">
             <span class="text-xl font-localLobster">Memories Cakes</span>
         </a>
 

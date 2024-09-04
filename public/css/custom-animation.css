@@ -58,7 +58,7 @@
         top: 100%;
     }
     to {
-        top: 15%;
+        top: 0%;
     }
 }
 
@@ -80,7 +80,7 @@
 }
 @keyframes hideDetails {
     from {
-        top: 15%;
+        top: 0%;
     }
     to {
         top: 100% ;
