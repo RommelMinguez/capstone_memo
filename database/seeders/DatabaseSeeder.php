@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Cake;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,9 +16,41 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+
+        Cake::factory()->create([
+            'name' => 'cake 1',
+            'description' => 'this is a cake',
+            'price' => 140,
+            'image_src' => '/images/cakes/memo-cake (1).jpg',
+        ]);
+        Cake::factory()->create([
+            'name' => 'cake 2',
+            'description' => 'this is a cake',
+            'price' => 140,
+            'image_src' => '/images/cakes/memo-cake (2).jpg',
+        ]);
+        Cake::factory()->create([
+            'name' => 'cake 3',
+            'description' => 'this is a cake',
+            'price' => 140,
+            'image_src' => '/images/cakes/memo-cake (3).jpg',
+        ]);
+        Cake::factory()->create([
+            'name' => 'cake 4',
+            'description' => 'this is a cake',
+            'price' => 140,
+            'image_src' => '/images/cakes/memo-cake (4).jpg',
+        ]);
+        Cake::factory()->create([
+            'name' => 'cake 5',
+            'description' => 'this is a cake',
+            'price' => 140,
+            'image_src' => '/images/cakes/memo-cake (5).jpg',
         ]);
     }
 }

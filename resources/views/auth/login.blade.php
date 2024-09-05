@@ -13,16 +13,19 @@
 
             <p class="font-localLobster text-3xl p-8">Welcome Back!</p>
 
-            <form action="/" method="POST" class="p-5 w-full">
-                <label for="username" class="font-semibold">Username</label>
-                <input type="text" id="username" name="memo-username" placeholder="memoBakeshop143" required class="w-full h-9 bg-[#F5D2D2] px-5 mb-7 mt-1 rounded-sm">
+            <form action="/login" method="POST" class="p-5 w-full">
+
+                @csrf
+
+                <label for="email" class="font-semibold">Email</label>
+                <input type="email" id="email" name="email" placeholder="memoBakeshop@gmail.com" required class="w-full h-9 bg-[#F5D2D2] px-5 mb-7 mt-1 rounded-sm">
 
                 <div class="flex justify-between">
                     <label for="password" class="font-semibold">Password</label>
                     <div class="text-sm font-light text-gray-500"><a href="#">Forgot Password?</a></div>
                 </div>
                 <div class="relative mb-8 mt-1 rounded-sm ">
-                    <input type="password" id="password" name="memo-password"  required minlength="8" class="w-full h-9 bg-[#F5D2D2] px-5 ">
+                    <input type="password" id="password" name="password"  required minlength="8" class="w-full h-9 bg-[#F5D2D2] px-5 ">
                     <div class="absolute h-9 w-9 right-0 top-0 p-2 cursor-pointer " id="show-hide-password">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +52,7 @@
 
             <div class="font-light text-gray-500 py-2 ">
                 I dont have an account?
-                <a href="sign-up" class="text-[#F44336] font-semibold"> Sign-Up </a>
+                <a href="/register" class="text-[#F44336] font-semibold"> Sign-Up </a>
             </div>
         </div>
     </div>

@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
+
 use App\Models\Cake;
+
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\RegisteredUserController;
 
 Route::get('/laravel', function () {
 
@@ -14,12 +18,18 @@ Route::get('/', function () {
     return view('memories-cake', ['cakes' => Cake::limit(4)->get()]);
 });
 
-Route::get('sign-in', function () {
-    return view('sign-in');
-});
 
-Route::get('sign-up', function () {
-    return view('sign-up');
+
+Route::get('register', [RegisteredUserController::class, 'create']);
+Route::post('register', [RegisteredUserController::class, 'store']);
+
+Route::get('/login', [SessionController::class, 'create']);
+Route::post('/login', [SessionController::class, 'store']);
+Route::post('/logout', [SessionController::class, 'destroy']);
+
+
+Route::get('user', function () {
+    return view('user.dashboard');
 });
 
 Route::get('cakes', function () {

@@ -4,10 +4,14 @@
         <div class="w-[850px] min-w-[850px] bg-[#FEF6E4] shadow-xl rounded-l-3xl">
             <div class="w-9/12 m-auto mt-20">
                 <h1 class="font-bold text-3xl mb-5">Create Account</h1>
-                <form action="">
-                    <input type="text" required placeholder="Username" class="w-full mt-7 bg-transparent border-b-2 border-black">
-                    <input type="email" required placeholder="Email" class="w-full mt-7 bg-transparent border-b-2 border-black">
-                    <input type="tel" required placeholder="Phone No." class="w-full mt-7 bg-transparent border-b-2 border-black">
+                <form action="/register" method="POST">
+
+                    @csrf
+
+                    <input name="first_name" type="text" required placeholder="First Name" class="w-full mt-7 bg-transparent border-b-2 border-black">
+                    <input name="last_name" type="text" required placeholder="Last Name" class="w-full mt-7 bg-transparent border-b-2 border-black">
+                    <input name="email" type="email" required placeholder="Email" class="w-full mt-7 bg-transparent border-b-2 border-black">
+                    <input name="phone_number" type="number" required placeholder="Phone No." class="w-full mt-7 bg-transparent border-b-2 border-black">
                     <div class="mt-7 relative">
                         <input id="password" name="password" type="password" required placeholder="Password" class="w-full bg-transparent border-b-2 border-black">
                         <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer " id="show-hide-password">
@@ -27,7 +31,7 @@
                         </div>
                     </div>
                     <div class="mt-7 relative">
-                        <input id="confirm-password" name="confirm-password" type="password" required placeholder="Confirm Password" class="w-full bg-transparent border-b-2 border-black">
+                        <input id="confirm-password" name="password_confirmation" type="password" required placeholder="Confirm Password" class="w-full bg-transparent border-b-2 border-black">
                         <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer " id="show-hide-password2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
