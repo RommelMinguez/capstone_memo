@@ -26,21 +26,37 @@
                     <span class="mr-1 text-2xl">&#8369;</span>
                     {{ $cake['price'] }}
                 </div>
-                <div class="mb-1 w-full h-12 overflow-hidden" style="box-shadow: inset 0px -20px 20px -20px black" id="cake-desc">
+                <div class="mb-1 w-full h-9 overflow-hidden" style="box-shadow: inset 0px -5px 5px -5px gray" id="cake-desc">
                     {{ $cake['description']}}
                 </div>
                 <button class="mb-5 font-semibold underline" id="show-hide-desc"> Show more </button>
-                <hr>
+                <hr class="border-2 border-gray-400">
                 <form action="" method="GET" class="mt-7 ">
+                    <div class="mb-5 flex items-center justify-start w-fit">
+                        <label for="age" class="font-bold">Age:</label>
+                        <input class="ml-5 mr-10 w-20 h-10 bg-[#EDE7E7] font-bold rounded-md font-mono text-xl pl-4 pr-1 text-center text-[#F44336] shadow-md border inline-block"  type="number" id="age" name="age" value="1" min="1" max="150">
+
+                        <label for="candle" class="font-bold">Candle:</label>
+                        <select id="candle" name="candle" class="mx-5 w-40 h-10 bg-[#EDE7E7] rounded-md text-[#F44336] font-bold shadow-md border px-3">
+                            <option value="option0" selected>None</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                        </select>
+                    </div>
+
                     <label for="dedication" class="font-bold">Dedication/Message:</label>
                     <textarea
-                        class="w-full my-2 bg-[#EDE7E7] rounded-md p-5 shadow-md"
+                        class="w-full my-2 bg-[#EDE7E7] rounded-md p-5 shadow-md text-[#F44336]"
                         name="dedication" id="dedication" cols="30" rows="3" placeholder="Happy Birthday!!"></textarea>
-                    <label for="quantity" class="font-bold">Quantity:</label>
-                    <div class="my-2 flex shadow-md cursor-pointer w-fit rounded-md overflow-hidden ">
-                        <div class="w-10 h-10 bg-[#F44336] font-mono text-3xl font-bold text-center text-white hover:text-2xl active:text-3xl select-none" id="minus-quantity">&minus;</div>
-                        <input class="w-14 h-10 bg-[#EDE7E7] font-bold font-mono text-xl pl-4 text-center inline-block" readonly type="number" id="quantity" name="quantity" value="1" min="1" max="99">
-                        <div class="w-10 h-10 bg-[#F44336] font-mono text-3xl font-bold text-center text-white hover:text-2xl active:text-3xl select-none" id="plus-quantity">&plus;</div>
+
+                    <div class="mt-2 flex items-center justify-start w-fit">
+                        <label for="quantity" class="font-bold">Quantity:</label>
+                        <div class="mx-5 flex shadow-md cursor-pointer w-fit rounded-md overflow-hidden border ">
+                            <div class="w-10 h-10 text-[#F44336] font-mono text-3xl font-bold text-center bg-white hover:text-2xl active:text-3xl select-none" id="minus-quantity">&minus;</div>
+                            <input class="w-14 h-10 bg-[#EDE7E7] text-[#F44336] font-bold font-mono text-xl pl-4 text-center inline-block" readonly type="number" id="quantity" name="quantity" value="1" min="1" max="99">
+                            <div class="w-10 h-10 text-[#F44336] font-mono text-3xl font-bold text-center bg-white hover:text-2xl active:text-3xl select-none" id="plus-quantity">&plus;</div>
+                        </div>
                     </div>
                     <div class="flex justify-center mt-10">
                         <button class="border-2 border-[#F55447] bg-[#F44336] hover:bg-[#F55447] text-white text-lg shadow-sm shadow-gray-600 hover:shadow py-1 px-10 rounded-r-sm rounded-l-sm">
@@ -92,8 +108,8 @@
                 isShowMore = !isShowMore;
             } else {
                 toggleDesc.textContent = "Show more";
-                cakeDesc.style.height = '48px';
-                cakeDesc.style.boxShadow = 'inset 0px -20px 20px -20px black';
+                cakeDesc.style.height = '36px';
+                cakeDesc.style.boxShadow = 'inset 0px -5px 5px -5px gray';
                 isShowMore = !isShowMore
             }
 
