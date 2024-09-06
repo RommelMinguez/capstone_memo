@@ -8,11 +8,7 @@ use App\Models\Cake;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisteredUserController;
 
-Route::get('/laravel', function () {
-
-
-    return view('laravel-welcome');
-});
+Route::view('/laravel', 'laravel-welcome');
 
 Route::get('/', function () {
     return view('memories-cake', ['cakes' => Cake::limit(4)->get()]);
@@ -32,6 +28,11 @@ Route::get('user', function () {
     return view('user.dashboard');
 });
 
+Route::get('user/cart', function () {
+    return view('user.cart');
+});
+
+
 Route::get('cakes', function () {
     return view('cakes.index', ['cakes' => Cake::all()]);
 });
@@ -39,3 +40,4 @@ Route::get('cakes', function () {
 Route::get('cakes/{id}', function ($id) {
     return view('cakes.show', ['cake' => Cake::find($id)]);
 });
+
