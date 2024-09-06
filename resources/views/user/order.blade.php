@@ -139,7 +139,7 @@
 
 
 
-    <div id="confirmation" class="hidden fixed inset-0 bg-black bg-opacity-50 w-full h-screen z-50 flex items-center">
+    <div id="confirmation" class="hidden fixed inset-0 bg-black bg-opacity-50 w-full h-screen z-50 items-center">
         <div class="w-3/4 h-5/6 overflow-auto bg-gray-50 m-auto  relative shadow-xl shadow-gray-500 border-2 rounded-md">
             <div class="bg-[#ffdab9] text-end  px-10 py-2 h-fit sticky inset-0 flex justify-between items-center">
                 <div>
@@ -228,9 +228,11 @@
 
         order.addEventListener('click', function() {
             confirmation.classList.remove('hidden');
+            confirmation.classList.add('flex');
         });
         cancel.addEventListener('click', function() {
             confirmation.classList.add('hidden');
+            confirmation.classList.remove('flex');
         });
     </script>
 </x-layout>
