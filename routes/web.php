@@ -32,6 +32,10 @@ Route::get('user/cart', function () {
     return view('user.cart');
 });
 
+Route::get('user/order', function () {
+    return view('user.order');
+});
+
 
 Route::get('cakes', function () {
     return view('cakes.index', ['cakes' => Cake::all()]);
