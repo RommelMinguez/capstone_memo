@@ -1,5 +1,5 @@
 <header class="bg-[#ffdab9] border-b-2 border-[#fffcdb] fixed inset-0 h-fit  z-50 shadow-sm shadow-gray-500">
-    <div class="container mx-auto flex items-center justify-between py-3  px-10">
+    <div class="w-full mx-auto flex items-center justify-between py-3  px-10">
         <!-- Left side: Logo and Name -->
         <div class="flex items-center">
             <a href="/" class="flex items-center">

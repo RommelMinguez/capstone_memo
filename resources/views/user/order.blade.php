@@ -45,7 +45,7 @@
                 </div>
                 <br>
                 <div class="w-3/4 m-auto">
-                    <input type="date" id="delivery_date" name="delivery_date" class="block w-full px-3 py-2 bg-[#F44336] text-white border border-gray-300 rounded-md shadow-sm">
+                    <input type="date" id="delivery_date" name="delivery_date" class="block w-full px-3 py-2 bg-[#EDE7E7] border border-gray-300 rounded-md shadow-sm">
                 </div>
                 <br>
                 <hr class="border-b-2">
@@ -70,7 +70,7 @@
                 </div>
                 <br>
                 <div class="w-3/4 m-auto">
-                    <input type="time" id="delivery_time" name="delivery_time" min="6:00" max="18:00" class="block w-full px-3 py-2 border bg-[#F44336] text-white border-gray-300 rounded-md shadow-sm">
+                    <input type="time" id="delivery_time" name="delivery_time" min="6:00" max="18:00" class="block w-full px-3 py-2 border bg-[#EDE7E7]  border-gray-300 rounded-md shadow-sm">
                 </div>
                 <br>
                 <hr class="border-b-2">
@@ -139,13 +139,13 @@
 
 
 
-    <div id="confirmation" class="hidden fixed inset-0 bg-black bg-opacity-50 w-full h-screen z-50 items-center">
-        <div class="w-3/4 h-5/6 overflow-auto bg-gray-50 m-auto  relative shadow-xl shadow-gray-500 border-2 rounded-md">
+    <div id="confirmation" class="hidden fixed inset-0 bg-black bg-opacity-50 w-full h-screen z-50 overflow-auto py-10">
+        <div class="w-3/5 overflow-auto bg-gray-50 m-auto  relative shadow-xl shadow-black border-2 rounded-md">
             <div class="bg-[#ffdab9] text-end  px-10 py-2 h-fit sticky inset-0 flex justify-between items-center">
                 <div>
                     <span class="font-semibold">Order Confirmation</span>
                 </div>
-                <button id="cancel" class="bg-red-500 w-10 h-10 rounded-md shadow-md font-bold text-white text-3xl m-0 p-0 overflow-hidden">
+                <button id="cancel" class="bg-red-500 hover:bg-[#D22115] w-10 h-10 rounded-md shadow-md font-bold text-white text-3xl m-0 p-0 overflow-hidden">
                     <svg
                         class="w-7 h-7 m-auto"
                         xmlns="http://www.w3.org/2000/svg"
@@ -216,6 +216,7 @@
                     CONFIRM ORDER
                 </button>
             </div>
+            <br><br>
         </div>
     </div>
 
@@ -229,10 +230,12 @@
         order.addEventListener('click', function() {
             confirmation.classList.remove('hidden');
             confirmation.classList.add('flex');
+            document.body.style.overflow = 'hidden';
         });
         cancel.addEventListener('click', function() {
             confirmation.classList.add('hidden');
             confirmation.classList.remove('flex');
+            document.body.style.overflow = 'auto';
         });
     </script>
 </x-layout>
