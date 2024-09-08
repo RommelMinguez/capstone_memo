@@ -54,6 +54,15 @@
                 I dont have an account?
                 <a href="/register" class="text-[#F44336] font-semibold"> Sign-Up </a>
             </div>
+
+
+            <div class="flex items-center w-full my-2">
+                <div class="flex-1 border-b border-gray-300"></div>
+                <div class="font-light text-gray-500 text-sm px-5">or Sign In with</div>
+                <div class="flex-1 border-b border-gray-300"><hr></div>
+            </div>
+            <div>GOOGLE</div>
+            <br>
         </div>
     </div>
 

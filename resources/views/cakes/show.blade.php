@@ -58,7 +58,10 @@
                             <div class="w-10 h-10 text-[#F44336] font-mono text-3xl font-bold text-center bg-white hover:text-2xl active:text-3xl select-none" id="plus-quantity">&plus;</div>
                         </div>
                     </div>
-                    <div class="flex justify-center mt-10">
+                    <div class="flex justify-center gap-5 mt-10">
+                        <button class="border-2 border-[#F55447] bg-[#F44336] hover:bg-[#F55447] text-white text-lg shadow-sm shadow-gray-600 hover:shadow py-1 px-10 rounded-r-sm rounded-l-sm">
+                            BUY NOW
+                        </button>
                         <button class="border-2 border-[#F55447] bg-[#F44336] hover:bg-[#F55447] text-white text-lg shadow-sm shadow-gray-600 hover:shadow py-1 px-10 rounded-r-sm rounded-l-sm">
                             <svg
                                 class="inline-block w-5 h-5  m-auto"

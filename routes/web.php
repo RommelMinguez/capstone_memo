@@ -29,6 +29,9 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 Route::get('user', function () {
     return view('user.dashboard');
 });
+Route::get('user/message', function () {
+    return view('user.message');
+});
 
 Route::get('user/cart', function () {
     return view('user.cart');
@@ -37,6 +40,8 @@ Route::get('user/cart', function () {
 Route::get('user/order', function () {
     return view('user.order');
 });
+
+
 
 
 Route::get('cakes', function () {

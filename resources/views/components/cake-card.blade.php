@@ -6,7 +6,7 @@
 ])
 
 <a href="/cakes/{{ $cakeID }}">
-    <div class="w-[260px] h-[380px] bg-[#FEF6E4] rounded-xl shadow-xl overflow-hidden cursor-pointer cake-card">
+    <div class="w-[260px] h-[380px] bg-[#FEF6E4] rounded-xl shadow-xl overflow-hidden cursor-pointer cake-card hover:scale-105">
         <div class="w-full h-[255px] relative rounded-xl overflow-hidden" >
             <img src="{{ $cakeImage }}" alt="cake" class="w-full h-full object-cover">
         </div>

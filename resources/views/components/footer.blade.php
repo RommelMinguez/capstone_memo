@@ -1,8 +1,9 @@
-<footer class="bg-[#d1b0a0]" style="box-shadow: 0px 0px 7px black">
-    <div class="container flex justify-evenly py-10">
-        <div class="flex items-center justify-center flex-col">
-            <img src="{{ asset('images/new-memo-logo.png') }}" alt="Logo" class="h-48 w-48 rounded-full shadow-md shadow-gray-400">
+<footer class="bg-[#d1b0a0] min-w-full" style="box-shadow: 0px 0px 7px black">
+    <div class="w-full flex justify-evenly pt-10 pb-20 flex-wrap gap-y-10">
+        <div class="flex items-center justify-center flex-col w-full md:w-fit">
+            <img src="{{ asset('images/new-memo-logo.png') }}" alt="Logo" class="w-36 md:w-48 aspect-square rounded-full shadow-md shadow-gray-400">
         </div>
+
         <div>
             <h3 class="font-bold mb-7">NAVIGATION</h3>
             <ol>

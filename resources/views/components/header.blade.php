@@ -4,13 +4,13 @@
         <div class="flex items-center">
             <a href="/" class="flex items-center">
                 <img src="{{ asset('images/new-memo-logo.png') }}" alt="Logo" class="h-12 w-12 mr-2 rounded-full shadow-md shadow-gray-400">
-                <span class="text-xl font-localLobster">Memories Cakes</span>
+                <span class="{{ request()->is('/') ? 'text-[#F55447]': '' }} hover:text-[#F44336] text-xl font-localLobster">Memories Cakes</span>
             </a>
-            <a href="/cakes" class="text-xl font-localLobster ml-20 hidden md:block">Explore</a>
+            <a href="/cakes" class="{{ request()->is('cakes') ? 'text-[#F55447] bg-[#eec9a8]': '' }} hover:text-[#F44336] ml-10 py-2 px-5 rounded-lg text-xl font-localLobster hidden md:block">Explore</a>
         </div>
 
         <!-- Center: Empty -->
-        <div class="flex-1"></div>
+        <div></div>
 
         <!-- Right side: Sign Up Button -->
         <div class="flex">
@@ -28,12 +28,11 @@
                     </a>
                 @endguest
                 @auth
-                    <form action="/logout" method="POST">
-
-                        @csrf
-
-                        <button>Log Out</button>
-                    </form>
+                    <div class="flex gap-5">
+                        <a href="/user/cart">Cart</a>
+                        <a href="#">Notification</a>
+                        <a href="/user">User</a>
+                    </div>
                 @endauth
             </div>
             <div class="-mr-2 flex md:hidden">
