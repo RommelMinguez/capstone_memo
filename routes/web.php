@@ -14,6 +14,8 @@ Route::get('/', function () {
     return view('memories-cake', ['cakes' => Cake::limit(4)->get()]);
 });
 
+Route::view('/test', 'test');
+
 
 
 Route::get('register', [RegisteredUserController::class, 'create']);
