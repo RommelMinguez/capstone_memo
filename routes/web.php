@@ -32,6 +32,12 @@ Route::get('user', function () {
 Route::get('user/message', function () {
     return view('user.message');
 });
+Route::get('user/info', function () {
+    return view('user.info');
+});
+Route::get('user/change-password', function () {
+    return view('user.change-password');
+});
 
 Route::get('user/cart', function () {
     return view('user.cart');
