@@ -6,7 +6,7 @@
 
         <x-nav-user></x-nav-user>
 
-        <main class="pt-20 w-full md:w-5/6 h-screen">
+        <main class="pt-20 w-full md:w-5/6 min:h-screen">
             <div class="w-5/6 lg:w-4/6 m-auto">
                 <div class="py-10 font-bold text-3xl">
                     Password

@@ -17,11 +17,10 @@
                     Build memories with our sweetest <br>
                     cakes in the town
                 </h2>
-                <a href="cakes">
-                    <button class="mt-10 border-2 border-[#F55447] bg-[#F44336] hover:bg-[#F55447] text-white text-2xl font-mono shadow-lg shadow-gray-600 hover:shadow font-bold py-1 px-10 rounded-r-md rounded-l-md">
-                        EXPLORE
-                    </button>
-                </a>
+
+                <br><br>
+                <x-nav-link href="/cakes">EXPLORE</x-nav-link>
+
             </div>
         </div>
 
@@ -40,9 +39,9 @@
                         Founded with a passion for baking and a love for creating unforgettable experiences,
                         our mission is to turn your celebrations into cherished memories.
                     </p>
-                    <button class="mt-10 hover:border-2 border-[#F55447] bg-[#F44336] hover:bg-[#F44336] text-white text-xl font-mono shadow-md shadow-gray-400 font-semibold py-1 px-10 rounded-r-md rounded-l-md">
-                        Learn More
-                    </button>
+
+                    <br><br>
+                    <x-nav-link :isButton='false' href='/about'>Learn more</x-nav-link>
 
                 </div>
             </div>

@@ -13,16 +13,16 @@
                     <input name="email" type="email" required placeholder="Email" class="w-full mt-7 bg-transparent border-b-2 border-black">
                     <input name="phone_number" type="number" required placeholder="Phone No." class="w-full mt-7 bg-transparent border-b-2 border-black">
                     <div class="mt-7 relative">
-                        <input id="password" name="password" type="password" required placeholder="Password" class="w-full bg-transparent border-b-2 border-black">
-                        <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer " id="show-hide-password">
+                        <input id="password" name="password" type="password" required placeholder="Password" class="toggle-password w-full bg-transparent border-b-2 border-black">
+                        <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer show-hide-password">
                             <svg
+                                class="hidden"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 576 512">
                                 <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                                 <path fill='#aaa' d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
                             </svg>
                             <svg
-                                class="hidden"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 640 512">
                                 <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -31,16 +31,16 @@
                         </div>
                     </div>
                     <div class="mt-7 relative">
-                        <input id="confirm-password" name="password_confirmation" type="password" required placeholder="Confirm Password" class="w-full bg-transparent border-b-2 border-black">
-                        <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer " id="show-hide-password2">
+                        <input id="confirm-password" name="password_confirmation" type="password" required placeholder="Confirm Password" class="toggle-password w-full bg-transparent border-b-2 border-black">
+                        <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer show-hide-password">
                             <svg
+                                class="hidden"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 576 512">
                                 <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                                 <path fill='#aaa' d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
                             </svg>
                             <svg
-                                class="hidden"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 640 512">
                                 <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -67,34 +67,6 @@
         </div>
     </div>
 
-    <script>
-        let password = document.getElementById('password');
-        let password2 = document.getElementById('confirm-password');
-        let togglePassword = document.getElementById('show-hide-password');
-        let togglePassword2 = document.getElementById('show-hide-password2');
-
-        togglePassword.addEventListener('click', function() {
-            if (password.type === 'password') {
-                password.type = 'text';
-                togglePassword.children[0].classList.add('hidden');
-                togglePassword.children[1].classList.remove('hidden');
-            } else {
-                password.type = 'password';
-                togglePassword.children[0].classList.remove('hidden');
-                togglePassword.children[1].classList.add('hidden');
-            }
-        });
-        togglePassword2.addEventListener('click', function() {
-            if (password2.type === 'password') {
-                password2.type = 'text';
-                togglePassword2.children[0].classList.add('hidden');
-                togglePassword2.children[1].classList.remove('hidden');
-            } else {
-                password2.type = 'password';
-                togglePassword2.children[0].classList.remove('hidden');
-                togglePassword2.children[1].classList.add('hidden');
-            }
-        });
-    </script>
+    <script src="{{ mix('resources/js/password_toggle_visibility.js') }}" defer></script>
 
 </x-layout>
