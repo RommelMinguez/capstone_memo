@@ -1,6 +1,6 @@
 <x-layout>
 
-    <div class="w-[800px] py-20 bg-[#FEF6E4] relative rounded-md top-10 flex justify-center items-center shadow-md shadow-gray-500">
+    <div class="w-[800px] py-20 bg-[#FEF6E4] relative rounded-md flex justify-center items-center shadow-md shadow-gray-500">
 
         <div class="absolute h-[500px] w-[500px] bottom-0 left-[750px] z-0">
             <img src="images/signin.png" alt="icon" class="w-full h-full object-cover">
