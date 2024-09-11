@@ -99,6 +99,6 @@
         </main>
     </div>
 
-    <script src="{{ mix('resources/js/password_toggle_visibility.js') }}" defer></script>
+    @vite('resources/js/password_toggle_visibility.js')
 
 </x-layout>

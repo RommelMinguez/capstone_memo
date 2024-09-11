@@ -60,4 +60,4 @@
     </div>
 </nav>
 
-<script src="{{ mix('resources/js/nav-user.js') }}" defer></script>
+@vite(['resources/js/nav-user.js'])
