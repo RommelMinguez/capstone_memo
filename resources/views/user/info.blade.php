@@ -50,7 +50,7 @@
 
                     <br><br>
                     <div class="w-full">
-                        <x-nav-link :isButton="true" :isWidthFull='true' type="submit">SAVE CHANGE</x-nav-link>
+                        <x-nav-link :isButton="true" type="submit" class="w-full">SAVE CHANGE</x-nav-link>
                     </div>
                     <br><br>
                 </form>

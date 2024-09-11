@@ -8,8 +8,8 @@
     @vite(['resources/css/app.css', 'resources/css/custom.css'])
 
     <link rel="icon" type="image/png" href="{{ asset('images/new-memo-logo.png') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('css/custom-animation.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/custom-fonts.css') }}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('css/custom-animation.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('fonts/custom-fonts.css') }}">
     <title>Memories Cake</title>
 
 </head>

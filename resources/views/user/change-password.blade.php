@@ -13,7 +13,7 @@
                 </div>
                 <br><br>
 
-                <form action="/user/change-password" method="POST" class="w-full">
+                <form action="/user/change-password" method="POST" class="w-full" autocomplete="off">
 
                     @csrf
 
@@ -67,7 +67,7 @@
 
                     <label for="new_password" class="font-semibold">New Password</label>
                     <div class="relative mb-8 mt-1 rounded-sm shadow-md shadow-gray-400 overflow-hidden">
-                        <input type="password" id="new_password" name="password_confirmation"  required minlength="8" class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
+                        <input autocomplete="nope" type="password" id="new_password" name="password_confirmation"  required minlength="8" class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
                         <div class="absolute h-full w-10  right-3 top-0">
                             <div class="flex justify-center items-center h-full w-full px-2">
                                 <button type="button" class="w-full show-hide-password">
@@ -92,7 +92,7 @@
 
                     <br>
                     <div class="w-full">
-                        <x-nav-link :isButton="true" :isWidthFull='true' type="submit">CHANGE PASSWORD</x-nav-link>
+                        <x-nav-link :isButton="true" class="w-full" type="submit">CHANGE PASSWORD</x-nav-link>
                     </div>
                 </form>
             </div>

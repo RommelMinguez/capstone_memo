@@ -41,7 +41,7 @@
                     </p>
 
                     <br><br>
-                    <x-nav-link :isButton='false' href='/about'>Learn more</x-nav-link>
+                    <x-nav-link href='/about'>Learn more</x-nav-link>
 
                 </div>
             </div>
