@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('price');
             $table->string('image_src');
-            // $table->string('status');
+            $table->boolean('is_archived')->default(false);
             // $table->integer('user_id');
             $table->timestamps();
         });
