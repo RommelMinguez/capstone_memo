@@ -43,7 +43,15 @@ Route::get('user/change-password', function () {
 });
 
 Route::get('user/cart', function () {
-    return view('user.cart');
+
+    if (!Auth::check()) {
+        return redirect('/login');
+    }
+
+    $cart = Auth::user()->carts()->where('status', '=', 'open')->with('cartItems.cake')->first();
+
+
+    return view('user.cart', ['cart' => $cart]);
 });
 
 Route::get('user/order', function () {
@@ -64,8 +72,6 @@ Route::post('user/cake/buy', function () {
 });
 
 Route::post('user/cake/cart', function () {
-
-    //dd(request()['cake_id']);
 
     if (!Auth::check()) {
         return redirect('/login');

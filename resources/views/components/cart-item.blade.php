@@ -1,18 +1,20 @@
+@props(['item'])
+
 <tr class="border-y-2 cart-row">
     <td class="text-center">
         <input type="checkbox" class="w-8 h-8 text-[#F44336] cursor-pointer cart-check-box">
     </td>
     <td class="p-5 m-auto">
         <div class="w-48 h-48 shadow-md">
-            <img src="/images/cakes/memo-cake (1).jpg" alt="cake" class="w-full h-full object-cover " >
+            <img src="{{ $item->cake->image_src }}" alt="cake" class="w-full h-full object-cover " >
         </div>
     </td>
     <td class="px-5">
         <ol>
-            <li>Name:</li><br><br>
-            <li>Age:</li>
-            <li>Candle:</li>
-            <li>Dedication:</li>
+            <li>{{ $item->cake->name }}</li><br><br>
+            <li>Age: {{ $item->age }}</li>
+            <li>Candle: {{ $item->candle_type }}</li>
+            <li>Dedication: {{ $item->dedication }}</li>
         </ol>
     </td>
     <td class="text-center">
@@ -22,13 +24,13 @@
             <div class="w-10 h-10 text-[#F44336] bg-white font-mono text-3xl font-bold text-center  hover:text-2xl active:text-3xl select-none" id="plus-quantity">&plus;</div>
         </div> --}}
         <div class="font-bold text-2xl">
-            1
+            {{ $item->quantity }}
         </div>
     </td>
     <td class="text-center">
         <div class="text-xl font-bold text-[#F44336]">
             <span class="mr-1 text-2xl">&#8369;</span>
-            00.00
+            {{ $item->cake->price }}
         </div>
     </td>
     <td class="text-center">

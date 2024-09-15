@@ -19,9 +19,12 @@
                 </tr>
 
 
-                @for($i = 0; $i < 2; $i++)
+                {{-- @for($i = 0; $i < 2; $i++)
                     <x-cart-item></x-cart-item>
-                @endfor
+                @endfor --}}
+                @foreach ($cart->cartItems as $item)
+                    <x-cart-item :item="$item"></x-cart-item>
+                @endforeach
 
 
             </table>
@@ -34,7 +37,7 @@
                     </div>
                     <div class="font-bold text-2xl">TOTAL <span class="ml-40">00.00 PHP</span></div>
                     <x-nav-link :isButton='true' type='submit' class="w-full">CONTINUE</x-nav-link>
-                    <div class="text-end"><a href="/cakes">continue shopping &gt;</a></div>
+                    <div class="text-end hover:underline"><a href="/cakes">continue shopping &gt;</a></div>
 
                 </div>
             </div>
