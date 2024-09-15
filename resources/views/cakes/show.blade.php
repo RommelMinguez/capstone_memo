@@ -31,23 +31,24 @@
                 </div>
                 <button class="mb-5 font-semibold underline" id="show-hide-desc"> Show more </button>
                 <hr class="border-2 border-gray-400">
-                <form action="" method="GET" class="mt-7 ">
+                <form id="form-inputs" method="POST" class="mt-7 ">
+                    @csrf
                     <div class="mb-5 flex items-center justify-start w-fit">
                         <label for="age" class="font-bold">Age:</label>
-                        <input class="ml-5 mr-10 w-20 h-10 bg-[#EDE7E7] font-bold rounded-md font-mono text-xl pl-4 pr-1 text-center text-[#F44336] shadow-md border inline-block"  type="number" id="age" name="age" value="1" min="1" max="150">
+                        <input class="ml-5 mr-10 w-20 h-10 bg-[#EDE7E7] font-bold rounded-md font-mono text-xl pl-4 pr-1 text-center text-[#F44336] shadow-md border inline-block" required  type="number" id="age" name="age" value="1" min="1" max="150">
 
                         <label for="candle" class="font-bold">Candle:</label>
-                        <select id="candle" name="candle" class="mx-5 w-40 h-10 bg-[#EDE7E7] rounded-md text-[#F44336] font-bold shadow-md border px-3">
-                            <option value="option0" selected>None</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
+                        <select id="candle" name="candle" required class="mx-5 w-40 h-10 bg-[#EDE7E7] rounded-md text-[#F44336] font-bold shadow-md border px-3">
+                            <option value="none" selected>None</option>
+                            <option value="number candle">Number Candle</option>
+                            <option value="simple candle">Simple Candle</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
 
                     <label for="dedication" class="font-bold">Dedication/Message:</label>
                     <textarea
-                        class="w-full my-2 bg-[#EDE7E7] rounded-md p-5 shadow-md text-[#F44336]"
+                        class="w-full my-2 bg-[#EDE7E7] rounded-md p-5 shadow-md text-[#F44336]" required
                         name="dedication" id="dedication" cols="30" rows="3" placeholder="Happy Birthday!!"></textarea>
 
                     <div class="mt-2 flex items-center justify-start w-fit">
@@ -58,6 +59,7 @@
                             <div class="w-10 h-10 text-[#F44336] font-mono text-3xl font-bold text-center bg-white hover:text-2xl active:text-3xl select-none" id="plus-quantity">&plus;</div>
                         </div>
                     </div>
+                    <input required type="hidden" name="cake_id" autocomplete="off" value="{{ $cake['id'] }}">
                     <div class="flex justify-center gap-5 mt-10">
                         <x-nav-link :isButton='true' type='button' id='submit-buy' >
                             BUY NOW
@@ -100,50 +102,31 @@
 
     <x-footer></x-footer>
 
-    <script>
-        // Cake Description toggle show-more/less
-        let toggleDesc = document.getElementById('show-hide-desc');
-        let isShowMore = true;
-        let cakeDesc = document.getElementById('cake-desc');
+    <div id="modal_confirmation" class="{{ $show_modal ? 'fixed':'hidden' }} inset-0 bg-black bg-opacity-50 w-screen h-screen z-50 overflow-auto">
+        <div class="w-full h-full flex justify-center items-center">
+            <div class="border shadow-md px-10 py-5 rounded-lg bg-[#ffdab9]">
+                <div class="flex justify-end">
+                    <button id="cancel" class="bg-red-500 hover:bg-[#D22115] aspect-square w-7 rounded-sm shadow-md font-bold text-white text-3xl m-0 p-0 overflow-hidden">
+                        <svg
+                            class="aspect-square w-4 m-auto"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 384 512">
+                            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path fill="#fff" d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="font-semibold text-2xl pt-5 pb-10">
+                    Succesfully Added to Cart
+                </div>
+                <div class="flex justify-center gap-5">
+                    <x-nav-link href='/cakes'>Explore</x-nav-link>
+                    <x-nav-link href='/user/cart'>View Cart</x-nav-link>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        toggleDesc.addEventListener('click', function() {
-
-            if (isShowMore) {
-                toggleDesc.textContent = "Show less";
-                cakeDesc.style.height = 'fit-content';
-                cakeDesc.style.boxShadow = 'inset 0px 0px 0px 0px black';
-                isShowMore = !isShowMore;
-            } else {
-                toggleDesc.textContent = "Show more";
-                cakeDesc.style.height = '36px';
-                cakeDesc.style.boxShadow = 'inset 0px -5px 5px -5px gray';
-                isShowMore = !isShowMore
-            }
-
-        });
-
-        // Quantity Behavior
-        let quantityAdd = document.getElementById('plus-quantity');
-        let quantityMinus = document.getElementById('minus-quantity');
-        let quantity = document.getElementById('quantity');
-
-        quantityAdd.addEventListener('click', function() {
-            quantity.value = (quantity.value >= 99) ? quantity.value:++quantity.value;
-        });
-        quantityMinus.addEventListener('click', function() {
-            quantity.value = (quantity.value <= 1) ? quantity.value:--quantity.value;
-        });
-
-        // FORM SUBMIT
-        let buyNow = document.getElementById('submit-buy');
-        let cartAdd = document.getElementById('submit-cart');
-
-        buyNow.addEventListener('click', function() {
-            //LOGIC HERE WHEN 'BUY NOW' IS CLICK
-        });
-        cartAdd.addEventListener('click', function() {
-            //LOGIC HERE WHEN 'ADD TO CART' IS CLICK
-        });
-    </script>
+    <script src="/js/cake_show_detail.js" defer></script>
 
 </x-layout>

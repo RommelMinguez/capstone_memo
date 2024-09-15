@@ -4,6 +4,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Cake;
+use App\Models\User;
+use App\Models\Cart;
+use App\Models\CartItem;
 
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisteredUserController;
@@ -50,11 +53,76 @@ Route::get('user/order', function () {
 
 
 
+
+
+
+Route::post('user/cake/buy', function () {
+
+
+
+    redirect('user/order');
+});
+
+Route::post('user/cake/cart', function () {
+
+    //dd(request()['cake_id']);
+
+    if (!Auth::check()) {
+        return redirect('/login');
+    }
+
+    $r = 'cakes/' . request()['cake_id'];
+    return redirect($r)->with('showModal', true);
+});
+
+
+
+
+
+
 Route::get('cakes', function () {
-    return view('cakes.index', ['cakes' => Cake::all()]);
+    return view('cakes.index', ['cakes' => Cake::simplePaginate(21)]);
 });
 
 Route::get('cakes/{id}', function ($id) {
-    return view('cakes.show', ['cake' => Cake::find($id)]);
+
+
+
+    return view('cakes.show', [
+        'cake' => Cake::find($id),
+        'show_modal' => session('showModal'),
+    ]);
 });
+
+
+
+
+
+
+
+
+
+
+Route::get('sample', function() {
+
+    $user = User::with('carts.cartItems.cake')->find(2);
+    $items = [];
+    $cakes = [];
+
+    $u = User::find(2,['first_name', 'last_name']);
+
+    foreach ($user->carts as $carts) {
+        foreach($carts->cartItems as $item) {
+            $items[] = $item;
+            $cakes[] = $item->cake;
+        }
+    }
+
+    $us = User::select(['first_name', 'last_name'])->get();
+
+
+
+    dd($items, $us);
+});
+
 

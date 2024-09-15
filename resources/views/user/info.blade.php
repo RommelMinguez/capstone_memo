@@ -21,26 +21,26 @@
                         <div class="flex-grow">
                             <label for="first_name" class="font-semibold">FIRST NAME</label>
                             <div class="relative mb-5 mt-1 rounded-sm shadow-md shadow-gray-400 overflow-hidden">
-                                <input type="text" id="first_name" name="first_name"  required class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
+                                <input type="text" id="first_name" name="first_name" value="{{ Auth::user()->first_name }}"  required class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
                             </div>
                         </div>
 
                         <div class="flex-grow">
                             <label for="last_name" class="font-semibold">LAST NAME</label>
                             <div class="relative mb-5 mt-1 rounded-sm shadow-md shadow-gray-400 overflow-hidden">
-                                <input type="text" id="last_name" name="last_name"  required class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
+                                <input type="text" id="last_name" name="last_name" value="{{ Auth::user()->last_name }}"  required class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
                             </div>
                         </div>
                     </div>
 
                     <label for="email" class="font-semibold">EMAIL</label>
                     <div class="relative mb-5 mt-1 rounded-sm shadow-md shadow-gray-400 overflow-hidden">
-                        <input type="email" id="email" name="email"  required class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
+                        <input type="email" id="email" name="email" value="{{ Auth::user()->email }}"  required class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
                     </div>
 
                     <label for="phone_number" class="font-semibold">PHONE NUMBER</label>
                     <div class="relative mb-5 mt-1 rounded-sm shadow-md shadow-gray-400 overflow-hidden">
-                        <input type="text" id="phone_number" name="phone_number"  required class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
+                        <input type="number" id="phone_number" name="phone_number" value="{{ Auth::user()->phone_number }}"  required class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
                     </div>
 
                     <label for="address" class="font-semibold">ADDRESS</label>

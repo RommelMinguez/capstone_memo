@@ -4,7 +4,7 @@
             <img src="{{ asset('images/new-memo-logo.png') }}" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
         </div>
         <br><br>
-        <div class="text-center font-semibold text-2xl">JUAN DELA CRUZ</div>
+        <div class="text-center font-semibold text-2xl">{{ Str::upper(Auth::user()->first_name). ' '. Str::upper(Auth::user()->last_name) }}</div>
     </div>
     <div class="sticky top-24 overflow-auto">
         <ol>

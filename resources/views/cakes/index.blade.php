@@ -52,6 +52,9 @@
                     </x-cake-card>
                 @endforeach
             </div>
+
+
+            <div class="my-20 px-20">{{ $cakes->links() }}</div>
         </div>
 
         {{-- RIGHT NAV --}}

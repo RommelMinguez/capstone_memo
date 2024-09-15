@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('status');
-            $table->decimal('total');
+        //    $table->decimal('total');
             $table->timestamps();
         });
 
@@ -27,7 +27,6 @@ return new class extends Migration
             $table->smallInteger('age');
             $table->string('candle_type')->nullable();
             $table->text('dedication')->nullable();
-            $table->decimal('price');
             $table->timestamps();
         });
     }

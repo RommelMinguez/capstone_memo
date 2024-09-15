@@ -31,7 +31,7 @@
                     <div class="flex gap-5">
                         <a href="/user/cart">Cart</a>
                         <a href="#">Notification</a>
-                        <a href="/user">User</a>
+                        <a href="/user">{{ Auth::user()->first_name }}</a>
                     </div>
                 @endauth
             </div>
