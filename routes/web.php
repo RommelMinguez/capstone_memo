@@ -71,8 +71,33 @@ Route::post('user/cake/cart', function () {
         return redirect('/login');
     }
 
-    $r = 'cakes/' . request()['cake_id'];
-    return redirect($r)->with('showModal', true);
+    request()->validate([
+        'age' => ['required', 'integer', 'min:0', 'max:150'],
+        'candle' => ['required'],
+        'dedication' => ['required'],
+        'quantity' => ['required', 'integer', 'min:1', "max:99"],
+        'cake_id' => ['required'],
+    ]);
+
+    $cart = Cart::firstOrCreate(
+        [
+            'user_id' => Auth::user()->id,
+            'status' => 'open'
+        ]
+    );
+
+    $cart->cartItems()->create(
+        [
+            'cake_id' => request()->cake_id,
+            'quantity' => request()->quantity,
+            'age' => request()->age,
+            'candle_type' => request()->candle,
+            'dedication' => request()->dedication
+        ]
+    );
+
+    $origin_url = 'cakes/' . request()['cake_id'];
+    return redirect($origin_url)->with('showModal', true);
 });
 
 

@@ -116,7 +116,7 @@
                         </svg>
                     </button>
                 </div>
-                <div class="font-semibold text-2xl pt-5 pb-10">
+                <div class="font-semibold text-2xl pt-5 pb-10 text-green-600">
                     Succesfully Added to Cart
                 </div>
                 <div class="flex justify-center gap-5">
