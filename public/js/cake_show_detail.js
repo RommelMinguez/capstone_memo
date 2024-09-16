@@ -38,14 +38,14 @@ let form = document.getElementById('form-inputs');
 
 buyNow.addEventListener('click', function() {
     if (form.checkValidity()) {
-        form.action = '/user/cake/buy';
+        form.action = '/user/order';
         form.submit();
     }
     form.reportValidity();
 });
 cartAdd.addEventListener('click', function() {
     if (form.checkValidity()) {
-        form.action = '/user/cake/cart';
+        form.action = '/user/cart';
         form.submit();
     }
     form.reportValidity();

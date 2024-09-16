@@ -25,7 +25,7 @@
                     <div class="text-sm font-light text-gray-500"><a href="#">Forgot Password?</a></div>
                 </div>
                 <div class="relative mb-8 mt-1 rounded-sm ">
-                    <input type="password" id="password" name="password"  required minlength="8" class="w-full h-9 bg-[#F5D2D2] px-5 ">
+                    <input type="password" id="password" name="password"  required minlength="6" class="w-full h-9 bg-[#F5D2D2] px-5 ">
                     <div class="absolute h-9 w-9 right-0 top-0 p-2 cursor-pointer " id="show-hide-password">
                         <svg
                             class="hidden"

@@ -10,6 +10,7 @@ use App\Models\CartItem;
 
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\CartController;
 
 Route::view('/laravel', 'laravel-welcome');
 
@@ -17,7 +18,7 @@ Route::get('/', function () {
     return view('memories-cake', ['cakes' => Cake::limit(4)->get()]);
 });
 
-Route::view('/test', 'test');
+
 
 
 
@@ -27,6 +28,13 @@ Route::post('register', [RegisteredUserController::class, 'store']);
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
+
+Route::get('user/cart', [CartController::class, 'index']);
+Route::post('user/cart', [CartController::class, 'store']);
+Route::patch('user/cart', [CartController::class, 'update']);
+
+
+
 
 
 Route::get('user', function () {
@@ -42,69 +50,17 @@ Route::get('user/change-password', function () {
     return view('user.change-password');
 });
 
-Route::get('user/cart', function () {
 
-    if (!Auth::check()) {
-        return redirect('/login');
-    }
-
-    $cart = Auth::user()->carts()->where('status', '=', 'open')->with('cartItems.cake')->first();
-
-
-    return view('user.cart', ['cart' => $cart]);
-});
 
 Route::get('user/order', function () {
+    dd(request()->all());
     return view('user.order');
 });
 
-
-
-
-
-
-
 Route::post('user/cake/buy', function () {
-
-
-
     redirect('user/order');
 });
 
-Route::post('user/cake/cart', function () {
-
-    if (!Auth::check()) {
-        return redirect('/login');
-    }
-
-    request()->validate([
-        'age' => ['required', 'integer', 'min:0', 'max:150'],
-        'candle' => ['required'],
-        'dedication' => ['required'],
-        'quantity' => ['required', 'integer', 'min:1', "max:99"],
-        'cake_id' => ['required'],
-    ]);
-
-    $cart = Cart::firstOrCreate(
-        [
-            'user_id' => Auth::user()->id,
-            'status' => 'open'
-        ]
-    );
-
-    $cart->cartItems()->create(
-        [
-            'cake_id' => request()->cake_id,
-            'quantity' => request()->quantity,
-            'age' => request()->age,
-            'candle_type' => request()->candle,
-            'dedication' => request()->dedication
-        ]
-    );
-
-    $origin_url = 'cakes/' . request()['cake_id'];
-    return redirect($origin_url)->with('showModal', true);
-});
 
 
 
@@ -115,12 +71,9 @@ Route::get('cakes', function () {
     return view('cakes.index', ['cakes' => Cake::simplePaginate(21)]);
 });
 
-Route::get('cakes/{id}', function ($id) {
-
-
-
+Route::get('cakes/{cake}', function (Cake $cake) {
     return view('cakes.show', [
-        'cake' => Cake::find($id),
+        'cake' => $cake,
         'show_modal' => session('showModal'),
     ]);
 });
@@ -132,7 +85,7 @@ Route::get('cakes/{id}', function ($id) {
 
 
 
-
+Route::view('/test', 'test');
 
 Route::get('sample', function() {
 
