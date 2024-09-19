@@ -31,7 +31,8 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 
 Route::get('user/cart', [CartController::class, 'index']);
 Route::post('user/cart', [CartController::class, 'store']);
-Route::patch('user/cart', [CartController::class, 'update']);
+Route::patch('user/cart', [CartController::class, 'remove']);
+Route::put('user/cart', [CartController::class, 'update']);
 
 
 
@@ -53,8 +54,11 @@ Route::get('user/change-password', function () {
 
 
 Route::get('user/order', function () {
-    dd(request()->all());
-    return view('user.order');
+    $items = CartItem::whereIn('id', request()->order)->with('cake')->get();
+
+    return view('user.order', [
+        'items' => $items,
+    ]);
 });
 
 Route::post('user/cake/buy', function () {

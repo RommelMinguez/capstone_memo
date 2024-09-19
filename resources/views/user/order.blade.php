@@ -7,9 +7,13 @@
             <h2 class="text-xl font-bold my-10">Order Summary</h2>
 
             <table class="table-fixed border-collapse w-3/4  m-auto ">
-                @for($i = 0; $i < 2; $i++)
-                    <x-order-item></x-order-item>
-                @endfor
+                @php
+                    $total = 0;
+                @endphp
+                @foreach ($items as $item)
+                        <x-order-item :item="$item"></x-order-item>
+                        <span class="hidden">{{ $total += $item->cake->price * $item->quantity }}</span>
+                @endforeach
             </table>
 
             <br><hr class="border-b-2"><br><br>
@@ -19,7 +23,7 @@
                 <div>
                     <div class="text-3xl font-bold">
                         &#8369;
-                        <span class="ml-2"> 00.00 </span>
+                        <span class="ml-2"> {{ number_format($total, 2) }} </span>
                     </div>
                 </div>
             </div>

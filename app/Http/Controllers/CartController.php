@@ -59,13 +59,7 @@ class CartController extends Controller
 
 
 
-    public function edit(Cart $cart)
-    {
-        //
-    }
-
-
-    public function update()
+    public function remove()
     {
         //dd(request()->all());
         if(!Auth::check()) {
@@ -84,6 +78,39 @@ class CartController extends Controller
         ]);
 
         return redirect('/user/cart');
+    }
+
+
+    public function update(Cart $cart)
+    {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
+        request()->validate([
+            'age' => ['required', 'integer', 'min:0', 'max:150'],
+            'candle' => ['required'],
+            'dedication' => ['required'],
+            'quantity' => ['required', 'integer', 'min:1', "max:99"],
+            'cake_id' => ['required'],
+        ]);
+
+        $cart = Cart::firstOrCreate(
+            [
+                'user_id' => Auth::user()->id,
+                'status' => 'open'
+            ]
+        );
+
+        $cart->cartItems()->update(
+            [
+                'cake_id' => request()->cake_id,
+                'quantity' => request()->quantity,
+                'age' => request()->age,
+                'candle_type' => request()->candle,
+                'dedication' => request()->dedication
+            ]
+        );
     }
 
     /**
