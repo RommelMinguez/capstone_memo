@@ -16,9 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('status');
             $table->decimal('total');
-            $table->dateTime('expected_date_delivered');
-            $table->dateTime('date_delivered')->nullable();
+            $table->dateTime('expected_date');
             $table->string('address');
+            $table->string('payment_method');
+            $table->dateTime('date_delivered')->nullable();
             $table->timestamps();
         });
 
@@ -26,11 +27,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cart_id');
             $table->foreignId('cake_id');
+            $table->string('status');
             $table->smallInteger('quantity');
             $table->smallInteger('age');
-            $table->string('candle_type')->nullable();
-            $table->text('dedication')->nullable();
+            $table->string('candle_type');
+            $table->text('dedication');
             $table->decimal('price');
+            $table->decimal('sub_total');
             $table->timestamps();
         });
     }

@@ -16,8 +16,16 @@ class CartController extends Controller
             return redirect('/login');
         }
 
+        $cart = Cart::firstOrCreate(
+            [
+                'user_id' => Auth::user()->id,
+                'status' => 'open'
+            ]
+        );
+
         $cart = Auth::user()->carts()->where('status', '=', 'open')->with('cartItems.cake')->first();
 
+        //d($cart);
         return view('user.cart', ['cart' => $cart]);
     }
 
@@ -111,6 +119,11 @@ class CartController extends Controller
                 'dedication' => request()->dedication
             ]
         );
+    }
+
+    public function checkOut() {
+        return redirect('/user/order')->with('order', request()->order);
+        //return redirect()->route('user.checkout', ['order' => request()->order]);
     }
 
     /**

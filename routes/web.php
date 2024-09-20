@@ -33,6 +33,7 @@ Route::get('user/cart', [CartController::class, 'index']);
 Route::post('user/cart', [CartController::class, 'store']);
 Route::patch('user/cart', [CartController::class, 'remove']);
 Route::put('user/cart', [CartController::class, 'update']);
+Route::post('user/cart/check-out', [CartController::class, 'checkOut']);
 
 
 
@@ -54,11 +55,17 @@ Route::get('user/change-password', function () {
 
 
 Route::get('user/order', function () {
-    $items = CartItem::whereIn('id', request()->order)->with('cake')->get();
+    if (!session('order')) {
+        return redirect('/user/cart');
+    }
+    $items = CartItem::whereIn('id', session('order'))->with('cake')->get();
 
     return view('user.order', [
         'items' => $items,
     ]);
+});
+Route::post('/user/order', function () {
+    dd(request()->all());
 });
 
 Route::post('user/cake/buy', function () {

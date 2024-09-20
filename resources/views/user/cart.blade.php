@@ -9,28 +9,38 @@
 
 
         <table class="w-full table-fixed ">
-            <tr class="border-y-2">
-                <th class="w-20 py-5">ITEMS</th>
-                <th class="w-60">IMAGE</th>
-                <th class="w-auto">DETAILS</th>
-                <th class="w-40">QUANTITY</th>
-                <th class="w-40">PRICE</th>
-                <th class="w-20">OPTION</th>
-            </tr>
+            <thead>
+                <tr class="border-y-2">
+                    <th class="w-20 py-5">ITEMS</th>
+                    <th class="w-60">IMAGE</th>
+                    <th class="w-auto">DETAILS</th>
+                    <th class="w-40">QUANTITY</th>
+                    <th class="w-40">PRICE</th>
+                    <th class="w-20">OPTION</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach ($cart->cartItems as $item)
+                    <x-cart-item :item="$item"></x-cart-item>
+                @endforeach
 
 
-            {{-- @for($i = 0; $i < 2; $i++)
-                <x-cart-item></x-cart-item>
-            @endfor --}}
-            @foreach ($cart->cartItems as $item)
-                <x-cart-item :item="$item"></x-cart-item>
-            @endforeach
-
-
+            </tbody>
         </table>
 
-        <form action="/user/order" method="GET" id="form-order">
+        @if(count($cart->cartItems) == 0)
+            <br>
+            <div class="text-center mt-10 italic text-xl">
+                Your Cart is empty ;(
+                <br><br>
+                <a href="/cakes" class="underline text-red-500">explore</a>
+            </div>
+        @endif
 
+        <form action="/user/cart/check-out" method="POST" id="form-order" class="{{ count($cart->cartItems) == 0 ? 'hidden':'' }}">
+            @csrf
             <div class="flex justify-end my-5">
                 <div class="flex flex-col gap-5">
                     <div>
@@ -53,6 +63,7 @@
                 </div>
             </div>
         </form>
+
     </main>
 
     <x-footer></x-footer>
