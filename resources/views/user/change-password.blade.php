@@ -16,10 +16,16 @@
                 <form action="/user/change-password" method="POST" class="w-full" autocomplete="off">
 
                     @csrf
+                    @method('PATCH')
 
-                    <label for="old_password" class="font-semibold">Old Password</label>
+                    <div class="flex gap-5 items-center">
+                        <label for="old_password" class="font-semibold">Old Password</label>
+                        @error('old_password')
+                            <div class="italic text-red-600 text-xs">{{ $message }}.</div>
+                        @enderror
+                    </div>
                     <div class="relative mb-8 mt-1 rounded-sm shadow-md shadow-gray-400 overflow-hidden">
-                        <input type="password" id="old_password" name="old_password"  required minlength="8" class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
+                        <input type="password" id="old_password" name="old_password"  required minlength="6" class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
                         <div class="absolute h-full w-10  right-3 top-0">
                             <div class="flex justify-center items-center h-full w-full px-2">
                                 <button type="button" class="w-full show-hide-password">
@@ -41,9 +47,14 @@
                         </div>
                     </div>
 
-                    <label for="password" class="font-semibold">Password</label>
+                    <div class="flex gap-5 items-center">
+                        <label for="password" class="font-semibold">Password</label>
+                        @error('new_password')
+                            <div class="italic text-red-600 text-xs">{{ $message }}.</div>
+                        @enderror
+                    </div>
                     <div class="relative mb-8 mt-1 rounded-sm shadow-md shadow-gray-400 overflow-hidden">
-                        <input type="password" id="password" name="password"  required minlength="8" class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
+                        <input type="password" id="password" name="new_password"  required minlength="6" class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
                         <div class="absolute h-full w-10  right-3 top-0">
                             <div class="flex justify-center items-center h-full w-full px-2">
                                 <button type="button" class="w-full show-hide-password">
@@ -67,7 +78,7 @@
 
                     <label for="new_password" class="font-semibold">New Password</label>
                     <div class="relative mb-8 mt-1 rounded-sm shadow-md shadow-gray-400 overflow-hidden">
-                        <input autocomplete="nope" type="password" id="new_password" name="password_confirmation"  required minlength="8" class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
+                        <input autocomplete="nope" type="password" id="new_password" name="new_password_confirmation"  required minlength="6" class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
                         <div class="absolute h-full w-10  right-3 top-0">
                             <div class="flex justify-center items-center h-full w-full px-2">
                                 <button type="button" class="w-full show-hide-password">

@@ -14,6 +14,9 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rules\Password;
+
 
 
 Route::view('/laravel', 'laravel-welcome');
@@ -60,15 +63,46 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/info', function () {
         return view('user.info');
     });
+    Route::patch('/user/info', function () {
+        $validatedData = request()->validate([
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'email' => ['required', 'email'],
+            'phone_number' => ['required', 'numeric'],
+            // 'address' => ['required']
+        ]);
+
+        Auth::user()->update($validatedData);
+
+        return redirect('/user/info');
+    });
     Route::get('/user/change-password', function () {
         return view('user.change-password');
+    });
+    Route::patch('/user/change-password', function () {
+        request()->validate([
+            'old_password' => ['required', Password::min(6)],
+            'new_password' => ['required', Password::min(6), 'confirmed'],
+        ]);
+
+        if (!Hash::check(request()->old_password, Auth::user()->password)) {
+            throw ValidationException::withMessages([
+                'old_password' => 'Your old password does not match our records.'
+            ]);
+        }
+
+        Auth::user()->update([
+            'password' => Hash::make(request()->new_password)
+        ]);
+
+        return redirect('/user/change-password');
     });
 
 
     Route::get('/user/cart', [CartController::class, 'index']);
     Route::post('/user/cart', [CartController::class, 'store']);
     Route::patch('/user/cart', [CartController::class, 'remove']);
-    Route::put('/user/cart', [CartController::class, 'update']);
+    // Route::put('/user/cart', [CartController::class, 'update']);
     Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);
 
     Route::get('/user/order', [OrderController::class, 'create']);
@@ -97,8 +131,12 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-
-
+Route::get('user/reset-password', function() {
+    Auth::user()->update([
+        'password' => '123456789'
+    ]);
+    return redirect('/user/change-password');
+});
 
 Route::view('/test', 'test');
 

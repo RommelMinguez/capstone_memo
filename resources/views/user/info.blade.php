@@ -16,6 +16,7 @@
                 <form action="/user/info" method="POST" class="w-full">
 
                     @csrf
+                    @method('PATCH')
 
                     <div class="flex justify-between gap-10">
                         <div class="flex-grow">
