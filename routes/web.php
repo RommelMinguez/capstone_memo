@@ -7,6 +7,8 @@ use App\Models\Cake;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\OrderItem;
+use App\Models\Order;
 
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisteredUserController;
@@ -44,7 +46,13 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/user', function () {
-        return view('user.dashboard');
+        $orders = Auth::user()->orders()->pluck('id');
+
+        $items = OrderItem::whereIn('order_id', $orders)->with('cake')->get();
+
+        return view('user.dashboard', [
+            'items' => $items
+        ]);
     });
     Route::get('/user/message', function () {
         return view('user.message');

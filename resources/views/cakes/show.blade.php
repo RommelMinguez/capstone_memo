@@ -35,10 +35,10 @@
                     @csrf
                     <div class="mb-5 flex items-center justify-start w-fit">
                         <label for="age" class="font-bold">Age:</label>
-                        <input class="ml-5 mr-10 w-20 h-10 bg-[#EDE7E7] font-bold rounded-md font-mono text-xl pl-4 pr-1 text-center text-[#F44336] shadow-md border inline-block" required  type="number" id="age" name="age" value="1" min="1" max="150">
+                        <input class="ml-5 mr-10 w-20 h-10 bg-[#EDE7E7] font-semibold rounded-md font-mono text-xl pl-4 pr-1 text-center text-[#F44336] shadow-md border inline-block" required  type="number" id="age" name="age" value="1" min="1" max="150">
 
                         <label for="candle" class="font-bold">Candle:</label>
-                        <select id="candle" name="candle" required class="mx-5 w-40 h-10 bg-[#EDE7E7] rounded-md text-[#F44336] font-bold shadow-md border px-3">
+                        <select id="candle" name="candle" required class="mx-5 w-40 h-10 bg-[#EDE7E7] rounded-md text-[#F44336] font-semibold shadow-md border px-3">
                             <option value="none" selected>None</option>
                             <option value="number candle">Number Candle</option>
                             <option value="simple candle">Simple Candle</option>
@@ -48,7 +48,7 @@
 
                     <label for="dedication" class="font-bold">Dedication/Message:</label>
                     <textarea
-                        class="w-full my-2 bg-[#EDE7E7] rounded-md p-5 shadow-md text-[#F44336]" required
+                        class="w-full my-2 bg-[#EDE7E7] rounded-md p-5 shadow-md text-[#F44336] font-semibold" required
                         name="dedication" id="dedication" cols="30" rows="3" placeholder="Happy Birthday!!"></textarea>
 
                     <div class="mt-2 flex items-center justify-start w-fit">

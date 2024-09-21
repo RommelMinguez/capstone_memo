@@ -48,7 +48,7 @@ class OrderController extends Controller
         //create an order record
         $order = Order::create([
             'user_id' => Auth::user()->id,
-            'status' => 'pending',
+            //'status' => 'pending',
             'total' => request()->total,
             'prefered_date' => request()->delivery_date,
             'prefered_time' => request()->delivery_time,

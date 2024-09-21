@@ -8,12 +8,12 @@
 
                     @csrf
 
-                    <input name="first_name" type="text" required placeholder="First Name" class="w-full mt-7 bg-transparent border-b-2 border-black">
-                    <input name="last_name" type="text" required placeholder="Last Name" class="w-full mt-7 bg-transparent border-b-2 border-black">
-                    <input name="email" type="email" required placeholder="Email" class="w-full mt-7 bg-transparent border-b-2 border-black">
-                    <input name="phone_number" type="number" required placeholder="Phone No." class="w-full mt-7 bg-transparent border-b-2 border-black">
+                    <input name="first_name" type="text" required placeholder="First Name" class="w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                    <input name="last_name" type="text" required placeholder="Last Name" class="w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                    <input name="email" type="email" required placeholder="Email" class="w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                    <input name="phone_number" type="number" required placeholder="Phone No." class="w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
                     <div class="mt-7 relative">
-                        <input id="password" name="password" type="password" required placeholder="Password" class="toggle-password w-full bg-transparent border-b-2 border-black">
+                        <input id="password" name="password" type="password" required placeholder="Password" class="toggle-password w-full bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
                         <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer show-hide-password">
                             <svg
                                 class="hidden"
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="mt-7 relative">
-                        <input id="confirm-password" name="password_confirmation" type="password" required placeholder="Confirm Password" class="toggle-password w-full bg-transparent border-b-2 border-black">
+                        <input id="confirm-password" name="password_confirmation" type="password" required placeholder="Confirm Password" class="toggle-password w-full bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
                         <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer show-hide-password">
                             <svg
                                 class="hidden"

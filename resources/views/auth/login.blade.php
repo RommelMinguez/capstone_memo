@@ -19,7 +19,9 @@
 
                 <label for="email" class="font-semibold">Email</label>
                 <input type="email" id="email" name="email" placeholder="memoBakeshop@gmail.com" required class="w-full h-9 bg-[#F5D2D2] px-5 mb-7 mt-1 rounded-sm">
-
+                @error('email')
+                    <div class="text-red-500 text-xs font-light italic">{{ $message }}</div>
+                @enderror
                 <div class="flex justify-between">
                     <label for="password" class="font-semibold">Password</label>
                     <div class="text-sm font-light text-gray-500"><a href="#">Forgot Password?</a></div>
