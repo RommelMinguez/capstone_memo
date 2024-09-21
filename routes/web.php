@@ -11,6 +11,8 @@ use App\Models\CartItem;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+
 
 Route::view('/laravel', 'laravel-welcome');
 
@@ -20,74 +22,68 @@ Route::get('/', function () {
 
 
 
-
-
-Route::get('register', [RegisteredUserController::class, 'create']);
-Route::post('register', [RegisteredUserController::class, 'store']);
-
-Route::get('/login', [SessionController::class, 'create']);
-Route::post('/login', [SessionController::class, 'store']);
-Route::post('/logout', [SessionController::class, 'destroy']);
-
-Route::get('user/cart', [CartController::class, 'index']);
-Route::post('user/cart', [CartController::class, 'store']);
-Route::patch('user/cart', [CartController::class, 'remove']);
-Route::put('user/cart', [CartController::class, 'update']);
-Route::post('user/cart/check-out', [CartController::class, 'checkOut']);
-
-
-
-
-
-Route::get('user', function () {
-    return view('user.dashboard');
-});
-Route::get('user/message', function () {
-    return view('user.message');
-});
-Route::get('user/info', function () {
-    return view('user.info');
-});
-Route::get('user/change-password', function () {
-    return view('user.change-password');
-});
-
-
-
-Route::get('user/order', function () {
-    if (!session('order')) {
-        return redirect('/user/cart');
-    }
-    $items = CartItem::whereIn('id', session('order'))->with('cake')->get();
-
-    return view('user.order', [
-        'items' => $items,
-    ]);
-});
-Route::post('/user/order', function () {
-    dd(request()->all());
-});
-
-Route::post('user/cake/buy', function () {
-    redirect('user/order');
-});
-
-
-
-
-
-
-
-Route::get('cakes', function () {
+Route::get('/cakes', function () {
     return view('cakes.index', ['cakes' => Cake::simplePaginate(21)]);
 });
 
-Route::get('cakes/{cake}', function (Cake $cake) {
+Route::get('/cakes/{cake}', function (Cake $cake) {
     return view('cakes.show', [
         'cake' => $cake,
         'show_modal' => session('showModal'),
     ]);
 });
+
+
+Route::get('/register', [RegisteredUserController::class, 'create']);
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('/login', [SessionController::class, 'create'])->name('login');
+Route::post('/login', [SessionController::class, 'store']);
+Route::post('/logout', [SessionController::class, 'destroy']);
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user', function () {
+        return view('user.dashboard');
+    });
+    Route::get('/user/message', function () {
+        return view('user.message');
+    });
+    Route::get('/user/info', function () {
+        return view('user.info');
+    });
+    Route::get('/user/change-password', function () {
+        return view('user.change-password');
+    });
+
+
+    Route::get('/user/cart', [CartController::class, 'index']);
+    Route::post('/user/cart', [CartController::class, 'store']);
+    Route::patch('/user/cart', [CartController::class, 'remove']);
+    Route::put('/user/cart', [CartController::class, 'update']);
+    Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);
+
+    Route::get('/user/order', [OrderController::class, 'create']);
+    Route::post('/user/order', [OrderController::class, 'store']);
+
+
+    Route::post('user/cake/buy', function () {
+        redirect('user/order');
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

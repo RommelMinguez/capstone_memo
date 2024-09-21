@@ -12,20 +12,15 @@ class CartController extends Controller
 
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
+        $cart = Cart::with('cartItems.cake')
+            ->firstOrCreate(
+                [
+                    'user_id' => Auth::user()->id,
+                    'status' => 'open'
+                ]
+            );
 
-        $cart = Cart::firstOrCreate(
-            [
-                'user_id' => Auth::user()->id,
-                'status' => 'open'
-            ]
-        );
-
-        $cart = Auth::user()->carts()->where('status', '=', 'open')->with('cartItems.cake')->first();
-
-        //d($cart);
+       // $cart = Auth::user()->carts()->where('status', '=', 'open')->with('cartItems.cake')->first();
         return view('user.cart', ['cart' => $cart]);
     }
 
@@ -33,10 +28,6 @@ class CartController extends Controller
 
     public function store()
     {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-
         request()->validate([
             'age' => ['required', 'integer', 'min:0', 'max:150'],
             'candle' => ['required'],
@@ -69,11 +60,6 @@ class CartController extends Controller
 
     public function remove()
     {
-        //dd(request()->all());
-        if(!Auth::check()) {
-            redirect('/login');
-        }
-
         $cart = Cart::firstOrCreate(
             [
                 'user_id' => Auth::user()->id,
@@ -91,10 +77,6 @@ class CartController extends Controller
 
     public function update(Cart $cart)
     {
-        if (!Auth::check()) {
-            return redirect('/login');
-        }
-
         request()->validate([
             'age' => ['required', 'integer', 'min:0', 'max:150'],
             'candle' => ['required'],
@@ -122,8 +104,9 @@ class CartController extends Controller
     }
 
     public function checkOut() {
-        return redirect('/user/order')->with('order', request()->order);
-        //return redirect()->route('user.checkout', ['order' => request()->order]);
+        session(['order' => request()->order]);
+        // return redirect('/user/order')->with('order', request()->order);
+        return redirect('/user/order');
     }
 
     /**

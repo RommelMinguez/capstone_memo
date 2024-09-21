@@ -81,6 +81,7 @@
         <div class="p-3">
             <form action="/user/order" method="POST" id="form-place-order">
                 @csrf
+                <input type="hidden" name="total" value="{{ $total }}">
                 <x-nav-link :isButton='true' type='submit' class="w-full">
                     CONFIRM ORDER
                 </x-nav-link>

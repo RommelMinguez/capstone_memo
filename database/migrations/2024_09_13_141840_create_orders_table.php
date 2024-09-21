@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('status');
             $table->decimal('total');
-            $table->dateTime('expected_date');
+            $table->date('prefered_date');
+            $table->time('prefered_time');
             $table->string('address');
             $table->string('payment_method');
             $table->dateTime('date_delivered')->nullable();
@@ -25,7 +26,7 @@ return new class extends Migration
 
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cart_id');
+            $table->foreignId('order_id');
             $table->foreignId('cake_id');
             $table->string('status');
             $table->smallInteger('quantity');
