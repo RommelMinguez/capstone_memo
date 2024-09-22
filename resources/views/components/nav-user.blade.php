@@ -68,12 +68,12 @@
                 <hr>
                 <a href="/user/info">
                     <li class="{{ request()->is('user/info') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-20 py-1">
-                        Basic Info.
+                        Account
                     </li>
                 </a>
                 <a href="/user/change-password">
                     <li class="{{ request()->is('user/change-password') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-20 py-1">
-                        Change Password
+                        Password
                     </li>
                 </a>
                 <hr>
