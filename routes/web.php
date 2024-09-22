@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/user/order', [OrderController::class, 'create']);
     Route::post('/user/order', [OrderController::class, 'store']);
+    Route::post('/user/order/now', [OrderController::class, 'buyNow']);
 });
 
 

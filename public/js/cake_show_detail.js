@@ -38,7 +38,7 @@ let form = document.getElementById('form-inputs');
 
 buyNow.addEventListener('click', function() {
     if (form.checkValidity()) {
-        form.action = '/user/order';
+        form.action = '/user/order/now';
         form.submit();
     }
     form.reportValidity();
