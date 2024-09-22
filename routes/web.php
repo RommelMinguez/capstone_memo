@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,6 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Validation\Rules\Password;
 
 
 
@@ -48,56 +48,12 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/user', function () {
-        $orders = Auth::user()->orders()->pluck('id');
-
-        $items = OrderItem::whereIn('order_id', $orders)->with('cake')->get();
-
-        return view('user.dashboard', [
-            'items' => $items
-        ]);
-    });
-    Route::get('/user/message', function () {
-        return view('user.message');
-    });
-    Route::get('/user/info', function () {
-        return view('user.info');
-    });
-    Route::patch('/user/info', function () {
-        $validatedData = request()->validate([
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'email' => ['required', 'email'],
-            'phone_number' => ['required', 'numeric'],
-            // 'address' => ['required']
-        ]);
-
-        Auth::user()->update($validatedData);
-
-        return redirect('/user/info');
-    });
-    Route::get('/user/change-password', function () {
-        return view('user.change-password');
-    });
-    Route::patch('/user/change-password', function () {
-        request()->validate([
-            'old_password' => ['required', Password::min(6)],
-            'new_password' => ['required', Password::min(6), 'confirmed'],
-        ]);
-
-        if (!Hash::check(request()->old_password, Auth::user()->password)) {
-            throw ValidationException::withMessages([
-                'old_password' => 'Your old password does not match our records.'
-            ]);
-        }
-
-        Auth::user()->update([
-            'password' => Hash::make(request()->new_password)
-        ]);
-
-        return redirect('/user/change-password');
-    });
-
+    Route::get('/user', [UserController::class, 'showtrackOrder']);
+    Route::get('/user/message', [UserController::class, 'showMessage']);
+    Route::get('/user/info', [UserController::class, 'showInfo']);
+    Route::patch('/user/info', [UserController::class, 'updateInfo']);
+    Route::get('/user/change-password', [UserController::class, 'showChangePassword']);
+    Route::patch('/user/change-password', [UserController::class, 'updatePassword']);
 
     Route::get('/user/cart', [CartController::class, 'index']);
     Route::post('/user/cart', [CartController::class, 'store']);
@@ -107,12 +63,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/user/order', [OrderController::class, 'create']);
     Route::post('/user/order', [OrderController::class, 'store']);
-
-
-    Route::post('user/cake/buy', function () {
-        redirect('user/order');
-    });
-
 });
 
 

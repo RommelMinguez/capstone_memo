@@ -110,6 +110,9 @@
         </main>
     </div>
 
-    @vite('resources/js/password_toggle_visibility.js')
+    @session('success')
+        <x-response-success>{{ session('success') }}</x-response-success>
+    @endsession
+    <script src="/js/change-password.js" defer></script>
 
 </x-layout>
