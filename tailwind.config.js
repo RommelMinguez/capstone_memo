@@ -6,7 +6,11 @@ export default {
 		"./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+        boxShadow: {
+            'outline-l-red-4': '4px 0 0 0 #F55447',
+        },
+    },
   },
   plugins: [
 
