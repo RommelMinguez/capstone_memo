@@ -72,6 +72,10 @@
 
     <x-footer></x-footer>
 
+    @session('error')
+        <x-response-failed>{{ session('error') }}</x-response-failed>
+    @endsession
+
     <script>
 
         let aboutImage = document.getElementById('about-img');

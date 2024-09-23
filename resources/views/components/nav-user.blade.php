@@ -7,7 +7,7 @@
 
         @if (!Auth::user()->is_admin)
             <br>
-            <div class="text-center font-semibold text-2xl border-4 mb-8">{{ Str::upper(Auth::user()->first_name). ' '. Str::upper(Auth::user()->last_name) }}</div>
+            <div class="text-center font-semibold text-2xl mb-8">{{ Str::upper(Auth::user()->first_name). ' '. Str::upper(Auth::user()->last_name) }}</div>
         @endif
 
     </div>
