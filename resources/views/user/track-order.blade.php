@@ -75,7 +75,7 @@
 
                 hideContents();
                 showContent(index-1);
-                showEmptyMsg(index-1)
+                showEmptyMsg(index-1);
             });
         });
 
@@ -134,13 +134,13 @@
                 for(let i = 0; i < contents.length; i++) {
                     let content = contents[i];
                     if (content.children.length != 0) {
-                        empty.classList.remove('hidden');
+                        empty.classList.add('hidden');
                         break;
                     }
                 }
             } else {
-                if (contents[selectedTabIndex].children.length == 0) {
-                    empty.classList.remove('hidden');
+                if (contents[selectedTabIndex].children.length != 0) {
+                    empty.classList.add('hidden');
                 }
             }
         }

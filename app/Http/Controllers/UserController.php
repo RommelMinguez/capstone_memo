@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $orders = Auth::user()->orders()->pluck('id');
 
-        $items = OrderItem::whereIn('order_id', $orders)->with('cake')->get();
+        $items = OrderItem::whereIn('order_id', $orders)->with('cake')->latest()->get();
 
         return view('user.track-order', [
             'items' => $items
