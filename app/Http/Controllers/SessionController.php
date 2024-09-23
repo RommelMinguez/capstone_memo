@@ -24,7 +24,11 @@ class SessionController extends Controller
 
         request()->session()->regenerate();
 
-        return redirect('user');
+        if (Auth::user()->is_admin) {
+            return redirect('/admin');
+        }
+
+        return redirect('/user');
     }
 
     public function destroy() {
