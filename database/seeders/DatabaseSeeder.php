@@ -14,43 +14,49 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        //User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
+        User::create([
+            'first_name' => 'admin',
+            'last_name'  => 'admin',
+            'email' => 'admin@admin',
+            'phone_number' => '1234567890',
+            'password' => 'admin123',
+            'address' => 'admin',
+            'is_admin' => true
+        ]);
+
+        Cake::factory(5)->create();
+
+        // Cake::factory()->create([
+        //     'name' => 'cake 1',
+        //     'description' => 'this is a cake',
+        //     'price' => 140,
+        //     'image_src' => '/images/cakes/memo-cake (1).jpg',
         // ]);
-
-
-        Cake::factory()->create([
-            'name' => 'cake 1',
-            'description' => 'this is a cake',
-            'price' => 140,
-            'image_src' => '/images/cakes/memo-cake (1).jpg',
-        ]);
-        Cake::factory()->create([
-            'name' => 'cake 2',
-            'description' => 'this is a cake',
-            'price' => 140,
-            'image_src' => '/images/cakes/memo-cake (2).jpg',
-        ]);
-        Cake::factory()->create([
-            'name' => 'cake 3',
-            'description' => 'this is a cake',
-            'price' => 140,
-            'image_src' => '/images/cakes/memo-cake (3).jpg',
-        ]);
-        Cake::factory()->create([
-            'name' => 'cake 4',
-            'description' => 'this is a cake',
-            'price' => 140,
-            'image_src' => '/images/cakes/memo-cake (4).jpg',
-        ]);
-        Cake::factory()->create([
-            'name' => 'cake 5',
-            'description' => 'this is a cake',
-            'price' => 140,
-            'image_src' => '/images/cakes/memo-cake (5).jpg',
-        ]);
+        // Cake::factory()->create([
+        //     'name' => 'cake 2',
+        //     'description' => 'this is a cake',
+        //     'price' => 140,
+        //     'image_src' => '/images/cakes/memo-cake (2).jpg',
+        // ]);
+        // Cake::factory()->create([
+        //     'name' => 'cake 3',
+        //     'description' => 'this is a cake',
+        //     'price' => 140,
+        //     'image_src' => '/images/cakes/memo-cake (3).jpg',
+        // ]);
+        // Cake::factory()->create([
+        //     'name' => 'cake 4',
+        //     'description' => 'this is a cake',
+        //     'price' => 140,
+        //     'image_src' => '/images/cakes/memo-cake (4).jpg',
+        // ]);
+        // Cake::factory()->create([
+        //     'name' => 'cake 5',
+        //     'description' => 'this is a cake',
+        //     'price' => 140,
+        //     'image_src' => '/images/cakes/memo-cake (5).jpg',
+        // ]);
     }
 }
