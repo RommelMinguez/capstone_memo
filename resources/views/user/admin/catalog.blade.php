@@ -6,7 +6,10 @@
 
         <x-nav-user></x-nav-user>
 
-        <main class="pt-10 w-5/6 h-screen">
+        <main class=" w-5/6 h-screen">
+            <div class="bg-[#ffdab9] shadow-md  pt-24 px-10 pb-4 font-bold text-xl">
+                Cake Catalog
+            </div>
 
             <div class="p-20">cake catalog here</div>
 

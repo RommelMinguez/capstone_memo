@@ -6,9 +6,13 @@
 
         <x-nav-user></x-nav-user>
 
-        <main class="pt-20 w-5/6">
+        <main class="w-5/6">
 
-            <div class="px-5 py-2">
+            <div class="bg-[#ffdab9] shadow-md  pt-24 px-10 pb-4 font-bold text-xl">
+                Manage Orders
+            </div>
+
+            <div class="p-5">
 
                 <div class="bg-[#FFEFF5] rounded-lg h-screen shadow-md shadow-gray-500">
 

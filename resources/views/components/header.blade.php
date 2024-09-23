@@ -64,7 +64,7 @@
                             </svg>
                             <div>Notification</div>
                         </a>
-                        <a href="/user" class="{{ request()->is('user') |  request()->is('user/message') |  request()->is('user/info') |  request()->is('user/change-password') ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg flex gap-0 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447]">
+                        <a href="{{ Auth::user()->is_admin ? '/admin' : '/user' }}" class="{{ request()->is('user') |  request()->is('user/message') |  request()->is('user/info') |  request()->is('user/change-password') ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg flex gap-0 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447]">
                             <svg
                                 class="aspect-square h-full "
                                 xmlns="http://www.w3.org/2000/svg"

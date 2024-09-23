@@ -6,7 +6,11 @@
 
         <x-nav-user></x-nav-user>
 
-        <main class="pt-20 w-5/6">
+        <main class=" w-5/6">
+
+            <div class="bg-[#ffdab9] shadow-md  pt-24 px-10 pb-4 font-bold text-xl">
+                Dashboard
+            </div>
 
             <div class="p-10">
                 <div class="flex  items-center gap-x-10 gap-y-5 flex-wrap">
