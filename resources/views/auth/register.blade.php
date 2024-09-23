@@ -8,13 +8,25 @@
 
                     @csrf
 
-                    <input name="first_name" type="text" required placeholder="First Name" class="w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
-                    <input name="last_name" type="text" required placeholder="Last Name" class="w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
-                    <input name="email" type="email" required placeholder="Email" class="w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
-                    <input name="phone_number" type="number" required placeholder="Phone No." class="w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                    <input name="first_name" type="text" required placeholder="First Name" class="rounded-t-sm px-1 py-1 w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                    @error('first_name')
+                        <div class="text-red-500 text-xs font-light italic">{{ $message }}</div>
+                    @enderror
+                    <input name="last_name" type="text" required placeholder="Last Name" class="rounded-t-sm px-1 py-1 w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                    @error('last_name')
+                        <div class="text-red-500 text-xs font-light italic">{{ $message }}</div>
+                    @enderror
+                    <input name="email" type="email" required placeholder="Email" class="rounded-t-sm px-1 py-1 w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                    @error('email')
+                        <div class="text-red-500 text-xs font-light italic">{{ $message }}</div>
+                    @enderror
+                    <input name="phone_number" type="number" required placeholder="Phone No." class="rounded-t-sm px-1 py-1 w-full mt-7 bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                    @error('phone_number')
+                        <div class="text-red-500 text-xs font-light italic">{{ $message }}</div>
+                    @enderror
                     <div class="mt-7 relative">
-                        <input id="password" name="password" type="password" required placeholder="Password" class="toggle-password w-full bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
-                        <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer show-hide-password">
+                        <input id="password" name="password" type="password" minlength="6" required placeholder="Password" class="rounded-t-sm px-1 py-1 toggle-password w-full bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                        <div class="absolute h-7 w-7 right-1 top-1 p-1 cursor-pointer show-hide-password">
                             <svg
                                 class="hidden"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -30,9 +42,12 @@
                             </svg>
                         </div>
                     </div>
+                    @error('password')
+                        <div class="text-red-500 text-xs font-light italic">{{ $message }}</div>
+                    @enderror
                     <div class="mt-7 relative">
-                        <input id="confirm-password" name="password_confirmation" type="password" required placeholder="Confirm Password" class="toggle-password w-full bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
-                        <div class="absolute h-7 w-7 right-1 -top-1 p-1 cursor-pointer show-hide-password">
+                        <input id="confirm-password" name="password_confirmation" type="password" minlength="6" required placeholder="Confirm Password" class="rounded-t-sm px-1 py-1 toggle-password w-full bg-transparent border-b-2 border-gray-400 focus:outline-none focus:border-black">
+                        <div class="absolute h-7 w-7 right-1 top-1 p-1 cursor-pointer show-hide-password">
                             <svg
                                 class="hidden"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -48,9 +63,14 @@
                             </svg>
                         </div>
                     </div>
-                    <button type="submit" class="bg-[#FF6E6C] text-white text-xl font-mono font-bold py-1 w-full mt-10 rounded-r-full rounded-l-full">
-                        SIGN UP
-                    </button>
+                    <center>
+                        <button type="submit" class="bg-[#FF6E6C] hover:bg-[#ff6361]  text-white text-xl font-mono font-bold py-1 px-20  mt-10 rounded-r-full rounded-l-full">
+                            REGISTER
+                        </button>
+                        <div class="mt-10 text-gray-400">
+                            already have an account? <a href="/login" class="underline font-semibold text-[#FF6E6C]">Login</a>
+                        </div>
+                    </center>
                 </form>
             </div>
         </div>

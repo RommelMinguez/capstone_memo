@@ -13,14 +13,17 @@ class SessionController extends Controller
     }
 
     public function store() {
-        //dd(request()->all());
 
         $attributes = request()->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
 
-        Auth::attempt($attributes);
+        if (!Auth::attempt($attributes, request()->has('remember_me'))) {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ])->onlyInput('email'); // Keep the email input
+        };
 
         request()->session()->regenerate();
 
