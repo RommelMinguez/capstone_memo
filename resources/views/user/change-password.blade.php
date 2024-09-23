@@ -113,6 +113,6 @@
     @session('success')
         <x-response-success>{{ session('success') }}</x-response-success>
     @endsession
-    <script src="/js/change-password.js" defer></script>
+    <script src="/js/toggle-password-visibility.js" defer></script>
 
 </x-layout>

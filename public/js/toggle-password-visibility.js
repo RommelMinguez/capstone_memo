@@ -1,3 +1,5 @@
+
+
 // A TOGGLE BUTTON TO SHOW AND HIDE PASSWORD
 
 let passInput = document.querySelectorAll('.toggle-password');

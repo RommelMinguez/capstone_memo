@@ -8,7 +8,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/custom.css',
                 'resources/js/app.js',
-                'resources/js/password_toggle_visibility.js',
+                // 'resources/js/password_toggle_visibility.js',
                 'resources/js/nav-user.js'
             ],
             refresh: true,

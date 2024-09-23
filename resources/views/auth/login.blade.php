@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    @vite(['resources/js/password_toggle_visibility.js'])
+    <script src="/js/toggle-login-password.js" defer></script>
 
 
 </x-layout>
