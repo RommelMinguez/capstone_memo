@@ -29,16 +29,31 @@
                 @endguest
                 @auth
                     <div class="flex gap-3">
-                        <a href="/user/cart" class="{{ request()->is('user/cart') ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg flex gap-1 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447]">
-                            <svg
-                                class="aspect-square h-full "
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 576 512">
-                                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                                <path d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
-                            </svg>
-                            <div>Cart</div>
-                        </a>
+
+                        @if (!Auth::user()->is_admin)
+                            <a href="/user/cart" class="{{ request()->is('user/cart') ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg flex gap-1 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447]">
+                                <svg
+                                    class="aspect-square h-full "
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 576 512">
+                                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/>
+                                </svg>
+                                <div>Cart</div>
+                            </a>
+                        @else
+                            <a href="/user/cart" class="{{ request()->is('user/cart') ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg flex gap-1 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447]">
+                                <svg
+                                    class="aspect-square h-full "
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 576 512">
+                                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path d="M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4c0 0 0 0 0 0s0 0 0 0s0 0 0 0c0 0 0 0 0 0l.3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z"/>
+                                </svg>
+                                <div>Message</div>
+                            </a>
+                        @endif
+
                         <a href="#" class="{{ request()->is('#') ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg flex gap-0 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447]">
                             <svg
                                 class="aspect-square h-full"
