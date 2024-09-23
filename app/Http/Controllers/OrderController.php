@@ -57,10 +57,22 @@ class OrderController extends Controller
         ]);
 
         //create an order_item record/s and update the cart_item status
-        $cart = Cart::firstOrCreate(
+        $checkOutCart = Cart::firstOrCreate(
             [
                 'user_id' => Auth::user()->id,
                 'status' => 'check-out'
+            ]
+        );
+        $abandonedCart = Cart::firstOrCreate(
+            [
+                'user_id' => Auth::user()->id,
+                'status' => 'abandoned'
+            ]
+        );
+        $buyNowCart = Cart::firstOrCreate(
+            [
+                'user_id' => Auth::user()->id,
+                'status' => 'buy-now'
             ]
         );
 
@@ -75,46 +87,21 @@ class OrderController extends Controller
                 'price' => $item->cake->price,
                 'sub_total' => $item->cake->price * $item->quantity
             ]);
-            $item->update([
-                'cart_id' => $cart->id,
-            ]);
+
+            if ($items[0]->cart_id == $abandonedCart->id) {
+                $item->update([
+                    'cart_id' => $buyNowCart->id,
+                ]);
+            } else {
+                $item->update([
+                    'cart_id' => $checkOutCart->id,
+                ]);
+            }
         }
 
         //redirect to user dashboard
         session()->forget('order');
         return redirect('/user');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order)
-    {
-        //
     }
 
     public function buyNow()
