@@ -73,7 +73,7 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         return view('user.admin.dashboard');
     });
     Route::get('/admin/orders', function () {
-        return view('user.admin.orders');
+        return view('user.admin.manage-orders');
     });
     Route::get('/admin/catalog', function () {
         return view('user.admin.catalog');
