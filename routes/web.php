@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CustomerMiddleware;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,13 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/user/order', [OrderController::class, 'create']);
+    Route::post('/user/order', [OrderController::class, 'store']);
+    Route::post('/user/order/now', [OrderController::class, 'buyNow']);
+});
+
+
+Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::get('/user', [UserController::class, 'showtrackOrder']);
     Route::get('/user/message', [UserController::class, 'showMessage']);
     Route::get('/user/info', [UserController::class, 'showInfo']);
@@ -61,10 +69,6 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/user/cart', [CartController::class, 'remove']);
     // Route::put('/user/cart', [CartController::class, 'update']);
     Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);
-
-    Route::get('/user/order', [OrderController::class, 'create']);
-    Route::post('/user/order', [OrderController::class, 'store']);
-    Route::post('/user/order/now', [OrderController::class, 'buyNow']);
 });
 
 

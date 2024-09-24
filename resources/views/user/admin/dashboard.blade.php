@@ -213,4 +213,8 @@
         </main>
     </div>
 
+    @session('success')
+        <x-response-success>{{ session('success') }}</x-response-success>
+    @endsession
+
 </x-layout>

@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class CustomerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,12 +16,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Check if the user is logged in and if they are an admin
-        if (Auth::check() && Auth::user()->is_admin) {
+        // Check if the user is logged in and if they are not admin
+        if (Auth::check() && !Auth::user()->is_admin) {
             return $next($request);
         }
 
-        // If not an admin, redirect to a forbidden page or another route
-        return redirect('/')->with('error', '403 FORBIDDEN: You do not have ADMIN access.');
+        // If an admin, redirect to a forbidden page or another route
+        return redirect('/')->with('error', '403 FORBIDDEN: You do not have CUSTOMER access.');
     }
 }

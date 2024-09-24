@@ -48,6 +48,11 @@
         </main>
     </div>
 
+
+    @session('success')
+        <x-response-success>{{ session('success') }}</x-response-success>
+    @endsession
+
     <script>
         document.addEventListener('DOMContentLoaded', function()
         {

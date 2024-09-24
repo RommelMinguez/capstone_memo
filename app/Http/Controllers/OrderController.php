@@ -101,7 +101,12 @@ class OrderController extends Controller
 
         //redirect to user dashboard
         session()->forget('order');
-        return redirect('/user');
+
+        if (Auth::user()->is_admin) {
+            return redirect('/admin')->with('success', 'You have place an Order Successfully');
+        }
+
+        return redirect('/user')->with('success', 'Your Order in now waiting for Confirmation');
     }
 
     public function buyNow()

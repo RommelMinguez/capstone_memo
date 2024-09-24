@@ -1,4 +1,4 @@
-<div id="response" class="fixed z-50 top-10 right-10 bg-red-500 border rounded-md overflow-hidden p-5 shadow-xl transition-opacity active:scale-95 cursor-pointer">
+<div id="response" class="fixed z-50 top-10 right-10 bg-[#ff0000] border rounded-md overflow-hidden p-5 shadow-lg shadow-black transition-opacity active:scale-95 cursor-pointer">
     <div class="flex items-center gap-5">
         <svg
             class="w-10"
