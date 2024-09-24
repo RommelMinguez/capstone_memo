@@ -68,7 +68,6 @@
 
     <x-footer></x-footer>
 
-
     <script src="/js/cart.js" defer></script>
 
 </x-layout>

@@ -9,9 +9,13 @@
             <a href="/cakes/{{ $item->cake->id }}"><img src="{{ $item->cake->image_src }}" alt="cake" class="w-full h-full object-cover " ></a>
         </div>
     </td>
+
     <td class="px-5">
         <ol>
-            <li class="font-semibold text-xl "><a href="/cakes/{{ $item->cake->id }}" class="hover:underline font-localLobster">{{ $item->cake->name }}</a></li><br>
+            <li class="font-semibold text-xl ">
+                <a href="/cakes/{{ $item->cake->id }}" class="hover:underline font-localLobster">{{ $item->cake->name }}</a>
+                <span class="saving-msg hidden text-xs italic text-red-500 mx-5 font-light">saving change please wait...</span>
+            </li><br>
             <li>
                 <div class="mb-2 flex items-center justify-start w-fit">
                     <span >Age:</span>
@@ -42,6 +46,7 @@
             {{ $item->quantity }}
         </div> --}}
     </td>
+
     <td class="text-center">
         <div class="text-xl font-bold text-[#F44336]">
             <span class="mr-1 text-2xl">&#8369;</span>

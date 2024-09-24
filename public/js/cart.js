@@ -1,3 +1,5 @@
+
+
  // CHECKBOX
  let checkBox = document.querySelectorAll('.cart-check-box');
  let cartItems = document.querySelectorAll('.cart-row');
@@ -61,11 +63,13 @@
  quantityAdd.forEach((element, index) => {
      element.addEventListener('click', function() {
          quantity[index].value = (quantity[index].value >= 99) ? quantity[index].value:++quantity[index].value;
+         quantity[index].dispatchEvent(new Event('input'));
      });
  });
  quantityMinus.forEach((element, index) => {
      element.addEventListener('click', function() {
          quantity[index].value = (quantity[index].value <= 1) ? quantity[index].value:--quantity[index].value;
+         quantity[index].dispatchEvent(new Event('input'));
      });
  });
 
@@ -74,11 +78,81 @@
  let itemAge = document.querySelectorAll('.item-age');
  let itemCandle = document.querySelectorAll('.item-candle');
  let itemDedication = document.querySelectorAll('.item-dedication');
+ let savingMsg = document.querySelectorAll('.saving-msg');
+ let updateTimeout = [];
 
  itemAge.forEach((element, index) => {
-     element.addEventListener('change', function() {
-         element.classList.add('text-orange-500');
-         console.log('ok');
-
-     });
+    element.addEventListener('input', function() {
+        debounceItem(element, index);
+    });
  });
+ itemCandle.forEach((element, index) => {
+    element.addEventListener('input', function() {
+        debounceItem(element, index);
+    });
+ });
+ itemDedication.forEach((element, index) => {
+    element.addEventListener('input', function() {
+        debounceItem(element, index);
+    });
+ });
+ quantity.forEach((element, index) => {
+    element.addEventListener('input', function() {
+        debounceItem(element, index);
+    });
+ });
+
+ async function updateDatabase(index, values) {
+    try {
+        const response = await fetch('/user/cart', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(values)
+        });
+
+        const data = await response.json();
+
+        if (data['success']) {
+            console.log(index);
+
+            responseSuccess(index);
+            console.log('updated');
+        }
+
+    } catch (error) {
+        console.error('Error updating the database:', error);
+    }
+}
+
+function debounceItem(element, index) {
+    element.classList.add('text-red-500');
+    savingMsg[index].classList.remove('hidden');
+
+        clearTimeout(updateTimeout[index]);
+
+        updateTimeout[index] = setTimeout(() => {
+
+            let data = {
+                id: checkBox[index].value,
+                age: itemAge[index].value,
+                candle_type: itemCandle[index].value,
+                dedication: itemDedication[index].value,
+                quantity: quantity[index].value
+            };
+
+            console.log(data);
+
+            updateDatabase(index, data);
+
+        }, 5000);
+}
+function responseSuccess(index) {
+    itemAge[index].classList.remove('text-red-500');
+    itemCandle[index].classList.remove('text-red-500');
+    itemDedication[index].classList.remove('text-red-500');
+    quantity[index].classList.remove('text-red-500');
+    savingMsg[index].classList.add('hidden');
+}

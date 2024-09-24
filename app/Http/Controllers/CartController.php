@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -77,30 +78,23 @@ class CartController extends Controller
 
     public function update(Cart $cart)
     {
-        // request()->validate([
-        //     'age' => ['required', 'integer', 'min:0', 'max:150'],
-        //     'candle' => ['required'],
-        //     'dedication' => ['required'],
-        //     'quantity' => ['required', 'integer', 'min:1', "max:99"],
-        //     'cake_id' => ['required'],
-        // ]);
+        $validatedData = request()->validate([
+            'age' => ['required', 'integer', 'min:0', 'max:150'],
+            'candle_type' => ['required'],
+            'dedication' => ['required'],
+            'quantity' => ['required', 'integer', 'min:1', "max:99"],
+            'id' => ['required'],
+        ]);
 
-        // $cart = Cart::firstOrCreate(
-        //     [
-        //         'user_id' => Auth::user()->id,
-        //         'status' => 'open'
-        //     ]
-        // );
+        $item = CartItem::find(request()->id);
 
-        // $cart->cartItems()->update(
-        //     [
-        //         'cake_id' => request()->cake_id,
-        //         'quantity' => request()->quantity,
-        //         'age' => request()->age,
-        //         'candle_type' => request()->candle,
-        //         'dedication' => request()->dedication
-        //     ]
-        // );
+        if ($item->cart->user_id !== Auth::user()->id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $item->update($validatedData);
+
+        return response()->json(['success' => true]);
     }
 
     public function checkOut() {

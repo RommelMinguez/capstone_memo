@@ -67,7 +67,7 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::get('/user/cart', [CartController::class, 'index']);
     Route::post('/user/cart', [CartController::class, 'store']);
     Route::patch('/user/cart', [CartController::class, 'remove']);
-    // Route::put('/user/cart', [CartController::class, 'update']);
+    Route::put('/user/cart', [CartController::class, 'update']);
     Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);
 });
 
@@ -100,6 +100,10 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 
 
 
+
+
+
+
 Route::get('user/reset-password', function() {
     Auth::user()->update([
         'password' => '123456789'
@@ -109,26 +113,37 @@ Route::get('user/reset-password', function() {
 
 Route::view('/test', 'test');
 
-Route::get('sample', function() {
+Route::get('/sample', function() {
 
-    $user = User::with('carts.cartItems.cake')->find(2);
-    $items = [];
-    $cakes = [];
+    $item = [
+        "id" => "7",
+        "age" => "1",
+        "candle_type" => "none",
+        "dedication" => "again",
+        "quantity" => "2"
+    ];
 
-    $u = User::find(2,['first_name', 'last_name']);
+    // request()->
 
-    foreach ($user->carts as $carts) {
-        foreach($carts->cartItems as $item) {
-            $items[] = $item;
-            $cakes[] = $item->cake;
-        }
+    $validatedData = request()->validate([
+        'age' => ['required', 'integer', 'min:0', 'max:150'],
+        'candle_type' => ['required'],
+        'dedication' => ['required'],
+        'quantity' => ['required', 'integer', 'min:1', "max:99"],
+        'id' => ['required'],
+    ]);
+
+    $item = CartItem::find(7);
+
+    if ($item->cart->user_id !== Auth::user()->id) {
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
 
-    $us = User::select(['first_name', 'last_name'])->get();
+    dd($item);
 
+    //$item->update($validatedData);
 
-
-    dd($items, $us);
+    return response()->json(['success' => true]);
 });
 
 
