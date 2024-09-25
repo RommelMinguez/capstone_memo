@@ -12,9 +12,12 @@
 
     <td class="px-5">
         <ol>
-            <li class="font-semibold text-xl ">
+            <li class="font-semibold text-xl flex gap-10">
                 <a href="/cakes/{{ $item->cake->id }}" class="hover:underline font-localLobster">{{ $item->cake->name }}</a>
-                <span class="saving-msg hidden text-xs italic text-red-500 mx-5 font-light">saving change please wait...</span>
+                {{-- <div class="saving-msg  text-xs italic text-red-500 mx-5 font-light"><div>Saving...</div></div> --}}
+                <div class="saving-msg hidden">
+                    <x-loading></x-loading>
+                </div>
             </li><br>
             <li>
                 <div class="mb-2 flex items-center justify-start w-fit">

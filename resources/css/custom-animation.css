@@ -45,3 +45,97 @@
         opacity: 1;
     }
 }
+
+
+
+
+
+/* LOADING ANIMATION */
+#loading {
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:transparent;
+}
+#loading span {
+    padding:2px;
+    background:#F44336;
+    margin-right:1px;
+    border-radius:1px;
+    animation: load 1s alternate linear infinite;
+}
+@keyframes load {
+    0% {
+        transform: scaleY(.1);
+    }
+    25% {
+        transform: scaleY(.1);
+    }
+    50% {
+        transform: scaleY(.1);
+    }
+    75% {
+        transform: scaleY(3);
+    }
+    100% {
+        transform: scaleY(6);
+    }
+}
+#loading span:nth-child(2){
+    animation-delay:50ms;
+}
+#loading span:nth-child(3){
+    animation-delay:100ms;
+}
+#loading span:nth-child(4){
+    animation-delay:150ms;
+}
+#loading span:nth-child(5){
+    animation-delay:200ms;
+}
+#loading span:nth-child(6){
+    animation-delay:250ms;
+}
+#loading span:nth-child(7){
+    animation-delay:300ms;
+}
+#loading span:nth-child(8){
+    animation-delay:350ms;
+}
+#loading span:nth-child(9){
+    animation-delay:400ms;
+}
+#loading span:nth-child(10){
+    animation-delay:450ms;
+}
+#loading span:nth-child(11){
+    animation-delay:500ms;
+}
+#loading span:nth-child(12){
+    animation-delay:550ms;
+}
+#loading span:nth-child(13){
+    animation-delay:600ms;
+}
+#loading span:nth-child(14){
+    animation-delay: 650ms;
+}
+#loading span:nth-child(15){
+    animation-delay: 700ms;
+}
+#loading span:nth-child(16){
+    animation-delay:750ms;
+}
+#loading span:nth-child(17){
+    animation-delay:800ms;
+}
+#loading span:nth-child(18){
+    animation-delay:850ms;
+}
+#loading span:nth-child(19){
+    animation-delay:900ms;
+}
+#loading span:nth-child(20){
+    animation-delay:950ms;
+}
