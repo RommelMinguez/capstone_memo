@@ -43,12 +43,7 @@
             {{-- CATALOG --}}
             <div class="flex flex-wrap justify-evenly gap-10 ">
                 @foreach ($cakes as $cake)
-                    <x-cake-card
-                        cakeID="{{ $cake['id'] }}"
-                        cakeImage="{{ $cake['image_src'] }}"
-                        cakeName="{{ $cake['name'] }}"
-                        cakePrice="{{ $cake['price'] }}"
-                        >
+                    <x-cake-card :cake="$cake">
                     </x-cake-card>
                 @endforeach
             </div>

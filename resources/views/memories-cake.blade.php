@@ -57,13 +57,7 @@
             </div>
             <div class="flex justify-evenly mt-10" id="featured-card">
                 @foreach ($cakes as $cake)
-                    <x-cake-card
-                        cakeID="{{ $cake['id'] }}"
-                        cakeImage="{{ $cake['image_src'] }}"
-                        cakeName="{{ $cake['name'] }}"
-                        cakePrice="{{ $cake['price'] }}"
-
-                        >
+                    <x-cake-card :cake="$cake">
                     </x-cake-card>
                 @endforeach
             </div>

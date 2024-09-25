@@ -24,7 +24,7 @@ use Illuminate\Validation\ValidationException;
 Route::view('/laravel', 'laravel-welcome');
 
 Route::get('/', function () {
-    return view('memories-cake', ['cakes' => Cake::limit(4)->get()]);
+    return view('memories-cake', ['cakes' => Cake::limit(4)->latest()->get()]);
 });
 
 
@@ -80,7 +80,7 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         return view('user.admin.manage-orders');
     });
     Route::get('/admin/catalog', function () {
-        return view('user.admin.catalog');
+        return view('user.admin.catalog', ['cakes' => Cake::latest()->simplePaginate(20)]);
     });
     Route::get('/admin/sales', function () {
         return view('user.admin.sales');

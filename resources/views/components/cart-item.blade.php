@@ -20,17 +20,21 @@
                 </div>
             </li><br>
             <li>
-                <div class="mb-2 flex items-center justify-start w-fit">
-                    <span >Age:</span>
-                    <input class="ml-5 mr-10 w-20 bg-[#EDE7E7]  rounded-md font-mono  pl-4 pr-1 py-1 text-center  shadow-md border inline-block item-age" required  type="number"  name="age" value="{{ $item->age }}" min="1" max="150">
+                <div class="mb-2 flex items-center justify-start w-fit flex-wrap gap-2">
+                    <div>
+                        <span >Age:</span>
+                        <input class="ml-5 mr-10 w-20 bg-[#EDE7E7]  rounded-md font-mono  pl-4 pr-1 py-1 text-center  shadow-md border inline-block item-age" required  type="number"  name="age" value="{{ $item->age }}" min="1" max="150">
+                    </div>
 
-                    <span >Candle:</span>
-                    <select  name="candle"  required class="mx-5 w-40 py-1 bg-[#EDE7E7] rounded-md shadow-md border px-3 item-candle">
-                        <option value="none" {{ $item->candle_type == 'none' ? 'selected':'' }} >None</option>
-                        <option value="number candle" {{ $item->candle_type == 'number candle' ? 'selected':'' }}>Number Candle</option>
-                        <option value="simple candle" {{ $item->candle_type == 'simple candle' ? 'selected':'' }}>Simple Candle</option>
-                        <option value="other" {{ $item->candle_type == 'other' ? 'selected':'' }}>Other</option>
-                    </select>
+                    <div>
+                        <span >Candle:</span>
+                        <select  name="candle"  required class="mx-5 w-40 py-1 bg-[#EDE7E7] rounded-md shadow-md border px-3 item-candle">
+                            <option value="none" {{ $item->candle_type == 'none' ? 'selected':'' }} >None</option>
+                            <option value="number candle" {{ $item->candle_type == 'number candle' ? 'selected':'' }}>Number Candle</option>
+                            <option value="simple candle" {{ $item->candle_type == 'simple candle' ? 'selected':'' }}>Simple Candle</option>
+                            <option value="other" {{ $item->candle_type == 'other' ? 'selected':'' }}>Other</option>
+                        </select>
+                    </div>
                 </div>
 
                 <textarea
