@@ -32,7 +32,7 @@
             </div>
             <div class="text-xl font-bold text-[#F44336]">
                 &#8369;
-                <span class="ml-2">00.00</span>
+                <span class="ml-2">{{ $item->sub_total }}</span>
             </div>
             <div></div>
         </div>

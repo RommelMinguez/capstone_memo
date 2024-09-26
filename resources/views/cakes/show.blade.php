@@ -64,7 +64,7 @@
                         <x-nav-link :isButton='true' type='button' id='submit-buy' >
                             BUY NOW
                         </x-nav-link>
-                        @if (!Auth::user()->is_admin)
+                        @if (!Auth::check() || !Auth::user()->is_admin)
                             <x-nav-link :isButton='true' type='button' id="submit-cart">
                                 <div class="flex">
                                     <svg
