@@ -13,7 +13,7 @@
     <td class="px-5">
         <ol>
             <li class="font-semibold text-xl flex gap-10">
-                <a href="/cakes/{{ $item->cake->id }}" class="hover:underline font-localLobster">{{ $item->cake->name }}</a>
+                <a href="/cakes/{{ $item->cake->id }}" class="hover:underline font-bold">{{ $item->cake->name }}</a>
                 {{-- <div class="saving-msg  text-xs italic text-red-500 mx-5 font-light"><div>Saving...</div></div> --}}
                 <div class="saving-msg hidden">
                     <x-loading></x-loading>

@@ -31,7 +31,7 @@
                     <div class="flex gap-3">
 
                         @if (!Auth::user()->is_admin)
-                            <a href="/user/cart" class="{{ request()->is('user/cart') ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg flex gap-1 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447]">
+                            <a href="/user/cart" class="{{ request()->is('user/cart') ? 'text-[#F55447] bg-[#eec9a8] font-semibold': '' }} hover:bg-[#eec9a8] rounded-lg flex gap-1 h-12 p-3 fill-[#F55447] text-[#F55447]">
                                 <svg
                                     class="aspect-square h-full "
                                     xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@
                                 <div>Cart</div>
                             </a>
                         @else
-                            <a href="/user/cart" class="{{ request()->is('user/cart') ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg flex gap-1 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447]">
+                            <a href="/user/cart" class="{{ request()->is('user/cart') ? 'text-[#F55447] bg-[#eec9a8] font-semibold': '' }} hover:bg-[#eec9a8] rounded-lg flex gap-1 h-12 p-3 fill-[#F55447] text-[#F55447]">
                                 <svg
                                     class="aspect-square h-full "
                                     xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@
                             </a>
                         @endif
 
-                        <a href="#" class="{{ request()->is('#') ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg flex gap-0 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447]">
+                        <a href="#" class="{{ request()->is('#') ? 'text-[#F55447] bg-[#eec9a8] font-semibold': '' }} hover:bg-[#eec9a8] rounded-lg flex gap-0 h-12 p-3 fill-[#F55447] text-[#F55447]">
                             <svg
                                 class="aspect-square h-full"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@
                                     request()->is('admin/orders') |
                                     request()->is('admin/catalog') |
                                     request()->is('admin/sales'))
-                                    ? 'text-[#F55447] bg-[#eec9a8] fill-[#F55447] font-semibold': '' }} rounded-lg  flex gap-0 h-12 p-3 hover:fill-[#F55447] hover:text-[#F55447] ">
+                                    ? 'text-[#F55447] bg-[#eec9a8]  font-semibold': '' }} hover:bg-[#eec9a8]  rounded-lg  flex gap-0 h-12 p-3 fill-[#F55447] text-[#F55447] ">
                                 <svg
                                     class="aspect-square h-full "
                                     xmlns="http://www.w3.org/2000/svg"

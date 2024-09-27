@@ -9,7 +9,7 @@
     <td class="w-auto px-5">
         <ol>
             <li>
-                <span class="hover:underline  text-xl"><a href="/cakes/{{ $item->cake->id }}" class="font-localLobster">{{ $item->cake->name }}</a></span>
+                <span class="hover:underline  text-xl"><a href="/cakes/{{ $item->cake->id }}" class="font-bold">{{ $item->cake->name }}</a></span>
                 &nbsp;&nbsp;
                 <span class="italic">x{{ $item->quantity }}</span>
             </li><br>
