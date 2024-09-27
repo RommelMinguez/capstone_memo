@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CustomerMiddleware;
@@ -73,43 +74,7 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
 
 
 Route::middleware([AdminMiddleware::class])->group(function () {
-    Route::get('/admin', function () {
-
-        $countPerStatus = OrderItem::select('status', DB::raw('count(*) as total'))
-            ->groupBy('status')
-            ->pluck('total', 'status')
-            ->toArray();
-        $statusArr = ['pending', 'baking', 'receive', 'review', 'completed', 'canceled'];
-        $totalOrder = null;
-
-        foreach($statusArr as $status) {
-            if (!array_key_exists($status, $countPerStatus)) {
-                $countPerStatus[$status] = 0;
-            }
-            if($status != 'canceled') {
-                $totalOrder += $countPerStatus[$status];
-            }
-        }
-
-        $bestSeller = OrderItem::join('cakes', 'order_items.cake_id', '=', 'cakes.id')
-            ->select('cakes.id', 'cakes.name', DB::raw('COUNT(order_items.cake_id) as total_orders'))
-            ->groupBy('cakes.id', 'cakes.name')
-            ->orderBy('total_orders', 'DESC')
-            ->first();
-
-
-        $income = OrderItem::sum('sub_total') - OrderItem::where('status', 'canceled')->sum('sub_total');
-
-        $latestOrders = OrderItem::with('order.user', 'cake')->latest()->limit(10)->get();
-
-        return view('user.admin.dashboard', [
-            'statusCount' => $countPerStatus,
-            'totalOrder' => $totalOrder,
-            'bestSeller' => $bestSeller,
-            'income' => $income,
-            'latestOrders' => $latestOrders
-        ]);
-    });
+    Route::get('/admin', [AdminController::class, 'dashboard']);
     Route::get('/admin/orders', function () {
         return view('user.admin.manage-orders');
     });
