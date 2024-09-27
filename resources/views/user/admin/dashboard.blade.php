@@ -14,9 +14,9 @@
 
             <div class="p-10">
                 <div class="flex  items-center gap-x-10 gap-y-5 flex-wrap">
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7">
+                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">20</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['pending'] }}</div>
                             <div class="text-xs">Pending Orders</div>
                         </div>
                         <div class="h-full">
@@ -28,9 +28,9 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7">
+                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">20</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['baking'] }}</div>
                             <div class="text-xs">Baking</div>
                         </div>
                         <div class="h-full">
@@ -43,9 +43,9 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7">
+                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">20</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['receive'] }}</div>
                             <div class="text-xs">To Receive</div>
                         </div>
                         <div class="h-full">
@@ -59,9 +59,9 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7">
+                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">20</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['review'] }}</div>
                             <div class="text-xs">To Review</div>
                         </div>
                         <div class="h-full">
@@ -79,9 +79,9 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7">
+                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">20</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['completed'] }}</div>
                             <div class="text-xs">Completed</div>
                         </div>
                         <div class="h-full">
@@ -95,9 +95,9 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7">
+                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">20</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['canceled'] }}</div>
                             <div class="text-xs">Canceled</div>
                         </div>
                         <div class="h-full">
@@ -118,11 +118,11 @@
                 {{-- OVERALL SUMMARY --}}
                 <br><br><hr class="border-b-2"><br><br>
 
-                <div class="flex justify-center items-center gap-x-20 gap-y-10 flex-wrap">
+                <div class="flex justify-center items-center gap-x-10 gap-y-10 flex-wrap">
 
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7">
+                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">20</div>
+                            <div class="text-4xl font-bold mb-2">{{ $totalOrder }}</div>
                             <div class="text-xs">Total Orders</div>
                         </div>
                         <div class="h-full">
@@ -139,9 +139,9 @@
                         </div>
                     </div>
 
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-[#F55447] flex justify-between items-center p-7">
+                    <div class="min:w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-[#F55447] flex justify-between items-center gap-5 p-7 cursor-pointer">
                         <div class="text-white">
-                            <div class="text-4xl font-bold mb-2">20</div>
+                            <div class="text-4xl font-bold mb-2">{{ number_format($income, 2, '.', ',') }}</div>
                             <div class="text-xs">Income</div>
                         </div>
                         <div class="h-full">
@@ -155,20 +155,22 @@
                         </div>
                     </div>
 
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-[#ffeff5] flex justify-between items-center p-7">
-                        <div >
-                            <div class="text-4xl font-bold mb-2">20</div>
-                            <div class="text-xs">Top Selling Cake</div>
+                    <a href="/cakes/{{ $bestSeller->id }}">
+                        <div class="min:w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-[#ffeff5] flex justify-between items-center gap-5 p-7 cursor-pointer">
+                            <div >
+                                <div class="text-4xl font-bold mb-2">{{ $bestSeller->name }}</div>
+                                <div class="text-xs">Top Selling Cake</div>
+                            </div>
+                            <div class="h-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24">
+                                    <g fill="none">
+                                        <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/>
+                                        <path fill="#F55447" d="m11.514 2.142l-1.26-.755l-.24 1.449C9.632 5.124 8.069 7.25 6.345 8.744C2.97 11.67 2.231 14.85 3.276 17.475c1 2.512 3.538 4.232 6.114 4.519l.596.066c-1.474-.901-2.42-3.006-2.09-4.579c.326-1.546 1.438-2.994 3.574-4.33l1.077-.672l.402 1.205c.237.712.647 1.284 1.064 1.865c.2.28.403.563.589.864c.643 1.045.813 2.207.398 3.36c-.378 1.048-1.001 1.872-1.86 2.329l.97-.108c2.418-.269 4.193-1.096 5.346-2.479C20.599 18.144 21 16.379 21 14.5c0-1.75-.719-3.554-1.567-5.055c-.994-1.758-2.291-3.218-3.707-4.633c-.245.49-.226.688-.73 1.475a8.15 8.15 0 0 0-3.482-4.145"/>
+                                    </g>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="h-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24">
-                                <g fill="none">
-                                    <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/>
-                                    <path fill="#F55447" d="m11.514 2.142l-1.26-.755l-.24 1.449C9.632 5.124 8.069 7.25 6.345 8.744C2.97 11.67 2.231 14.85 3.276 17.475c1 2.512 3.538 4.232 6.114 4.519l.596.066c-1.474-.901-2.42-3.006-2.09-4.579c.326-1.546 1.438-2.994 3.574-4.33l1.077-.672l.402 1.205c.237.712.647 1.284 1.064 1.865c.2.28.403.563.589.864c.643 1.045.813 2.207.398 3.36c-.378 1.048-1.001 1.872-1.86 2.329l.97-.108c2.418-.269 4.193-1.096 5.346-2.479C20.599 18.144 21 16.379 21 14.5c0-1.75-.719-3.554-1.567-5.055c-.994-1.758-2.291-3.218-3.707-4.633c-.245.49-.226.688-.73 1.475a8.15 8.15 0 0 0-3.482-4.145"/>
-                                </g>
-                            </svg>
-                        </div>
-                    </div>
+                    </a>
 
                 </div>
 
@@ -181,7 +183,7 @@
                     <div class="bg-[#FFEFF5] rounded-lg shadow-md p-5">
                         <div class="pb-5 flex justify-between items-center">
                             <div class="font-bold text-xl">Recent Orders</div>
-                            <div class="rounded-md bg-red-500 py-1 px-4 text-white">See All &RightArrow;</div>
+                            <div class="rounded-md bg-red-500 py-1 px-4 text-white"><a href="/admin/orders">See All &RightArrow;</a></div>
                         </div>
                         <table class="border-collapse w-full table-fixed">
                             <thead class="border-y-2">
@@ -194,15 +196,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for($i = 0; $i < 10; $i++)
-                                    <tr class="text-center border-b {{ $i % 2 == 0 ? 'bg-[#feebf2]':'' }}">
-                                        <td >{{ $i }}</td>
-                                        <td >Juan Dela Cruz</td>
-                                        <td >Vanilla Cake</td>
-                                        <td >2024/09/24</td>
-                                        <td >pending</td>
+                                @foreach ($latestOrders as $order)
+                                    <tr class="text-center border-b odd:bg-[#feebf2]">
+                                        <td >{{ $order->order_id }}</td>
+                                        <td >{{ $order->order->user->last_name }}, {{ $order->order->user->first_name }}</td>
+                                        <td >{{ $order->cake->name }}</td>
+                                        <td >{{ $order->created_at }}</td>
+                                        <td >{{ $order->status }}</td>
                                     </tr>
-                                @endfor
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

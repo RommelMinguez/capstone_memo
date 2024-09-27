@@ -74,7 +74,41 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
 
 Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin', function () {
-        return view('user.admin.dashboard');
+
+        $countPerStatus = OrderItem::select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status')
+            ->toArray();
+        $statusArr = ['pending', 'baking', 'receive', 'review', 'completed', 'canceled'];
+        $totalOrder = null;
+
+        foreach($statusArr as $status) {
+            if (!array_key_exists($status, $countPerStatus)) {
+                $countPerStatus[$status] = 0;
+            }
+            if($status != 'canceled') {
+                $totalOrder += $countPerStatus[$status];
+            }
+        }
+
+        $bestSeller = OrderItem::join('cakes', 'order_items.cake_id', '=', 'cakes.id')
+            ->select('cakes.id', 'cakes.name', DB::raw('COUNT(order_items.cake_id) as total_orders'))
+            ->groupBy('cakes.id', 'cakes.name')
+            ->orderBy('total_orders', 'DESC')
+            ->first();
+
+
+        $income = OrderItem::sum('sub_total') - OrderItem::where('status', 'canceled')->sum('sub_total');
+
+        $latestOrders = OrderItem::with('order.user', 'cake')->latest()->limit(10)->get();
+
+        return view('user.admin.dashboard', [
+            'statusCount' => $countPerStatus,
+            'totalOrder' => $totalOrder,
+            'bestSeller' => $bestSeller,
+            'income' => $income,
+            'latestOrders' => $latestOrders
+        ]);
     });
     Route::get('/admin/orders', function () {
         return view('user.admin.manage-orders');
@@ -113,37 +147,52 @@ Route::get('user/reset-password', function() {
 
 Route::view('/test', 'test');
 
-Route::get('/sample', function() {
+Route::get('/test-query', function() {
+    // GET COUNT ON EVERY STATUS
+    $countPerStatus = OrderItem::select('status', DB::raw('count(*) as total'))
+                    ->groupBy('status')
+                    ->pluck('total', 'status')
+                    ->toArray();
+    $statusArr = ['pending', 'baking', 'receive', 'review', 'completed', 'canceled'];
+    $totalOrder = null;
 
-    $item = [
-        "id" => "7",
-        "age" => "1",
-        "candle_type" => "none",
-        "dedication" => "again",
-        "quantity" => "2"
-    ];
-
-    // request()->
-
-    $validatedData = request()->validate([
-        'age' => ['required', 'integer', 'min:0', 'max:150'],
-        'candle_type' => ['required'],
-        'dedication' => ['required'],
-        'quantity' => ['required', 'integer', 'min:1', "max:99"],
-        'id' => ['required'],
-    ]);
-
-    $item = CartItem::find(7);
-
-    if ($item->cart->user_id !== Auth::user()->id) {
-        return response()->json(['error' => 'Unauthorized'], 403);
+    foreach($statusArr as $status) {
+        if (!array_key_exists($status, $countPerStatus)) {
+            $countPerStatus[$status] = 1;
+        }
+        if($status != 'canceled') {
+            $totalOrder += $countPerStatus[$status];
+        }
     }
 
-    dd($item);
+    $bestSeller = OrderItem::join('cakes', 'order_items.cake_id', '=', 'cakes.id')
+                    ->select('cakes.id', 'cakes.name', DB::raw('COUNT(order_items.cake_id) as total_orders'))
+                    ->groupBy('cakes.id', 'cakes.name')
+                    ->orderBy('total_orders', 'DESC')
+                    ->first();
 
-    //$item->update($validatedData);
 
-    return response()->json(['success' => true]);
+    $income = OrderItem::sum('sub_total') - OrderItem::where('status', 'canceled')->sum('sub_total');
+
+    dd($countPerStatus, $bestSeller, $income, $countPerStatus, $totalOrder);
 });
+
+Route::get('/test-upload', function() {
+    return view('test-upload');
+});
+Route::post('/test-upload', function() {
+    // Validate the image
+    request()->validate([
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Limit size to 2MB
+    ]);
+
+    // Store the image
+    $path = request()->file('image')->store('images', 'public');
+
+    //dd($path);
+
+    // Optionally, you can save the path in the database or return a response
+    return back()->with('success', 'Image uploaded successfully!')->with('path', $path);
+})->name('image.store');
 
 
