@@ -66,16 +66,7 @@
                         </a>
                         <div class="relative group">
                             <a href="{{ (Auth::user()->is_admin) ? '/admin' : '/user' }}"
-                                class="{{ (
-                                    request()->is('user') |
-                                    request()->is('user/message') |
-                                    request()->is('user/info') |
-                                    request()->is('user/change-password') |
-                                    request()->is('admin') |
-                                    request()->is('admin/orders') |
-                                    request()->is('admin/catalog') |
-                                    request()->is('admin/sales'))
-                                    ? 'text-[#F55447] bg-[#eec9a8]  font-semibold': '' }} hover:bg-[#eec9a8]  rounded-lg  flex gap-0 h-12 p-3 fill-[#F55447] text-[#F55447] ">
+                                class="{{ (request()->is('user*') && !request()->is('user/cart') && !request()->is('user/order') ) || request()->is('admin*') ? 'text-[#F55447] bg-[#eec9a8]  font-semibold': '' }} hover:bg-[#eec9a8]  rounded-lg  flex gap-0 h-12 p-3 fill-[#F55447] text-[#F55447] ">
                                 <svg
                                     class="aspect-square h-full "
                                     xmlns="http://www.w3.org/2000/svg"

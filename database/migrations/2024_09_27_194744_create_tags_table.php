@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('category');
-            $table->boolean('is_archived');
+            $table->boolean('is_archived')->default(false);
             $table->timestamps();
         });
 
         Schema::create('cake_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cake_id');
-            $table->foreignId('tag_id');
+            $table->foreignId('cake_id')->constrained()->onDelete('cascade');;
+            $table->foreignId('tag_id')->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

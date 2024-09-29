@@ -12,4 +12,12 @@ class Cake extends Model
     public function cartItems() {
         return $this->hasMany(CartItem::class);
     }
+
+    public function orderItems() {
+        return $this->hasMany(OrderItem::class);
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'cake_tag');
+    }
 }

@@ -72,10 +72,10 @@
         let createForm = document.getElementById('createForm');
         let showCreateForm = document.getElementById('addNew');
         let closeCreateForm = document.getElementById('closeCreate');
-        let closeEditTags = document.getElementById('closeEditTags');
-        let returnEditTags = document.getElementById('returnEditTags');
-        let showEditForm = document.getElementById('showEditForm');
-        let editTagForm = document.getElementById('editTagForm');
+        // let closeEditTags = document.getElementById('closeEditTags');
+        // let returnEditTags = document.getElementById('returnEditTags');
+        // let showEditForm = document.getElementById('showEditForm');
+        // let editTagForm = document.getElementById('editTagForm');
         let cakeForm = document.getElementById('cakeForm');
 
         showCreateForm.addEventListener('click', function() {
@@ -86,20 +86,7 @@
             document.body.style.overflow = 'auto';
             createForm.classList.add('hidden');
         });
-        returnEditTags.addEventListener('click', function() {
-            editTagForm.classList.add('hidden');
-            cakeForm.classList.remove('hidden');
-        });
-        closeEditTags.addEventListener('click', function() {
-            editTagForm.classList.add('hidden');
-            cakeForm.classList.remove('hidden');
-            document.body.style.overflow = 'auto';
-            createForm.classList.add('hidden');
-        });
-        showEditForm.addEventListener('click', function() {
-            editTagForm.classList.remove('hidden');
-            cakeForm.classList.add('hidden');
-        });
+
 
         // CREATE FORM IMAGE PREVIEW
         const imageInput = document.getElementById('imageInput');

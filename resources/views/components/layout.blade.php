@@ -1,4 +1,6 @@
-@props(['useDatatableCDN' => false])
+@props([
+    'useDatatableCDN' => false,
+])
 
 <!DOCTYPE html>
 <html lang="en">

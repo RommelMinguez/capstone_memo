@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CustomerMiddleware;
@@ -81,9 +82,12 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin/catalog', function () {
         return view('user.admin.catalog', ['cakes' => Cake::latest()->simplePaginate(20)]);
     });
-    Route::get('/admin/tags', function () {
-        return view('user.admin.tags');
-    });
+
+    Route::get('/admin/tags', [TagController::class, 'index']);
+    Route::post('/admin/tags', [TagController::class, 'store']);
+    Route::patch('/admin/tags', [TagController::class, 'update']);
+    Route::delete('/admin/tags', [TagController::class, 'destroy']);
+
     Route::get('/admin/candle', function () {
         return view('user.admin.candle');
     });
