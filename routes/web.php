@@ -81,6 +81,12 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin/catalog', function () {
         return view('user.admin.catalog', ['cakes' => Cake::latest()->simplePaginate(20)]);
     });
+    Route::get('/admin/tags', function () {
+        return view('user.admin.tags');
+    });
+    Route::get('/admin/candle', function () {
+        return view('user.admin.candle');
+    });
     Route::get('/admin/sales', function () {
         return view('user.admin.sales');
     });

@@ -42,7 +42,7 @@
                             </ul>
                         </div>
 
-                        <div class="bg-gray-50 rounded-b-xl rounded-tr-xl border shadow-md p-3">
+                        <div class="bg-gray-100 rounded-b-xl rounded-tr-xl border shadow-md p-3">
                             <table id="dataTableInit" class="display border-collapse w-full table-fixed">
                                 <thead>
                                     <tr class="border-y-2">
@@ -94,6 +94,17 @@
 
             });
         });
+
+        let tabs = document.querySelectorAll('.order-tab');
+        tabs.forEach((element, index) => {
+            element.addEventListener('click', function() {
+                tabs.forEach((e, i) => {
+                    e.classList.remove('border-b-2', 'border-red-500',  'bg-[#eedee4]', 'rounded-t-lg', 'text-red-500');
+                });
+                element.classList.add('border-b-2', 'border-red-500',  'bg-[#eedee4]', 'rounded-t-lg', 'text-red-500');
+            });
+        });
+
     </script>
 
 </x-layout>

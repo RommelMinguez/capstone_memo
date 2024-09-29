@@ -14,6 +14,7 @@
     <div class="sticky top-24 overflow-auto">
 
 
+        {{-- SIDE NAV FOR CUSTOMERS --}}
         @if (!Auth::user()->is_admin)
 
             <ol>
@@ -89,7 +90,7 @@
             </ol>
 
         @else
-
+            {{-- SIDE NAV FOR ADMIN --}}
             <ul>
                 <a href="/admin">
                     <li class="{{ request()->is('admin') ? 'bg-[#D9D9D9] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex items-center gap-5">
@@ -119,8 +120,9 @@
 
                 <br><hr class="border-b-2 mb-2">
 
-                <a href="/admin/catalog">
-                    <li class="{{ request()->is('admin/catalog') ? 'bg-[#D9D9D9] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex items-center gap-5">
+                {{-- CAKE CATALOG --}}
+                <li id="catalog" class="{{ (request()->is('admin/catalog') || request()->is('admin/tags') || request()->is('admin/candle')) ? 'bg-[#eaeaea] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex items-center justify-between cursor-pointer">
+                    <a href="/admin/catalog" class="flex items-center gap-5">
                         <svg
                             class="aspect-square h-6"
                             xmlns="http://www.w3.org/2000/svg"
@@ -129,8 +131,37 @@
                             <path d="M448 160l-128 0 0-32 128 0 0 32zM48 64C21.5 64 0 85.5 0 112l0 64c0 26.5 21.5 48 48 48l416 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48L48 64zM448 352l0 32-256 0 0-32 256 0zM48 288c-26.5 0-48 21.5-48 48l0 64c0 26.5 21.5 48 48 48l416 0c26.5 0 48-21.5 48-48l0-64c0-26.5-21.5-48-48-48L48 288z"/>
                         </svg>
                         <div>Cake Catalog</div>
-                    </li>
-                </a>
+                    </a>
+                    <div id="catalog_rotate" class="transition {{ (request()->is('admin/catalog') || request()->is('admin/tags') || request()->is('admin/candle')) ? '-rotate-90':'' }}  select-none aspect-square h-6 p-1">
+                        <svg
+                            class="h-full"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512">
+                            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                        </svg>
+                    </div>
+                </li>
+
+                <div id="catalog_more" class="{{ (request()->is('admin/catalog') || request()->is('admin/tags') || request()->is('admin/candle')) ? 'block bg-[#eaeaea]':'hidden' }}  select-none">
+                    <hr>
+                    <a href="/admin/catalog">
+                        <li class="{{ request()->is('admin/catalog') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
+                            Cakes
+                        </li>
+                    </a>
+                    <a href="/admin/tags">
+                        <li class="{{ request()->is('admin/tags') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
+                            Tags
+                        </li>
+                    </a>
+                    <a href="/admin/candle">
+                        <li class="{{ request()->is('admin/candle') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
+                            Candle Type
+                        </li>
+                    </a>
+                    <hr>
+                </div>
 
                 <br><hr class="border-b-2 mb-2">
 
