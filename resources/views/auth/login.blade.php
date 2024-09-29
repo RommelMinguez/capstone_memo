@@ -26,7 +26,7 @@
                     <label for="password" class="font-semibold">Password</label>
                     <div class="text-sm font-light text-gray-500"><a href="#">Forgot Password?</a></div>
                 </div>
-                <div class="relative mb-1 mt-1 rounded-sm ">
+                <div class="relative mb-2 mt-1 rounded-sm ">
                     <input type="password" id="password" name="password"  required minlength="6" class="w-full h-9 bg-[#F5D2D2] px-5 ">
                     <div class="absolute h-9 w-9 right-0 top-0 p-2 cursor-pointer " id="show-hide-password">
                         <svg
@@ -49,8 +49,8 @@
                 @enderror
 
                 <div class="mb-8 flex items-center gap-2">
-                    <input {{ old('remember_me') ? 'checked':'' }} type="checkbox" id="remember_me" name="remember_me">
-                    <label for="remember_me">Remember Me</label>
+                    <input {{ old('remember_me') ? 'checked':'' }} type="checkbox" id="remember_me" name="remember_me" class="cursor-pointer">
+                    <label for="remember_me" class="cursor-pointer">Remember Me</label>
                 </div>
 
                 <div class="flex justify-center">

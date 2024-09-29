@@ -32,7 +32,7 @@
                             </svg>
                             <span>Sort</span>
                         </div>
-                        <button type="button" class="p-2 rounded-md bg-[#F55447] text-white shadow-md font-semibold hover:bg-red-500 active:scale-95 flex items-center gap-2">
+                        <button id="addNew" type="button" class="p-2 rounded-md bg-[#F55447] text-white shadow-md font-semibold hover:bg-red-500 active:scale-95 flex items-center gap-2">
                             <svg
                             class="w-4"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -63,66 +63,89 @@
     </div>
 
 
-    <div id="addNew" class="fixed inset-0 bg-black bg-opacity-50 w-screen h-screen z-50 overflow-auto">
-        <div class="w-full h-full flex justify-center pt-10">
-            <div class="border shadow-md p-5 w-[900px] rounded-md bg-[#FFEFF5]">
-                {{-- message - close --}}
-                <div class="flex justify-between items-center">
-                    <div class="font-bold">Add New Cake</div>
-                    <div>
-                        <svg
-                            class="w-3"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 384 512">
-                            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <path fill="#ff0000" d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/>
-                        </svg>
-                    </div>
-                </div>
-                <br><br>
-                {{-- input --}}
-                <form action="">
-                    <div class="flex gap-5">
-                        <div class="w-1/2 bg-gray-100 shadow-sm border p-5 outline-dashed outline-4 -outline-offset-4 rounded-xl flex justify-center items-center flex-col gap-5">
-                            <svg
-                                class="w-20"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512">
-                                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                                <path fill="#aaa" d="M0 96C0 60.7 28.7 32 64 32l384 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6l96 0 32 0 208 0c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/>
-                            </svg>
-                            <div class="flex items-center">
-                                <label for="photo-upload" class="cursor-pointer bg-red-400 text-white p-2 rounded-md focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 hover:bg-red-500 shadow-sm border">
-                                    Upload Photo
-                                </label>
-                                <input id="photo-upload" type="file" class="hidden" accept="image/*" />
-                            </div>
-                        </div>
-                        <div class="w-1/2 h-[500px] bg-[#FEF6E4] shadow-sm border p-5 rounded-sm overflow-auto">
+    <x-cake-create></x-cake-create>
 
-                            <input id="name" name="name" type="text" placeholder="Cake Name..." class="p-2 mb-2 rounded-md shadow-sm border bg-[#EDE7E7] text-xl w-full font-serif font-semibold">
 
-                            <input id="price" name="price" type="number" placeholder="500.00" class="p-2 mb-2 rounded-md shadow-sm border bg-[#EDE7E7] w-32 mr-2">
-                            <label for="price" class="font-semibold">PHP</label>
+    <script>
 
-                            <br><br>
-                            <label for="description">Description</label>
-                            <textarea name="description" id="description" cols="30" rows="5" class="p-2 mb-2 rounded-md shadow-sm border bg-[#EDE7E7] w-full"></textarea>
 
-                            <div class="my-2">Event / Category</div>
-                            <div class="flex gap-1 flex-wrap">
-                                @for($i = 0; $i < 10; $i++)
-                                    <label for="event-tag{{ $i }}" class="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white py-1 px-3 text-sm cursor-pointer rounded-full">
-                                        <input type="checkbox" name="event-tag[]" id="event-tag{{ $i }}" class="appearance-none">
-                                        Birthday
-                                    </label>
-                                @endfor
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+        let createForm = document.getElementById('createForm');
+        let showCreateForm = document.getElementById('addNew');
+        let closeCreateForm = document.getElementById('closeCreate');
+        let closeEditTags = document.getElementById('closeEditTags');
+        let returnEditTags = document.getElementById('returnEditTags');
+        let showEditForm = document.getElementById('showEditForm');
+        let editTagForm = document.getElementById('editTagForm');
+        let cakeForm = document.getElementById('cakeForm');
+
+        showCreateForm.addEventListener('click', function() {
+            document.body.style.overflow = 'hidden';
+            createForm.classList.remove('hidden');
+        });
+        closeCreateForm.addEventListener('click', function() {
+            document.body.style.overflow = 'auto';
+            createForm.classList.add('hidden');
+        });
+        returnEditTags.addEventListener('click', function() {
+            editTagForm.classList.add('hidden');
+            cakeForm.classList.remove('hidden');
+        });
+        closeEditTags.addEventListener('click', function() {
+            editTagForm.classList.add('hidden');
+            cakeForm.classList.remove('hidden');
+            document.body.style.overflow = 'auto';
+            createForm.classList.add('hidden');
+        });
+        showEditForm.addEventListener('click', function() {
+            editTagForm.classList.remove('hidden');
+            cakeForm.classList.add('hidden');
+        });
+
+        // CREATE FORM IMAGE PREVIEW
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const imageIcon = document.getElementById('imageIcon');
+        //const imageCard = document.getElementById('imageCard');
+
+        imageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imagePreview.src = event.target.result;
+                    imagePreview.classList.remove('hidden');
+
+                    imageIcon.classList.add('hidden');
+                    imageIcon.classList.add('bg-black', 'bg-opacity-70');
+                    imageIcon.children[0].classList.add('hidden');
+                    imageIcon.children[1].children[0].textContent = 'Change Image';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.classList.add('hidden');
+
+                imageIcon.classList.remove('hidden');
+                imageIcon.classList.remove('bg-black', 'bg-opacity-50');
+                imageIcon.children[0].classList.remove('hidden');
+                imageIcon.children[1].children[0].textContent = 'Upload Image';
+
+            }
+        });
+
+        // ADDITIONAL OPTION
+        let additionalOption = document.getElementById('additionalOption');
+
+        additionalOption.children[0].addEventListener('click', function() {
+            if (additionalOption.children[1].classList.contains('hidden')) {
+                this.children[1].classList.add('-rotate-90');
+                additionalOption.children[1].classList.remove('hidden');
+            } else {
+                this.children[1].classList.remove('-rotate-90');
+
+                additionalOption.children[1].classList.add('hidden');
+                // additionalOption.children[1].classList.('translate-y-0');
+            }
+        });
+    </script>
 
 </x-layout>

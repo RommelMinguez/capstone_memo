@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('password');
             $table->string('address')->nullable();
+            $table->string('image_src')->nullable();
+            $table->string('gender')->nullable();
+            $table->date('birthday')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();

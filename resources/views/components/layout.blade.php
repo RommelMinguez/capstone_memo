@@ -1,3 +1,5 @@
+@props(['useDatatableCDN' => false])
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +14,18 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/custom-animation.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('fonts/custom-fonts.css') }}">
     <title>Memories Cake</title>
+
+    @if ($useDatatableCDN)
+        <link rel="stylesheet" href="{{ asset('cdn/dataTables.dataTables.min.css') }}">
+        <script src="{{ asset('cdn/jquery-3.5.1.min.js') }}"></script>
+        <script src="{{ asset('cdn/dataTables.min.js') }}"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#dataTableInit').DataTable();
+            });
+        </script>
+    @endif
 
 </head>
 <body class="bg-[#F3D2C1]">
