@@ -103,7 +103,7 @@ class OrderController extends Controller
         session()->forget('order');
 
         if (Auth::user()->is_admin) {
-            return redirect('/admin')->with('success', 'You have place an Order Successfully');
+            return redirect('/admin/orders')->with('success', 'You have place an Order Successfully');
         }
 
         return redirect('/user')->with('success', 'Your Order in now waiting for Confirmation');
