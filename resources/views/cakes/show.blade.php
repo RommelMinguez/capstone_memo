@@ -17,7 +17,7 @@
         </div> --}}
         <div class="w-full flex justify-evenly p-10">
             <div class="w-[540px] h-[740px] bg-gray-400 relative shadow-sm shadow-gray-700" >
-                <img src="{{ asset($cake['image_src']) }}" alt="bakeshop" id="cake-image" class="w-full h-full object-cover">
+                <img src="{{ Storage::url($cake->image_src) }}" alt="bakeshop" id="cake-image" class="w-full h-full object-cover">
             </div>
             <div class="w-[600px] h-[740px] bg-[#FEF6E4] p-10 shadow-sm rounded-md overflow-auto">
                 <div id="cake-name" class="text-3xl font-localLobster mb-2">{{ $cake['name'] }}</div>

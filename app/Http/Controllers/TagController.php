@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 class TagController extends Controller
 {
     public function index() {
-        $tags = Tag::where('is_archived', false)->get();
+        $tags = Tag::where('is_archived', false)->latest()->get();
         $categories = Tag::select('category')->distinct()->get();
 
         return view('user.admin.tags', compact('tags', 'categories'));
@@ -24,13 +24,14 @@ class TagController extends Controller
 
         Tag::create([
             'name' => request()->tag_name,
-            'category' => request()->tag_category,
+            'category' => strtoupper(request()->tag_category)
         ]);
 
         return redirect('admin/tags')->with('success', 'Tag Added Succesfully');
     }
 
     public function update() {
+        //dd(request('edit_id'));
         request()->validate([
             'edit_name' => ['required', Rule::unique('tags', 'name')->ignore(request('edit_id'))],
             'edit_category' => 'required',
@@ -38,7 +39,7 @@ class TagController extends Controller
 
         Tag::find(request()->edit_id)->update([
             'name' => request('edit_name'),
-            'category' => request('edit_category')
+            'category' => strtoupper(request()->edit_category)
         ]);
 
         return redirect('admin/tags')->with('success', 'Tag Edited Succesfully');
@@ -46,9 +47,7 @@ class TagController extends Controller
 
 
     public function destroy() {
-        Tag::find(request()->delete_id)->update([
-            'is_archived' => true
-        ]);
+        Tag::find(request()->delete_id)->delete();
 
         return redirect('admin/tags')->with('success', 'Tag Deleted Succesfully');
     }

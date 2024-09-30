@@ -1,3 +1,5 @@
+@props(['tagGroups'])
+
 <div id="createForm" class="hidden fixed inset-0 bg-black bg-opacity-50 w-screen h-screen z-50 overflow-auto">
     <div class="w-full h-full flex justify-center py-10 overflow-auto">
         <div class="border shadow-md p-5 w-[900px] h-fit rounded-md bg-[#FFEFF5]">
@@ -16,8 +18,11 @@
                     </div>
                 </div>
                 <br><br>
-                {{-- input --}}
-                <form action="">
+
+                <form action="/admin/catalog" method="POST" enctype="multipart/form-data">
+
+                    @csrf
+
                     <div class="flex gap-5">
                         {{-- IMAGE INPUT --}}
                         <div id="imageCard" class="w-1/2 h-[600px] bg-gray-100 shadow-md border outline-dashed outline-4 -outline-offset-4 rounded-xl overflow-hidden flex justify-center items-center cursor-pointer relative group">
@@ -34,7 +39,7 @@
                                     <label for="imageInput" class="cursor-pointer bg-red-400 text-white p-2 rounded-md focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 hover:bg-red-500 shadow-sm border pointer-events-auto">
                                         Upload Photo
                                     </label>
-                                    <input id="imageInput" name="imageInput" type="file" class="hidden" accept="image/*" />
+                                    <input id="imageInput" name="imageInput" type="file" required class="hidden" accept="image/*" />
                                 </div>
                             </div>
 
@@ -43,23 +48,27 @@
                         {{-- CAKE DETAILS INPUTS --}}
                         <div class="w-1/2  bg-[#FEF6E4] shadow-md border p-5 rounded-sm overflow-auto">
 
-                            <input id="name" name="name" type="text" title="Cake Name" placeholder="Chiffon Cake" class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full">
+                            <input id="name" name="name" type="text" title="Cake Name" placeholder="Chiffon Cake" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full">
 
-                            <input id="price" name="price" type="number" title="Price" placeholder="500.00" class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-32 mr-2">
+                            <input id="price" name="price" type="number" title="Price" placeholder="500.00" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-32 mr-2">
                             <label for="price" class="font-semibold">PHP</label>
 
                             <br><br>
                             <label for="description" class="font-semibold">DESCRIPTION:</label>
-                            <textarea name="description" id="description" cols="30" rows="5" title="Cake Description" placeholder="type here..." class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full"></textarea>
+                            <textarea name="description" id="description" cols="30" rows="5" title="Cake Description" placeholder="type here..." required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full"></textarea>
 
                             <br><br>
                             <div class="mb-3 flex justify-between items-end">
                                 <div class="font-semibold">EVENTS:</div>
                             </div>
                             <div class="flex gap-2 flex-wrap">
-                                @for($i = 0; $i < 10; $i++)
-                                    <x-cake-tag tagId="{{ $i }}" tagName="even-tag">Birthday</x-cake-tag>
-                                @endfor
+                                @foreach ($tagGroups as $category => $tags)
+                                    @if ($category == 'EVENT')
+                                        @foreach ($tags as $tag)
+                                            <x-cake-tag tagId="{{ $tag->id }}" tagName="selected-tag">{{ $tag->name }}</x-cake-tag>
+                                        @endforeach
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -83,32 +92,22 @@
                         </div>
                         <div class="m-5 px-10 hidden">
 
-                            <div>Colors:</div>
-                            <div class="flex flex-wrap gap-2 py-2">
-                                @for($i = 0; $i < 10; $i++)
-                                    <x-cake-tag tagId="{{ $i }}" tagName="color-tag">Color</x-cake-tag>
-                                @endfor
-                            </div>
+                            @foreach ($tagGroups as $category => $tags)
+                                @if ($category != 'EVENT')
+                                    <div class="mb-5">
+                                        <div>{{ $category }}</div>
+                                        <div class="flex flex-wrap gap-2 py-2">
+                                            @foreach ($tags as $tag)
+                                                <x-cake-tag tagId="{{ $tag->id }}" tagName="selected-tag">{{ $tag->name }}</x-cake-tag>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
 
-                            <br>
-
-                            <div>Theme:</div>
-                            <div class="flex flex-wrap gap-2 py-2">
-                                @for($i = 0; $i < 10; $i++)
-                                    <x-cake-tag tagId="{{ $i }}" tagName="theme-tag">Theme</x-cake-tag>
-                                @endfor
-                            </div>
-
-                            <br>
-
-                            <div>Other:</div>
-                            <div class="flex flex-wrap gap-2 py-2">
-                                @for($i = 0; $i < 10; $i++)
-                                    <x-cake-tag tagId="{{ $i }}" tagName="other-tag">Other</x-cake-tag>
-                                @endfor
-                            </div>
                         </div>
                     </div>
+
                     {{-- CREATE BUTTON --}}
                     <div class="flex justify-end mt-10 mb-5 gap-5">
                         <button type="reset" class="px-5 py-2 rounded-md border shadow-md font-bold bg-white hover:bg-gray-100 active:scale-95">Cancel</button>

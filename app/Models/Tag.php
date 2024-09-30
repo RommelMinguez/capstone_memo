@@ -11,7 +11,7 @@ class Tag extends Model
 
     protected $guarded = [];
 
-    public function tags()
+    public function cakes()
     {
         return $this->belongsToMany(Cake::class, 'cake_tag');
     }

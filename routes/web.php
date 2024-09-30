@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CakeController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CustomerMiddleware;
+use App\Models\Tag;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -31,16 +33,8 @@ Route::get('/', function () {
 
 
 
-Route::get('/cakes', function () {
-    return view('cakes.index', ['cakes' => Cake::simplePaginate(21)]);
-});
-
-Route::get('/cakes/{cake}', function (Cake $cake) {
-    return view('cakes.show', [
-        'cake' => $cake,
-        'show_modal' => session('showModal'),
-    ]);
-});
+Route::get('/cakes', [CakeController::class, 'index']);
+Route::get('/cakes/{cake}', [CakeController::class, 'show']);
 
 
 Route::get('/register', [RegisteredUserController::class, 'create']);
@@ -79,9 +73,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin/orders', function () {
         return view('user.admin.manage-orders');
     });
-    Route::get('/admin/catalog', function () {
-        return view('user.admin.catalog', ['cakes' => Cake::latest()->simplePaginate(20)]);
-    });
+    Route::get('/admin/catalog', [CakeController::class, 'create']);
+    Route::post('/admin/catalog', [CakeController::class, 'store']);
 
     Route::get('/admin/tags', [TagController::class, 'index']);
     Route::post('/admin/tags', [TagController::class, 'store']);
@@ -124,32 +117,8 @@ Route::view('/test', 'test');
 
 Route::get('/test-query', function() {
     // GET COUNT ON EVERY STATUS
-    $countPerStatus = OrderItem::select('status', DB::raw('count(*) as total'))
-                    ->groupBy('status')
-                    ->pluck('total', 'status')
-                    ->toArray();
-    $statusArr = ['pending', 'baking', 'receive', 'review', 'completed', 'canceled'];
-    $totalOrder = null;
 
-    foreach($statusArr as $status) {
-        if (!array_key_exists($status, $countPerStatus)) {
-            $countPerStatus[$status] = 1;
-        }
-        if($status != 'canceled') {
-            $totalOrder += $countPerStatus[$status];
-        }
-    }
-
-    $bestSeller = OrderItem::join('cakes', 'order_items.cake_id', '=', 'cakes.id')
-                    ->select('cakes.id', 'cakes.name', DB::raw('COUNT(order_items.cake_id) as total_orders'))
-                    ->groupBy('cakes.id', 'cakes.name')
-                    ->orderBy('total_orders', 'DESC')
-                    ->first();
-
-
-    $income = OrderItem::sum('sub_total') - OrderItem::where('status', 'canceled')->sum('sub_total');
-
-    dd($countPerStatus, $bestSeller, $income, $countPerStatus, $totalOrder);
+    dd('ok');
 });
 
 Route::get('/test-upload', function() {
@@ -171,3 +140,9 @@ Route::post('/test-upload', function() {
 })->name('image.store');
 
 
+Route::get('/test2', function() {
+    $test = Tag::all()->groupBy('category');
+
+    foreach($test as $category => $tags)
+    dd($test);
+});

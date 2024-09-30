@@ -6,7 +6,7 @@
     </td>
     <td class="p-5 m-auto">
         <div class="w-48 h-48 shadow-md">
-            <a href="/cakes/{{ $item->cake->id }}"><img src="{{ $item->cake->image_src }}" alt="cake" class="w-full h-full object-cover " ></a>
+            <a href="/cakes/{{ $item->cake->id }}"><img src="{{ Storage::url($item->cake->image_src) }}" alt="cake" class="w-full h-full object-cover " ></a>
         </div>
     </td>
 

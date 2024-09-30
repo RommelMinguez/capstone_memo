@@ -57,14 +57,25 @@
                     @endforeach
                 </div>
                 <div class="my-20 px-20">{{ $cakes->links() }}</div>
+
+                <br><br>
+
             </div>
 
         </main>
     </div>
 
 
-    <x-cake-create></x-cake-create>
+    <x-cake-create :tagGroups="$tagGroups"></x-cake-create>
 
+    @session('success')
+        <x-response-success>{{ session('success') }}</x-response-success>
+    @endsession
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+        <x-response-failed>{{ $error }}</x-response-failed>
+        @endforeach
+    @endif
 
     <script>
 

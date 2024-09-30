@@ -3,7 +3,7 @@
 <tr {{ $attributes->merge(['class' => 'border-y-2'])}}>
     <td class="w-72 p-2">
         <div class="w-60 h-60 m-auto shadow-md border rounded-sm">
-            <a href="/cakes/{{ $item->cake->id }}"><img src="{{ $item->cake->image_src }}" alt="cake" class="w-full h-full object-cover " ></a>
+            <a href="/cakes/{{ $item->cake->id }}"><img src="{{ Storage::url($item->cake->image_src) }}" alt="cake" class="w-full h-full object-cover " ></a>
         </div>
     </td>
     <td class="w-auto px-3">
