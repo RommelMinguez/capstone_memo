@@ -1,7 +1,7 @@
 <nav class="min-w-[300px] w-1/6 min-h-screen bg-white pt-28 shadow-lg shadow-gray-800 relative z-30 hidden md:block">
     <div class="pb-2 border-b-2 mb-5">
         <div class="w-28 h-28 rounded-full border shadow-sm m-auto">
-            <img src="{{ asset('images/new-memo-logo.png') }}" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
+            <img src="{{ Storage::url(Auth::user()->image_src) }}" alt="Profile Picture" class="w-full h-full object-cover rounded-full">
         </div>
         <br>
 

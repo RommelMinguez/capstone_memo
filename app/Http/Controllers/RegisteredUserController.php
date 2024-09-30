@@ -14,7 +14,7 @@ class RegisteredUserController extends Controller
     }
 
     public function store() {
-        $attributes = request()->validate([
+        request()->validate([
             'first_name' => ['required', ],
             'last_name' => ['required', ],
             'email' => ['required', 'email', 'unique:users,email'],
@@ -22,8 +22,17 @@ class RegisteredUserController extends Controller
             'password' => ['required', Password::min(6), 'confirmed'],
         ]);
 
-        $user = User::create($attributes);
+        $user = User::create([
+            'first_name' => request()->first_name,
+            'last_name' => request()->last_name,
+            'email' => request()->email,
+            'phone_number' => request()->phone_number,
+            'password' => bcrypt(request()->password),
+            'image_src' => 'public/images/default/default-profile.jpg'
+        ]);
 
+
+        // public/images/default/memo-cake (1).jpg
         Auth::login($user);
 
         return redirect('user');

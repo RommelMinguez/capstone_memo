@@ -22,7 +22,7 @@ class CakeFactory extends Factory
             'name' => fake()->colorName(),
             'description' => fake()->paragraph(),
             'price' => fake()->randomFloat(2, 100, 2000),
-            'image_src' => 'public/images/memo-cake/memo-cake ('. self::$counter++ .').jpg'
+            'image_src' => 'public/images/default/memo-cake ('. self::$counter++ .').jpg'
         ];
     }
 }

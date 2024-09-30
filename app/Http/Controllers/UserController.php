@@ -36,15 +36,40 @@ class UserController extends Controller
 
     public function updateInfo()
     {
-        $validatedData = request()->validate([
+        request()->validate([
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'email', Rule::unique('users')->ignore(Auth::user()->id)],
             'phone_number' => ['required', 'numeric'],
-            // 'address' => ['required']
+            'imageInput' => 'image|mimes:jpeg,png,jpg,gif|max:10240',
+            'gender' => 'string',
+            'birthday' => 'date'
         ]);
 
-        Auth::user()->update($validatedData);
+        if(request()->imageInput == '') {
+            Auth::user()->update([
+                'first_name' => request()->first_name,
+                'last_name' => request()->last_name,
+                'email' => request()->email,
+                'phone_number' => request()->phone_number,
+                'gender' => request()->gender,
+                'birthday' => request()->birthday,
+            ]);
+        } else {
+
+            $path = request()->file('imageInput')->store('public/images/profile');
+
+            Auth::user()->update([
+                'first_name' => request()->first_name,
+                'last_name' => request()->last_name,
+                'email' => request()->email,
+                'phone_number' => request()->phone_number,
+                'gender' => request()->gender,
+                'birthday' => request()->birthday,
+                'image_src' => $path
+            ]);
+        }
+
 
         return redirect()->back()->with('success', 'Account Information Updated Successfully!');
     }
@@ -70,5 +95,10 @@ class UserController extends Controller
         ]);
 
         return redirect('/user/change-password')->with('success', 'Password Changed Successfully!');
+    }
+
+
+    public function showAddress() {
+        return view('user.address');
     }
 }

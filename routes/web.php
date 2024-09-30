@@ -61,11 +61,16 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::get('/user/change-password', [UserController::class, 'showChangePassword']);
     Route::patch('/user/change-password', [UserController::class, 'updatePassword']);
 
+    Route::get('/user/address', [UserController::class, 'showAddress']);
+
+
     Route::get('/user/cart', [CartController::class, 'index']);
     Route::post('/user/cart', [CartController::class, 'store']);
     Route::patch('/user/cart', [CartController::class, 'remove']);
     Route::put('/user/cart', [CartController::class, 'update']);
     Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);
+
+    Route::post('/user/custom', [CakeController::class, 'customStore']);
 });
 
 

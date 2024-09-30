@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             'phone_number' => '1234567890',
             'password' => 'admin123',
             'address' => 'admin',
+            'image_src' => 'public/images/default/new-memo-logo.jpg',
             'is_admin' => true
         ]);
 

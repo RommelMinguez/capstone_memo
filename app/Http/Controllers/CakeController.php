@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 class CakeController extends Controller
 {
     public function index() {
-        return view('cakes.index', ['cakes' => Cake::simplePaginate(21)]);
+        return view('cakes.index', [
+            'cakes' => Cake::simplePaginate(21),
+            'tagGroups' => Tag::all()->groupBy('category')
+        ]);
     }
 
     public function show(Cake $cake) {
@@ -63,9 +66,16 @@ class CakeController extends Controller
         // Retrieve all records that match the input (case-insensitive)
         $cakes = Cake::where('name', 'LIKE', '%' . $query . '%')->simplePaginate(21);
 
+        $tagGroups = Tag::all()->groupBy('category');
+
         //dd(request()->all(), $cakes);
 
         // Return the search results to the view
-        return view('cakes.index', compact('cakes'));
+        return view('cakes.index', compact('cakes', 'tagGroups'));
+    }
+
+
+    public function customStore() {
+        dd(request()->all());
     }
 }
