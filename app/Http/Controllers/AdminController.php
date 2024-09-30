@@ -44,4 +44,14 @@ class AdminController extends Controller
             'latestOrders' => $latestOrders
         ]);
     }
+
+
+    public function manageOrders() {
+
+        $all = OrderItem::latest()->get();
+
+        return view('user.admin.manage-orders', [
+            'allOrders' => $all,
+        ]);
+    }
 }

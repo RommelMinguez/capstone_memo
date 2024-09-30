@@ -7,8 +7,8 @@
         <div class="w-10/12 ">
             <div class="flex justify-center align-middle gap-10 py-10">
                 <div class="h-14 w-[500px] flex rounded-l-full rounded-r-full">
-                    <form action="" method="GET" class="relative w-full">
-                        <input type="text" placeholder="Search cakes here..." minlength="2" maxlength="25" class="w-full h-full rounded-l-full rounded-r-full px-10">
+                    <form action="/cakes/search" method="GET" class="relative w-full">
+                        <input type="text" name="cake" placeholder="Search cakes here..." value="{{ request('cake') }}"  maxlength="25" class="w-full h-full rounded-l-full rounded-r-full px-10">
                         <button class="absolute right-0 top-0  h-14 w-20 rounded-full bg-[#F44336]">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 m-auto"
                                 viewBox="0 0 512 512">
@@ -39,9 +39,16 @@
                 </x-nav-link>
             </div>
 
+            <hr><br>
+
 
             {{-- CATALOG --}}
             <div class="flex flex-wrap justify-evenly gap-10 ">
+
+                @if ($cakes->isEmpty())
+                    <p>No cakes found matching your search.</p>
+                @endif
+
                 @foreach ($cakes as $cake)
                     <x-cake-card :cake="$cake">
                     </x-cake-card>

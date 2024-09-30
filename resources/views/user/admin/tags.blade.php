@@ -1,4 +1,4 @@
-<x-layout :useDatatableCDN="true">
+<x-layout :useDatatableCDN="true" :category="$categoryArr">
 
     <x-header></x-header>
 
@@ -25,49 +25,51 @@
                 </button>
             </div>
 
-            <div class="p-5">
+            <div class="p-5 flex flex-wrap">
 
-                <div class="bg-[#FFEFF5] rounded-lg h-fit shadow-md shadow-gray-500">
 
-                    <div class="p-5">
+                @foreach ($categories as $category => $tags)
+                    <div class="p-5 w-1/2">
+                        <div class="bg-[#FFEFF5] rounded-lg h-fit shadow-md shadow-gray-500 p-3">
 
-                        <div class="bg-gray-100 rounded-b-xl rounded-tr-xl border shadow-md p-3">
-                            <table id="dataTableInit" class="display border-collapse w-full table-fixed">
-                                <thead>
-                                    <tr class="border-y-2">
-                                        <th class=" w-auto">Tag Name</th>
-                                        <th class=" w-auto">Category</th>
-                                        <th class=" w-auto">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($tags as $tag)
-                                        <tr class="tagData h-10"
-                                            data-id="{{ $tag->id }}"
-                                            data-name="{{ $tag->name }}"
-                                            data-category="{{ $tag->category }}">
-                                            <td class="cursor-pointer text-center">
-                                                <x-cake-tag tagId="{{ $tag->id }}" tagName="tag">{{ $tag->name }}</x-cake-tag>
-                                            </td>
-                                            <td class="cursor-pointer font-bold text-center">
-                                                {{ $tag->category }}
-                                            </td>
-                                            <td >
-                                                <button class="tagEdit py-1 px-3 text-white bg-blue-500 rounded-md shadow-sm mr-2 hover:bg-blue-600 active:scale-95">
-                                                    EDIT
-                                                </button>
-                                                <button class="tagDelete py-1 px-3 text-white bg-red-500 rounded-md shadow-sm mr-2 hover:bg-red-600 active:scale-95">
-                                                    DELETE
-                                                </button>
-                                            </td>
+                            <div class="flex justify-between">
+                                <div class="font-bold px-5 text-lg mb-5">{{ $category }}</div>
+                            </div>
+
+                            <div class="bg-gray-100 rounded-xl border shadow-md p-3">
+                                <table id="{{ $category }}" class="display border-collapse w-full table-fixed">
+                                    <thead>
+                                        <tr class="border-y-2">
+                                            <th class=" w-auto">Tag Name</th>
+                                            <th class=" w-auto">Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($tags as $tag)
+                                            <tr class="tagData h-10"
+                                                data-id="{{ $tag->id }}"
+                                                data-name="{{ $tag->name }}"
+                                                data-category="{{ $tag->category }}">
+                                                <td class="cursor-pointer text-center">
+                                                    <x-cake-tag tagId="{{ $tag->id }}" tagName="tag">{{ $tag->name }}</x-cake-tag>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button class="tagEdit py-1 px-3 text-xs text-white bg-blue-500 rounded-md shadow-md mr-2 hover:bg-blue-600 active:scale-95">
+                                                        EDIT
+                                                    </button>
+                                                    <button class="tagDelete py-1 px-3 text-xs text-white bg-red-500 rounded-md shadow-md mr-2 hover:bg-red-600 active:scale-95">
+                                                        DELETE
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-
                     </div>
-                </div>
+                @endforeach
+
 
             </div>
 

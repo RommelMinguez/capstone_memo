@@ -9,10 +9,15 @@ use Illuminate\Validation\Rule;
 class TagController extends Controller
 {
     public function index() {
-        $tags = Tag::where('is_archived', false)->latest()->get();
-        $categories = Tag::select('category')->distinct()->get();
 
-        return view('user.admin.tags', compact('tags', 'categories'));
+        $categories = Tag::select('*')->get()->groupBy('category');
+
+        $categoryArr = [];
+        foreach($categories as $category => $tags) {
+            $categoryArr[] = $category;
+        }
+
+        return view('user.admin.tags', compact('categoryArr', 'categories'));
     }
 
     public function store() {

@@ -34,6 +34,7 @@ Route::get('/', function () {
 
 
 Route::get('/cakes', [CakeController::class, 'index']);
+Route::get('/cakes/search', [CakeController::class, 'search']);
 Route::get('/cakes/{cake}', [CakeController::class, 'show']);
 
 
@@ -70,9 +71,8 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
 
 Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin', [AdminController::class, 'dashboard']);
-    Route::get('/admin/orders', function () {
-        return view('user.admin.manage-orders');
-    });
+    Route::get('/admin/orders', [AdminController::class, 'manageOrders']);
+
     Route::get('/admin/catalog', [CakeController::class, 'create']);
     Route::post('/admin/catalog', [CakeController::class, 'store']);
 

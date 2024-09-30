@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="bg-gray-100 rounded-b-xl rounded-tr-xl border shadow-md p-3">
-                            <table id="dataTableInit" class="display border-collapse w-full table-fixed">
+                            <table id="order_all" class="display border-collapse w-full table-fixed">
                                 <thead>
                                     <tr class="border-y-2">
                                         <th class=" w-14">ID</th>
@@ -57,9 +57,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for($i = 0; $i < 100; $i++)
+                                    @foreach($allOrders as $order)
                                         <tr class="orderDetails border-b">
-                                            <td class="cursor-pointer">{{ $i }}</td>
+                                            <td class="cursor-pointer">{{ $order->id }}</td>
                                             <td class="cursor-pointer">Juan Dela Cruz</td>
                                             <td class="cursor-pointer">Vanilla Cake</td>
                                             <td class="cursor-pointer">2024/09/24</td>
@@ -72,7 +72,7 @@
                                                 </select>
                                             </td>
                                         </tr>
-                                    @endfor
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

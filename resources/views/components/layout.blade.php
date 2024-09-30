@@ -1,5 +1,6 @@
 @props([
     'useDatatableCDN' => false,
+    'category' => [],
 ])
 
 <!DOCTYPE html>
@@ -24,13 +25,27 @@
 
         <script>
             $(document).ready(function () {
-                $('#dataTableInit').DataTable();
+                $('#order_all').DataTable({
+                    "order": [[0, "desc"]]
+                });
+
+
+                let categoryArr = {!! json_encode($category) !!};
+
+
+                for (let i = 0; i < categoryArr.length; i++) {
+                    $('#' + categoryArr[i]).DataTable({
+                        "order": [[0, "asc"]]
+                    });
+                }
+
             });
         </script>
     @endif
 
 </head>
 <body class="bg-[#F3D2C1]">
+
 
     {{ $slot }}
 

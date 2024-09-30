@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tag;
 use App\Models\User;
 use App\Models\Cake;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -28,35 +29,25 @@ class DatabaseSeeder extends Seeder
 
         Cake::factory(5)->create();
 
-        // Cake::factory()->create([
-        //     'name' => 'cake 1',
-        //     'description' => 'this is a cake',
-        //     'price' => 140,
-        //     'image_src' => '/images/cakes/memo-cake (1).jpg',
-        // ]);
-        // Cake::factory()->create([
-        //     'name' => 'cake 2',
-        //     'description' => 'this is a cake',
-        //     'price' => 140,
-        //     'image_src' => '/images/cakes/memo-cake (2).jpg',
-        // ]);
-        // Cake::factory()->create([
-        //     'name' => 'cake 3',
-        //     'description' => 'this is a cake',
-        //     'price' => 140,
-        //     'image_src' => '/images/cakes/memo-cake (3).jpg',
-        // ]);
-        // Cake::factory()->create([
-        //     'name' => 'cake 4',
-        //     'description' => 'this is a cake',
-        //     'price' => 140,
-        //     'image_src' => '/images/cakes/memo-cake (4).jpg',
-        // ]);
-        // Cake::factory()->create([
-        //     'name' => 'cake 5',
-        //     'description' => 'this is a cake',
-        //     'price' => 140,
-        //     'image_src' => '/images/cakes/memo-cake (5).jpg',
-        // ]);
+        Tag::create([
+           'name' => 'Birthday',
+           'category' => "EVENT"
+        ]);
+        Tag::create([
+           'name' => 'Anniversary',
+           'category' => "EVENT"
+        ]);
+        Tag::create([
+           'name' => 'Wedding',
+           'category' => "EVENT"
+        ]);
+        Tag::create([
+           'name' => 'Graduation',
+           'category' => "EVENT"
+        ]);
+        Tag::create([
+           'name' => 'Holiday',
+           'category' => "EVENT"
+        ]);
     }
 }

@@ -49,4 +49,23 @@ class CakeController extends Controller
         return redirect()->back()->with('success', "New Cake is Added Successfully.");
 
     }
+
+    public function search() {
+
+
+        request()->validate([
+            'cake' => 'max:25',
+        ]);
+
+        // Get the search query
+        $query = request()->input('cake');
+
+        // Retrieve all records that match the input (case-insensitive)
+        $cakes = Cake::where('name', 'LIKE', '%' . $query . '%')->simplePaginate(21);
+
+        //dd(request()->all(), $cakes);
+
+        // Return the search results to the view
+        return view('cakes.index', compact('cakes'));
+    }
 }

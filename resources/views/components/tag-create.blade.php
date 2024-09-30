@@ -31,8 +31,8 @@
                     <input type="text" list="categories" id="tag_category" name="tag_category" required placeholder="Event" class="p-2 border rounded-md shadow-sm w-60">
 
                     <datalist id="categories">
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->category }}">
+                        @foreach ($categories as $category => $tag)
+                            <option value="{{ $category }}">
                         @endforeach
                     </datalist>
                 </div>
