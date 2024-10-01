@@ -46,7 +46,7 @@
                 {{-- <li class="hover:bg-[rgb(217,217,217)] px-10 py-3 font-semibold">Custom Design</li> --}}
                 <br><hr class="border-b-2 mb-2">
 
-                <li id="profile" class="{{ request()->is('user/info') || request()->is('user/change-password') ? 'bg-[#eaeaea] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex justify-between">
+                <li id="profile" class="{{ request()->is('user/info') || request()->is('user/change-password') ? 'bg-[#eaeaea] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex justify-between cursor-pointer">
                     <a href="/user/info" class="flex items-center gap-5">
                         <svg
                             class="aspect-square h-6"

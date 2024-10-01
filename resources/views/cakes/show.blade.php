@@ -31,17 +31,15 @@
                 {{-- DESCRIPTION --}}
                 <div class="mb-1 w-full h-9 overflow-hidden" style="box-shadow: inset 0px -5px 5px -5px gray" id="cake-desc">
                     {{ $cake['description']}}
-                    <div class="py-3 flex flex-wrap gap-2">
-                        <form action="/cakes/search" method="GET" id="tag_form">
-                            @foreach ($cake->tags as $tag)
+                    <form action="/cakes/search" method="GET" id="tag_form" class="py-3 flex flex-wrap gap-1">
+                        @foreach ($cake->tags as $tag)
 
-                                <button type="submit">
-                                    <x-cake-tag tagId="{{ $tag->id }}" tagName="selected-tag">{{ $tag->name }}</x-cake-tag>
-                                </button>
+                            <button type="submit">
+                                <x-cake-tag tagId="{{ $tag->id }}" tagName="selected-tag">{{ $tag->name }}</x-cake-tag>
+                            </button>
 
-                            @endforeach
-                        </form>
-                    </div>
+                        @endforeach
+                    </form>
                 </div>
                 <button class="mb-5 font-semibold underline" id="show-hide-desc"> Show more </button>
                 <hr class="border-2 border-gray-400">

@@ -111,7 +111,7 @@ class CakeController extends Controller
 
 
     public function customStore() {
-        dd(request()->all());
+        dd(request()->all(), 'todo');
     }
 
 
