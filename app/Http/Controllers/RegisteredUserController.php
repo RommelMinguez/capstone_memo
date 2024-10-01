@@ -6,10 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Session;
 
 class RegisteredUserController extends Controller
 {
     public function create() {
+        if(Auth::check()) {
+            if(Auth::user()->is_admin) {
+                return redirect('/admin');
+            }
+            return redirect('/user');
+        }
+
         return view('auth.register');
     }
 
@@ -31,9 +39,11 @@ class RegisteredUserController extends Controller
             'image_src' => 'public/images/default/default-profile.jpg'
         ]);
 
-
-        // public/images/default/memo-cake (1).jpg
         Auth::login($user);
+
+        if(Session::has('url.intended')) {
+            return redirect(Session::get('url.intended'));
+        }
 
         return redirect('user');
     }

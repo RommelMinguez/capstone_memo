@@ -111,6 +111,10 @@ class OrderController extends Controller
 
     public function buyNow()
     {
+        if (!Auth::check()) {
+            return redirect()->guest(route('login'))->with('url.intented', url()->current());
+        }
+
         request()->validate([
             'age' => ['required', 'integer', 'min:0', 'max:150'],
             'candle' => ['required'],

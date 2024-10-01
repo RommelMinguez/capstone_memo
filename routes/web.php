@@ -46,10 +46,14 @@ Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
 
 
+Route::post('/user/order/now', [OrderController::class, 'buyNow']);
+Route::post('/user/cart', [CartController::class, 'store']);
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/order', [OrderController::class, 'create']);
     Route::post('/user/order', [OrderController::class, 'store']);
-    Route::post('/user/order/now', [OrderController::class, 'buyNow']);
+
 });
 
 
@@ -65,7 +69,7 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
 
 
     Route::get('/user/cart', [CartController::class, 'index']);
-    Route::post('/user/cart', [CartController::class, 'store']);
+
     Route::patch('/user/cart', [CartController::class, 'remove']);
     Route::put('/user/cart', [CartController::class, 'update']);
     Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);

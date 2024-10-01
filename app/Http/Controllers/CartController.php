@@ -29,6 +29,10 @@ class CartController extends Controller
 
     public function store()
     {
+        if (!Auth::check()) {
+            return redirect()->guest(route('login'))->with('url.intented', url()->current());
+        }
+
         request()->validate([
             'age' => ['required', 'integer', 'min:0', 'max:150'],
             'candle' => ['required'],

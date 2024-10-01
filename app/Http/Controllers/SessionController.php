@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Session;
 
 
 class SessionController extends Controller
 {
     public function create() {
+        if(Auth::check()) {
+            if(Auth::user()->is_admin) {
+                return redirect('/admin');
+            }
+            return redirect('/user');
+        }
+
         return view('auth.login');
     }
 
@@ -29,6 +38,10 @@ class SessionController extends Controller
 
         if (Auth::user()->is_admin) {
             return redirect('/admin');
+        }
+
+        if(Session::has('url.intended')) {
+            return redirect(Session::get('url.intended'));
         }
 
         return redirect('/user');
