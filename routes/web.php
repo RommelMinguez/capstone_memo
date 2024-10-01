@@ -84,6 +84,7 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 
     Route::get('/admin/catalog', [CakeController::class, 'create']);
     Route::post('/admin/catalog', [CakeController::class, 'store']);
+    Route::get('/admin/catalog/search', [CakeController::class, 'searchCatalog']);
 
     Route::get('/admin/tags', [TagController::class, 'index']);
     Route::post('/admin/tags', [TagController::class, 'store']);

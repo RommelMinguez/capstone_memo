@@ -7,7 +7,7 @@
         <div class="w-10/12 ">
             <div class="flex justify-center align-middle gap-10 py-10">
                 <div class="h-14 w-[500px] flex rounded-l-full rounded-r-full">
-                    <form action="/cakes/search" method="GET" class="relative w-full">
+                    <form action="/cakes/search" method="GET" id="search_form" class="relative w-full">
                         <input type="text" name="cake" placeholder="Search cakes here..." value="{{ request('cake') }}"  maxlength="25" class="w-full h-full rounded-l-full rounded-r-full px-10">
                         <button class="absolute right-0 top-0  h-14 w-20 rounded-full bg-[#F44336]">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 m-auto"
@@ -64,15 +64,30 @@
             <div class="my-20 px-20">{{ $cakes->links() }}</div>
         </div>
 
-        {{-- RIGHT NAV --}}
+        {{-- RIGHT NAV text-[#F44336] --}}
         <div class="py-20 ">
-            <ol class="flex text-right flex-col justify-end gap-5 text-[#F44336] text-lg font-semibold sticky top-36">
-                <li><a href="#">Birthday</a></li>
-                <li><a href="#">Anniversary</a></li>
-                <li><a href="#">Wedding</a></li>
-                <li><a href="#">Graduation</a></li>
-                <li><a href="#">Holiday</a></li>
-            </ol>
+            <ul class="flex text-right flex-col justify-end gap-5 text-lg text-[#CAAEAC]  font-semibold sticky top-36">
+                @foreach ($tagGroups as $category => $tags)
+                    @if ($category == "EVENT")
+                        @foreach ($tags as $tag)
+                            <li class="pr-7 relative hover:text-[#F44336]">
+                                <label for="{{ $tag->id }}" class="search_tag_label cursor-pointer">
+                                    {{ $tag->name }}
+                                    <span class="absolute right-0 -top-1 text-2xl">•</span>
+                                </label>
+                                <input
+                                    form="search_form"
+                                    type="checkbox"
+                                    id="{{ $tag->id }}"
+                                    name="selected-tag[]"
+                                    value="{{ $tag->id }}"
+                                    {{ (!empty(request('selected-tag')) && in_array($tag->id, request('selected-tag'))) ? 'checked':'' }}
+                                    class="hidden search_tag_btn">
+                            </li>
+                        @endforeach
+                    @endif
+                @endforeach
+            </ul>
         </div>
     </div>
 
@@ -146,6 +161,24 @@
                 additionalOption.children[1].classList.add('hidden');
                 // additionalOption.children[1].classList.('translate-y-0');
             }
+        });
+
+        // SEARCH TAG
+        let btn_tag = document.querySelectorAll('.search_tag_btn');
+        let label_tag = document.querySelectorAll('.search_tag_label');
+        let search_form = document.getElementById('search_form');
+        btn_tag.forEach((element, index) => {
+            if (element.checked) {
+                label_tag[index].classList.add('text-[#F44336]');
+            }
+            element.addEventListener('change', function() {
+                btn_tag.forEach(el => {
+                    el.checked = false;
+                });
+                element.checked = true;
+                label_tag[index].classList.add('text-[#F44336]');
+                search_form.submit();
+            })
         });
     </script>
 

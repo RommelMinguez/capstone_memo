@@ -16,9 +16,11 @@
             </svg>
         </div> --}}
         <div class="w-full flex justify-evenly p-10">
+            {{-- IMAGE --}}
             <div class="w-[540px] h-[740px] bg-gray-400 relative shadow-sm shadow-gray-700" >
                 <img src="{{ Storage::url($cake->image_src) }}" alt="bakeshop" id="cake-image" class="w-full h-full object-cover">
             </div>
+            {{-- DETAILS --}}
             <div class="w-[600px] h-[740px] bg-[#FEF6E4] p-10 shadow-sm rounded-md overflow-auto">
                 <div id="cake-name" class="text-3xl font-localLobster mb-2">{{ $cake['name'] }}</div>
                 <div class="mb-5 text-lg">* * * * * (0)</div>
@@ -26,8 +28,20 @@
                     <span class="mr-1 text-2xl">&#8369;</span>
                     {{ $cake['price'] }}
                 </div>
+                {{-- DESCRIPTION --}}
                 <div class="mb-1 w-full h-9 overflow-hidden" style="box-shadow: inset 0px -5px 5px -5px gray" id="cake-desc">
                     {{ $cake['description']}}
+                    <div class="py-3 flex flex-wrap gap-2">
+                        <form action="/cakes/search" method="GET" id="tag_form">
+                            @foreach ($cake->tags as $tag)
+
+                                <button type="submit">
+                                    <x-cake-tag tagId="{{ $tag->id }}" tagName="selected-tag">{{ $tag->name }}</x-cake-tag>
+                                </button>
+
+                            @endforeach
+                        </form>
+                    </div>
                 </div>
                 <button class="mb-5 font-semibold underline" id="show-hide-desc"> Show more </button>
                 <hr class="border-2 border-gray-400">

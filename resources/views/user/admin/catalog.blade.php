@@ -9,9 +9,20 @@
         <main class=" w-5/6">
             <div class="bg-[#ffdab9] shadow-md  pt-24 px-10 pb-4">
                 <div class="flex justify-between items-center">
-                    <div class="font-bold text-xl">Cake Catalog</div>
+                    <div class="font-bold text-xl">Manage Cakes</div>
                     <div class="flex gap-5 text-sm">
-                        <input type="text" class="w-80 p-2 rounded-md border shadow-md" placeholder="Search Here...">
+                        <form action="/admin/catalog/search" method="GET" class="relative">
+                            <input type="text" name="cake" maxlength="25" value="{{ request()->cake }}" class="w-80 p-2 rounded-md border shadow-md" placeholder="Search Here...">
+                            <button>
+                                <svg
+                                    class="w-5 absolute right-3 top-2"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512">
+                                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                                </svg>
+                            </button>
+                        </form>
                         <div class="font-semibold flex items-center gap-1 hover:text-red-500 hover:fill-red-500 hover:underline  cursor-pointer ">
                             <svg
                                 class="w-4"
@@ -52,6 +63,11 @@
             {{-- CATALOG --}}
             <div class="bg-[#FFEFF5] rounded-lg shadow-md shadow-gray-500 m-5 p-10">
                 <div class=" flex flex-wrap justify-center gap-10">
+
+                    @if ($cakes->isEmpty())
+                        <p>No cakes found matching your search.</p>
+                    @endif
+
                     @foreach ($cakes as $cake)
                         <x-cake-card :cake="$cake" size="small"></x-cake-card>
                     @endforeach

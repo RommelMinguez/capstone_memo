@@ -121,7 +121,7 @@
                 <br><hr class="border-b-2 mb-2">
 
                 {{-- CAKE CATALOG --}}
-                <li id="catalog" class="{{ (request()->is('admin/catalog') || request()->is('admin/tags') || request()->is('admin/candle')) ? 'bg-[#eaeaea] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex items-center justify-between cursor-pointer">
+                <li id="catalog" class="{{ (request()->is('admin/catalog*') || request()->is('admin/tags') || request()->is('admin/candle')) ? 'bg-[#eaeaea] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex items-center justify-between cursor-pointer">
                     <a href="/admin/catalog" class="flex items-center gap-5">
                         <svg
                             class="aspect-square h-6"
@@ -132,7 +132,7 @@
                         </svg>
                         <div>Cake Catalog</div>
                     </a>
-                    <div id="catalog_rotate" class="transition {{ (request()->is('admin/catalog') || request()->is('admin/tags') || request()->is('admin/candle')) ? '-rotate-90':'' }}  select-none aspect-square h-6 p-1">
+                    <div id="catalog_rotate" class="transition {{ (request()->is('admin/catalog*') || request()->is('admin/tags') || request()->is('admin/candle')) ? '-rotate-90':'' }}  select-none aspect-square h-6 p-1">
                         <svg
                             class="h-full"
                             xmlns="http://www.w3.org/2000/svg"
@@ -143,10 +143,10 @@
                     </div>
                 </li>
 
-                <div id="catalog_more" class="{{ (request()->is('admin/catalog') || request()->is('admin/tags') || request()->is('admin/candle')) ? 'block bg-[#eaeaea]':'hidden' }}  select-none">
+                <div id="catalog_more" class="{{ (request()->is('admin/catalog*') || request()->is('admin/tags') || request()->is('admin/candle')) ? 'block bg-[#eaeaea]':'hidden' }}  select-none">
                     <hr>
                     <a href="/admin/catalog">
-                        <li class="{{ request()->is('admin/catalog') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
+                        <li class="{{ request()->is('admin/catalog*') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
                             Cakes
                         </li>
                     </a>
