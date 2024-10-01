@@ -90,10 +90,13 @@
         let form_customCake = document.getElementById('customCake_form');
         let btn_closeCreateForm = document.getElementById('closeCreate');
 
-        btn_customCake.addEventListener('click', function() {
-            document.body.style.overflow = 'hidden';
-            form_customCake.classList.remove('hidden');
-        });
+        if (btn_customCake) {
+            btn_customCake.addEventListener('click', function() {
+                document.body.style.overflow = 'hidden';
+                form_customCake.classList.remove('hidden');
+            });
+        }
+
         btn_closeCreateForm.addEventListener('click', function() {
             document.body.style.overflow = 'auto';
             form_customCake.classList.add('hidden');

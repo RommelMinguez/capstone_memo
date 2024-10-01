@@ -42,7 +42,9 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         if(Session::has('url.intended')) {
-            return redirect(Session::get('url.intended'));
+            $path = Session::get('url.intended');
+            Session::forget('url.intended');
+            return redirect($path);
         }
 
         return redirect('user');
