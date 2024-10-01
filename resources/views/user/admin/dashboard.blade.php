@@ -209,6 +209,10 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                        @if (count($latestOrders) == 0)
+                            <p class="p-5 text-center">No Records Found.</p>
+                        @endif
                     </div>
                 </div>
 
