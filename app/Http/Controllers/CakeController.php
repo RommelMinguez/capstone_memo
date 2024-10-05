@@ -11,7 +11,7 @@ class CakeController extends Controller
     public function index() {
         return view('cakes.index', [
             'cakes' => Cake::simplePaginate(21),
-            'tagGroups' => Tag::all()->groupBy('category')
+            'tagGroups' => Tag::all()->groupBy('category'),
         ]);
     }
 
@@ -82,8 +82,10 @@ class CakeController extends Controller
         // // Retrieve all records that match the input (case-insensitive)
         // $cakes = Cake::where('name', 'LIKE', '%' . $query . '%')->simplePaginate(21);
 
+        //dd(request()->all());
+
         $searchText = request()->input('cake');
-        $tagIds = request()->input('selected-tag');
+        $tagIds = request()->input('selected-tag', []);
 
         $cakes = Cake::with('tags')
             ->where(function($query) use ($searchText) {
@@ -101,12 +103,13 @@ class CakeController extends Controller
             });
         }
 
+        $selectedTags = Tag::whereIn('id', $tagIds)->get();
         $cakes = $cakes->simplePaginate(21);
         $tagGroups = Tag::all()->groupBy('category');
 
         //dd(request()->all(), $cakes, request('selected-tag'), empty(request('selected-tag')));
 
-        return view('cakes.index', compact('cakes', 'tagGroups'));
+        return view('cakes.index', compact('cakes', 'tagGroups', 'selectedTags'));
     }
 
 

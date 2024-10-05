@@ -4,7 +4,7 @@
     <main class="pt-20 pb-40 w-full bg-white px-20">
         <div class="pt-10 pb-5">
             <div class="text-3xl font-bold">YOUR CART</div>
-            <p class="text-lg">PLEASE CHECK YOUR PREFERED DELIVERY DATE & TIME</p>
+            <p class="text-lg">PLEASE CHECK  CORRECT DETAILS BEFORE CONFIRMING</p>
         </div>
 
 

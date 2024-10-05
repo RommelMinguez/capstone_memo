@@ -23,6 +23,15 @@
                 <li><a href="#">Holiday</a></li>
             </ol>
         </div>
-        <div>CONTACT</div>
+        <div>
+            <h3 class="font-bold mb-7">CONTACT US</h3>
+            <ol>
+                <li><a href="#">Email: info@memoriescake.com</a></li>
+                <li><a href="#">Phone: 0987 654 3210</a></li>
+                <li><a href="#">FB Page: Memories Cake</a></li>
+                <li><a href="#">Instagram: {{ _('@memoriescake') }}</a></li>
+            </ol>
+        </div>
+
     </div>
 </footer>

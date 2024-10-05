@@ -1,4 +1,4 @@
-<header class="bg-[#ffdab9] border-b-2 border-[#fffcdb] fixed inset-0 h-fit  z-50 shadow-sm shadow-gray-500">
+<header class="bg-[#ffdab9] border-b-2 border-[#fffcdb] fixed inset-0 h-fit  z-50 shadow-sm shadow-gray-400">
     <div class="min-w-full mx-auto flex items-center justify-between py-3  lg:px-10 px-5">
         <!-- Left side: Logo and Name -->
         <div class="flex items-center">
