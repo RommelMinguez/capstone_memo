@@ -3,9 +3,9 @@
     <x-header></x-header>
 
 
-    <div class="bg-[#ffdab9] w-full pt-20 shadow-md">
+    <div class="bg-[#ffdab9] w-full pt-20 shadow-sm">
         <form action="/cakes/search" method="GET" id="search_form">
-            <div class="flex justify-center align-middle gap-10 pb-5 pt-2">
+            <div class="flex justify-center align-middle gap-10 pb-5 pt-2 border-b-2">
                  {{-- SEARCH --}}
                 <div class="h-10 flex rounded-l-full rounded-r-full relative shadow-sm w-3/4 hover:shadow-md">
                     <input type="text" name="cake" placeholder="Search cakes here..." value="{{ request('cake') }}"  maxlength="200" class="w-full h-full rounded-l-full rounded-r-full px-10">
@@ -32,7 +32,7 @@
                     128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"/>
                 </svg>
             </div>
-            <div id="filter-content" class="hidden border-t-2 p-10">
+            <div id="filter-content" class="hidden p-10">
                 @foreach ($tagGroups as $category => $tags)
                     <div class="mb-5">
                         <div class="font-semibold">{{ $category }}</div>
