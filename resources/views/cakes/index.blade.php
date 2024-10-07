@@ -32,7 +32,7 @@
                     128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"/>
                 </svg>
             </div>
-            <div id="filter-content" class=" p-10">
+            <div id="filter-content" class="hidden p-10">
                 <div class="w-full flex">
                     <div class="w-3/4">
                         @foreach ($tagGroups as $category => $tags)
