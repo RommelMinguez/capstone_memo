@@ -32,17 +32,35 @@
                     128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"/>
                 </svg>
             </div>
-            <div id="filter-content" class="hidden p-10">
-                @foreach ($tagGroups as $category => $tags)
-                    <div class="mb-5">
-                        <div class="font-semibold">{{ $category }}</div>
-                        <div class="flex flex-wrap gap-2 py-2">
-                            @foreach ($tags as $tag)
-                                <x-cake-tag tagId="{{ $tag->id }}" tagName="selected-tag">{{ $tag->name }}</x-cake-tag>
-                            @endforeach
+            <div id="filter-content" class=" p-10">
+                <div class="w-full flex">
+                    <div class="w-3/4">
+                        @foreach ($tagGroups as $category => $tags)
+                            <div class="mb-5">
+                                <div class="font-semibold">{{ $category }}</div>
+                                <div class="flex flex-wrap gap-2 py-2">
+                                    @foreach ($tags as $tag)
+                                        <x-cake-tag tagId="{{ $tag->id }}" tagName="selected-tag">{{ $tag->name }}</x-cake-tag>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="w-1/4 px-5">
+                        <div class="font-semibold"> SORT BY</div>
+                        <div class="flex flex-col gap-3 p-5">
+                            <label>
+                                <input checked type="radio" name="sort" class="mr-3 w-3 h-3" value="latest"> Latest
+                            </label>
+                            <label>
+                                <input {{ request('sort') == 'alphabetical' ? 'checked':'' }} type="radio" name="sort" class="mr-3 w-3 h-3" value="alphabetical"> Alphabetical
+                            </label>
+                            <label>
+                                <input {{ request('sort') == 'rating' ? 'checked':'' }} type="radio" name="sort" class="mr-3 w-3 h-3" value="rating"> Rating
+                            </label>
                         </div>
                     </div>
-                @endforeach
+                </div>
 
                 <div class="text-end">
                     <button class="py-2 px-5 bg-red-500 rounded-md shadow-md font-semibold text-white hover:bg-red-600 active:scale-95">Apply</button>

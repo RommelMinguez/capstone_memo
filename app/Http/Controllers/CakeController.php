@@ -10,7 +10,7 @@ class CakeController extends Controller
 {
     public function index() {
         return view('cakes.index', [
-            'cakes' => Cake::simplePaginate(21),
+            'cakes' => Cake::latest()->simplePaginate(21),
             'tagGroups' => Tag::all()->groupBy('category'),
         ]);
     }
@@ -101,6 +101,19 @@ class CakeController extends Controller
                     $query->whereIn('tags.id', $tagIds);
                 }
             });
+        }
+
+        if (!empty(request('sort'))) {
+            switch (request('sort')) {
+                case 'latest':
+                    $cakes->orderBy('created_at', 'desc');
+                    break;
+                case 'alphabetical':
+                    $cakes->orderBy('name', 'asc');
+                    break;
+                default:
+                    // todo sort by rating
+            }
         }
 
         $selectedTags = Tag::whereIn('id', $tagIds)->get();
