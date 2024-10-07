@@ -1,8 +1,10 @@
 @props(['item'])
 
+
 <tr class="border-y-2 cart-row">
     <td class="text-center">
-        <input checked title="Select Item" name="order[]" form="form-order" type="checkbox" data-price="{{ $item->cake->price * $item->quantity }}" value="{{ $item->id }}" class="w-8 h-8 text-[#F44336] cursor-pointer cart-check-box">
+        {{-- data-price="{{ $item->cake->price * $item->quantity }}" --}}
+        <input checked title="Select Item" name="order[]" form="form-order" type="checkbox" value="{{ $item->id }}" class="w-8 h-8 text-[#F44336] cursor-pointer cart-check-box">
     </td>
     <td class="p-5 m-auto">
         <div class="w-48 h-48 shadow-md">
@@ -103,8 +105,9 @@
                     </svg>
                 </button>
             </div>
-            <div class="font-semibold text-2xl pt-5 pb-10 text-red-500">
-               Remove <span class="underline">{{ $item->cake->name }}</span> to the cart?
+            <div class="font-semibold text-2xl pt-5 pb-10 px-10 text-red-500">
+               {{-- Remove <span class="underline">{{ $item->cake->name }}</span> to the cart? --}}
+               Remove Item?
             </div>
             <div class="flex justify-center gap-5">
                 <x-nav-link :isButton='true' type="button" class="confirm-remove">REMOVE</x-nav-link>

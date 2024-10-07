@@ -17,7 +17,7 @@ class OrderController extends Controller
     public function create()
     {
         if(!session('order')) {
-            return redirect('user/cart');
+            return redirect('user/cart')->with('error', 'Please Select an Item.');
         }
 
         $items = CartItem::whereIn('id', session('order'))->with('cake')->get();

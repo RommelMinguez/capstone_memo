@@ -4,26 +4,32 @@
  let checkBox = document.querySelectorAll('.cart-check-box');
  let cartItems = document.querySelectorAll('.cart-row');
  let subTotal = document.querySelectorAll('.sub-total');
- let total = document.getElementById('total-price').getAttribute('data-total');
+//  let total = document.getElementById('total-price').getAttribute('data-total');
+ let total = 0;
  let displayTotal = document.getElementById('display-total');
  document.addEventListener('DOMContentLoaded', function() {
      checkBox.forEach((element, index) => {
          if (element.checked) {
              cartItems[index].classList.add('bg-[#FEF6E4]');
          }
+
+         total += priceArr[index]['price'] * priceArr[index]['quantity'];
+
          element.addEventListener('click', function() {
              if (element.checked) {
                  cartItems[index].classList.add('bg-[#FEF6E4]');
                  subTotal[index].classList.remove('hidden');
 
-                 total += +checkBox[index].getAttribute('data-price');
-                 displayTotal.textContent = total;
+                //  total += +checkBox[index].getAttribute('data-price');
+                 total += priceArr[index]['price'] * priceArr[index]['quantity'];
+                 displayTotal.textContent = total.toFixed(2);
              } else {
                  cartItems[index].classList.remove('bg-[#FEF6E4]');
                  subTotal[index].classList.add('hidden');
 
-                 total -= +checkBox[index].getAttribute('data-price');
-                 displayTotal.textContent = total;
+                //  total -= +checkBox[index].getAttribute('data-price');
+                 total -= priceArr[index]['price'] * priceArr[index]['quantity'];
+                 displayTotal.textContent = total.toFixed(2);
              }
          })
      });
@@ -62,14 +68,14 @@
  let quantity = document.querySelectorAll('.quantity');
  quantityAdd.forEach((element, index) => {
      element.addEventListener('click', function() {
+         if (quantity[index].value < 99) quantity[index].dispatchEvent(new Event('input'));
          quantity[index].value = (quantity[index].value >= 99) ? quantity[index].value:++quantity[index].value;
-         quantity[index].dispatchEvent(new Event('input'));
      });
  });
  quantityMinus.forEach((element, index) => {
      element.addEventListener('click', function() {
+         if (quantity[index].value > 1) quantity[index].dispatchEvent(new Event('input'));
          quantity[index].value = (quantity[index].value <= 1) ? quantity[index].value:--quantity[index].value;
-         quantity[index].dispatchEvent(new Event('input'));
      });
  });
 
@@ -116,10 +122,8 @@
         const data = await response.json();
 
         if (data['success']) {
-            console.log(index);
-
-            responseSuccess(index);
-            console.log('updated');
+            responseSuccess(index, values);
+            console.log('item updated successfully.');
         }
 
     } catch (error) {
@@ -143,16 +147,31 @@ function debounceItem(element, index) {
                 quantity: quantity[index].value
             };
 
-            console.log(data);
+            //console.log(data);
 
             updateDatabase(index, data);
 
         }, 5000);
 }
-function responseSuccess(index) {
+function responseSuccess(index, data) {
+    //RESET RED TEXT AND LOADING ANIMATION
     itemAge[index].classList.remove('text-red-500');
     itemCandle[index].classList.remove('text-red-500');
     itemDedication[index].classList.remove('text-red-500');
     quantity[index].classList.remove('text-red-500');
     savingMsg[index].classList.add('hidden');
+
+    // UPDATING SUBTOTAL
+    priceArr[index]['quantity'] = data['quantity'];
+    subTotal[index].children[0].children[0].textContent = priceArr[index]['quantity'];
+    subTotal[index].children[1].children[0].textContent = (priceArr[index]['quantity'] * priceArr[index]['price']).toFixed(2);
+
+    // UPDATING TOTAL
+    total = 0;
+    checkBox.forEach((element, ndx) => { // ndx is index in this block
+        if (element.checked) {
+            total += priceArr[ndx]['quantity'] * priceArr[ndx]['price'];
+        }
+    });
+    displayTotal.textContent = total.toFixed(2);
 }

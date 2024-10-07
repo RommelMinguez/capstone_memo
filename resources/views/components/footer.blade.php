@@ -27,18 +27,24 @@
         <div>
             <h3 class="font-bold mb-7">CONTACT US</h3>
             <ul class="flex flex-col gap-5">
-                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=edwardabunda26@gmail.com&su=Customer%20Inquiry%20Regarding%20Website/Cakes/Orders&body=Dear%20Edward%2C%0A%0AI%20have%20a%20question%20about%20the%20website%2C%20cakes%2C%20orders%2C%20or%20another%20related%20matter.%20Could%20you%20please%20assist%20me%20with%20the%20following%20details%3F%0A%0A%2D%20%5BYour%20Inquiry%20Here%5D%0A%0AThank%20you%2C%0A%5BYour%20Name%5D" target="_blank" class="flex items-center gap-5">
-                    <svg
-                        class="w-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512">
-                        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                        <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48
-                        64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
-                    </svg>
-                    <span>edwardabunda26@gmail.com</span>
-                </a></li>
-                <li class="flex items-center gap-5">
+                <li>
+                    <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=edwardabunda26@gmail.com&su=Customer%20Inquiry%20Regarding%20Website/Cakes/Orders&body=Dear%20Edward%2C%0A%0AI%20have%20a%20question%20about%20the%20website%2C%20cakes%2C%20orders%2C%20or%20another%20related%20matter.%20Could%20you%20please%20assist%20me%20with%20the%20following%20details%3F%0A%0A%2D%20%5BYour%20Inquiry%20Here%5D%0A%0AThank%20you%2C%0A%5BYour%20Name%5D"
+                        target="_blank"
+                        class="flex items-center gap-5"
+                        title="Email us">
+                        <svg
+                            class="w-5"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512">
+                            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48
+                            64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+                        </svg>
+                        <span>edwardabunda26@gmail.com</span>
+                    </a>
+                </li>
+                <li class="flex items-center gap-5" title="Call / Message us">
                     <svg
                         class="w-5"
                         xmlns="http://www.w3.org/2000/svg"

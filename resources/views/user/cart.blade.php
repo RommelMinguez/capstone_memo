@@ -22,13 +22,27 @@
 
             <tbody>
 
+                @php
+                    $itemQtyPrice = [];
+                    $i = 0;
+                @endphp
+
                 @foreach ($cart->cartItems as $item)
                     <x-cart-item :item="$item"></x-cart-item>
+
+                    @php
+                        $itemQtyPrice[$i++] = [
+                            'quantity' => $item->quantity,
+                            'price' => $item->cake->price
+                        ];
+                    @endphp
                 @endforeach
 
 
             </tbody>
         </table>
+
+
 
         @if(count($cart->cartItems) == 0)
             <br>
@@ -49,12 +63,15 @@
                         @endphp
                         @foreach ($cart->cartItems as $item)
                             <div class="font-light text-sm flex justify-between px-3 sub-total">
-                                <div>{{ $item->cake->name }} (x{{ $item->quantity }})</div>
-                                <div>{{ $item->cake->price * $item->quantity }} PHP</div>
+                                <div>{{ $item->cake->name }} (x<span>{{ $item->quantity }}</span>)</div>
+                                <div><span>{{ number_format($item->cake->price * $item->quantity, 2) }}</span> PHP</div>
                             </div>
-                            <span class="hidden">{{ $total += $item->cake->price * $item->quantity }}</span>
+                            {{-- <span class="hidden">{{ $total += $item->cake->price * $item->quantity }}</span> --}}
+                            @php
+                                $total += $item->cake->price * $item->quantity
+                            @endphp
                         @endforeach
-                        <span class="hidden" id="total-price" data-total="{{ $total }}"></span>
+                        {{-- <span class="hidden" id="total-price" data-total="{{ $total }}"></span> --}}
                     </div>
                     <div class="font-bold text-2xl">TOTAL <span class="ml-40" id="display-total">{{ $total }} </span> PHP</div>
                     <x-nav-link :isButton='true' type='submit' class="w-full">CONTINUE</x-nav-link>
@@ -68,6 +85,14 @@
 
     <x-footer></x-footer>
 
+    @session('error')
+        <x-response-failed>{{ session('error') }}</x-response-failed>
+    @endsession
+
+
+    <script>
+        let priceArr = {!! json_encode($itemQtyPrice) !!};
+    </script>
     <script src="/js/cart.js" defer></script>
 
 </x-layout>
