@@ -6,9 +6,11 @@
 
         <x-nav-user></x-nav-user>
 
-        <main class="pt-20 w-full md:w-5/6 min:h-screen">
-            <div class="w-5/6 lg:w-4/6 m-auto">
-                soon...
+        <main class="pt-20 w-full md:w-5/6">
+            <div class="w-full h-96 p-10">
+                <div class="w-11/12 h-40 m-auto rounded-lg bg-white border shadow-md">
+
+                </div>
             </div>
         </main>
     </div>

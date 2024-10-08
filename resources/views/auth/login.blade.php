@@ -76,6 +76,10 @@
         </div>
     </div>
 
+    @session('error')
+        <x-response-failed>{{ session('error') }}</x-response-failed>
+    @endsession
+
     <script src="/js/toggle-login-password.js" defer></script>
 
 
