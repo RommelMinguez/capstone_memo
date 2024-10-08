@@ -1,6 +1,25 @@
+@props([
+    'haveDraftOrder' => false,
+])
+
 @if (Auth::user()->is_admin)
     <div class="group-hover:block hidden  w-52 absolute z-50 right-0 bg-gray-800 rounded-lg text-white overflow-hidden shadow-md">
         <ul>
+            @if ($haveDraftOrder)
+                <li class="hover:bg-red-500">
+                    <a href="/user/order" class="flex gap-2 px-4 py-2 fill-white hover:font-semibold">
+                        <svg
+                            class="w-4"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512">
+                            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 125.7-86.8 86.8c-10.3 10.3-17.5 23.1-21 37.2l-18.7 74.9c-2.3 9.2-1.8 18.8 1.3 27.5L64 512c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM549.8 235.7l14.4 14.4c15.6 15.6 15.6 40.9 0 56.6l-29.4 29.4-71-71 29.4-29.4c15.6-15.6 40.9-15.6 56.6 0zM311.9 417L441.1 287.8l71 71L382.9 487.9c-4.1 4.1-9.2 7-14.9 8.4l-60.1 15c-5.5 1.4-11.2-.2-15.2-4.2s-5.6-9.7-4.2-15.2l15-60.1c1.4-5.6 4.3-10.8 8.4-14.9z"/>
+                        </svg>
+                        <div>Unfinish Order</div>
+                    </a>
+                </li>
+                <hr>
+            @endif
             <li class="hover:bg-red-500">
                 <a href="/admin" class="flex gap-2 px-4 pt-3 fill-white hover:font-semibold pb-1">
                     <svg
@@ -73,6 +92,21 @@
     {{-- CUSTOMER --}}
     <div class="group-hover:block hidden  w-52 absolute z-50 right-0 bg-gray-800 rounded-lg text-white overflow-hidden shadow-md">
         <ul>
+            @if ($haveDraftOrder)
+                <li class="hover:bg-red-500">
+                    <a href="/user/order" class="flex gap-2 px-4 py-2 fill-white hover:font-semibold">
+                        <svg
+                            class="w-4"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512">
+                            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 125.7-86.8 86.8c-10.3 10.3-17.5 23.1-21 37.2l-18.7 74.9c-2.3 9.2-1.8 18.8 1.3 27.5L64 512c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM549.8 235.7l14.4 14.4c15.6 15.6 15.6 40.9 0 56.6l-29.4 29.4-71-71 29.4-29.4c15.6-15.6 40.9-15.6 56.6 0zM311.9 417L441.1 287.8l71 71L382.9 487.9c-4.1 4.1-9.2 7-14.9 8.4l-60.1 15c-5.5 1.4-11.2-.2-15.2-4.2s-5.6-9.7-4.2-15.2l15-60.1c1.4-5.6 4.3-10.8 8.4-14.9z"/>
+                        </svg>
+                        <div>Unfinish Order</div>
+                    </a>
+                </li>
+                <hr>
+            @endif
             <li class="hover:bg-red-500">
                 <a href="/user" class="flex gap-2 px-4 pt-3 fill-white hover:font-semibold pb-1">
                     <svg
@@ -111,13 +145,13 @@
                 </a>
             </li>
             <li class="hover:bg-red-500">
-                <a href="#" class="flex gap-2 px-4 py-1 fill-white hover:font-semibold">
+                <a href="/user/address" class="flex gap-2 px-4 py-1 fill-white hover:font-semibold">
                     <svg
                         class="w-4"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512">
                         <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z"/>
+                        <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>
                     </svg>
                     <div>Address</div>
                 </a>
@@ -129,7 +163,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512">
                         <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z"/>
+                        <path d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"/>
                     </svg>
                     <div>Password</div>
                 </a>

@@ -90,7 +90,16 @@
                                 <div>{{ Str::title(Auth::user()->first_name )}}</div>
                             </a>
 
-                            <x-nav-user-dropdown></x-nav-user-dropdown>
+                            @php
+                                $haveDraftOrder = session()->has('order') && !empty(session('order'));
+                            @endphp
+
+                            <x-nav-user-dropdown :haveDraftOrder="$haveDraftOrder"></x-nav-user-dropdown>
+
+                            @if ($haveDraftOrder)
+                                <div class="bg-red-600 w-3 aspect-square rounded-full shadow-md absolute bottom-2 left-2"></div>
+                            @endif
+
                         </div>
                     </div>
                 @endauth
