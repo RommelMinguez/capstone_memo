@@ -41,9 +41,11 @@
                                 </svg>
                                 <div class="absolute bg-red-600 text-white font-light px-1 min-w-4 max-w-10 overflow-hidden text-center rounded-full left-1 bottom-1 shadow-md" style="font-size:.6rem;">
                                     @php
-                                        $openCart = Auth::user()->carts()->with('cartItems')->where('status', 'open')->first();
-                                        $items = $openCart->cartItems->count();
-                                        echo ($openCart && $items != 0) ? $items:'';
+                                        if (Auth::user()->carts()->where('status', 'open')->exists()) {
+                                            $openCart = Auth::user()->carts()->with('cartItems')->where('status', 'open')->first();
+                                            $items = $openCart->cartItems->count();
+                                            echo ($openCart && $items != 0) ? $items:'';
+                                        }
                                     @endphp
                                 </div>
                                 <div>Cart</div>

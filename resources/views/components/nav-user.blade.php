@@ -46,7 +46,7 @@
                 {{-- <li class="hover:bg-[rgb(217,217,217)] px-10 py-3 font-semibold">Custom Design</li> --}}
                 <br><hr class="border-b-2 mb-2">
 
-                <li id="profile" class="{{ request()->is('user/info') || request()->is('user/change-password') ? 'bg-[#eaeaea] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex justify-between cursor-pointer">
+                <li id="profile" class="{{ (request()->is('user/info') || request()->is('user/change-password') || request()->is('user/address')) ? 'bg-[#eaeaea] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex justify-between cursor-pointer">
                     <a href="/user/info" class="flex items-center gap-5">
                         <svg
                             class="aspect-square h-6"
@@ -57,7 +57,7 @@
                         </svg>
                         <div>Profile</div>
                     </a>
-                    <div id="profile_rotate" class="transition {{ (request()->is('user/info') || request()->is('user/change-password')) ? '-rotate-90':'' }}  select-none aspect-square h-6 p-1">
+                    <div id="profile_rotate" class="transition {{ (request()->is('user/info') || request()->is('user/change-password') || request()->is('user/address')) ? '-rotate-90':'' }}  select-none aspect-square h-6 p-1">
                         <svg
                             class="h-full"
                             xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
                     </div>
                 </li>
 
-                <div id="profile_more" class="{{ (request()->is('user/info') || request()->is('user/change-password')) ? 'block bg-[#eaeaea]':'hidden' }}  select-none">
+                <div id="profile_more" class="{{ (request()->is('user/info') || request()->is('user/change-password') || request()->is('user/address')) ? 'block bg-[#eaeaea]':'hidden' }}  select-none">
                     <hr>
                     <a href="/user/info">
                         <li class="{{ request()->is('user/info') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">

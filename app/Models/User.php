@@ -17,6 +17,12 @@ class User extends Authenticatable
     public function orders() {
         return $this->hasMany(Order::class);
     }
+    public function addresses() {
+        return $this->hasMany(Address::class);
+    }
+    public function mainAddress() {
+        return $this->belongsTo(Address::class, 'address_id');
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +35,7 @@ class User extends Authenticatable
         'phone_number',
         'email',
         'password',
-        'address',
+        'address_id',
         'image_src',
         'gender',
         'birthday'

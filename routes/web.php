@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CakeController;
 use App\Http\Controllers\TagController;
@@ -65,7 +66,16 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::get('/user/change-password', [UserController::class, 'showChangePassword']);
     Route::patch('/user/change-password', [UserController::class, 'updatePassword']);
 
-    Route::get('/user/address', [UserController::class, 'showAddress']);
+    Route::get('/user/address-api/region', [AddressController::class, 'getRegion']);
+    Route::get('/user/address-api/province/{region}', [AddressController::class, 'getProvince']);
+    Route::get('/user/address-api/cityMun/{province}', [AddressController::class, 'getCityMun']);
+    Route::get('/user/address-api/barangay/{cityMun}', [AddressController::class, 'getBarangay']);
+
+    Route::get('/user/address', [AddressController::class, 'index']);
+    Route::post('/user/address', [AddressController::class, 'store']);
+    Route::patch('/user/address/{address}', [AddressController::class, 'updateMainAddress']);
+    Route::put('/user/address/{address}', [AddressController::class, 'updateAddress']);
+    Route::delete('/user/address/{address}', [AddressController::class, 'destroy']);
 
 
     Route::get('/user/cart', [CartController::class, 'index']);
