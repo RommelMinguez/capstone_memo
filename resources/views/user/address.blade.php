@@ -43,8 +43,70 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            setDefaultAddress();
+        //DELETE ADDRESS
+        let delete_form = document.querySelectorAll('.delete-form');
+        let confirmDeleteModal = document.querySelectorAll('.delete-confirmation');
+        let showDelete = document.querySelectorAll('.show-delete');
+        let closeDelete = document.querySelectorAll('.close-delete');
+        let cancelDelete = document.querySelectorAll('.cancel-delete');
+        let confirmDelete = document.querySelectorAll('.confirm-delete');
+
+        showDelete.forEach((element, index) => {
+            element.addEventListener('click', function() {
+                confirmDeleteModal[index].classList.remove('hidden');
+            });
+        });
+        cancelDelete.forEach((element, index) => {
+            element.addEventListener('click', function() {
+                confirmDeleteModal[index].classList.add('hidden');
+            });
+        });
+        closeDelete.forEach((element, index) => {
+            element.addEventListener('click', function() {
+                confirmDeleteModal[index].classList.add('hidden');
+            });
+        });
+        confirmDelete.forEach((element, index) => {
+            element.addEventListener('click', function() {
+                delete_form[index].submit();
+            });
+        });
+
+
+
+
+        //EDIT ADDRESS
+        let edit_button = document.querySelectorAll('.edit-address-button');
+        let form_header = document.getElementById('create-header-form');
+        let name_inp = document.getElementById('name');
+        let phoneNum_inp = document.getElementById('phone_number');
+        let street_inp = document.getElementById('street_building');
+        let floor_inp = document.getElementById('unit_floor');
+        let theFormElement = document.getElementById('create-edit-form-form');
+        let fetchingNum = 0;
+
+        edit_button.forEach((element, index) => {
+            let data = JSON.parse(element.getAttribute('data-address'));
+            element.addEventListener('click', function() {
+                reload_default = true;
+
+                create_form.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                form_header.textContent = 'Edit Address'
+
+                loading_form.classList.remove('hidden');
+                content_form.classList.add('hidden');
+
+                name_inp.value = data['name'];
+                phoneNum_inp.value = data['phone_number'];
+                street_inp.value = data['street_building'];
+                floor_inp.value = data['unit_floor'];
+                setEditAddres(data);
+
+                theFormElement.action = '/user/address/' + data['id'];
+                setPutMethod();
+
+            });
         });
 
 
@@ -52,10 +114,26 @@
         let create_form = document.getElementById('address-create-form');
         let close_form = document.getElementById('close-create-form');
         let open_form = document.getElementById('open-create-form');
+        let loading_form = document.getElementById('form-loading');
+        let content_form = document.getElementById('form-content');
+        let reload_default = true;
 
         open_form.addEventListener('click', function() {
             create_form.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            form_header.textContent = 'Add New Address';
+            if (reload_default) {
+                theFormElement.reset();
+
+                loading_form.classList.remove('hidden');
+                content_form.classList.add('hidden');
+
+                setDefaultAddress();
+                reload_default = false;
+
+                theFormElement.action = '/user/address';
+                removePutMethod();
+            }
         });
         close_form.addEventListener('click', function() {
             create_form.classList.add('hidden');
@@ -125,7 +203,7 @@
                 // cityMun_select.removeAttribute('disabled');
                 cityMun_select.classList.remove('bg-gray-100');
             } catch (error) {
-                console.error('Error fetching provinces:', error);
+                console.error('Error fetching city/Municipality:', error);
             }
         }
         async function getBarangay() {
@@ -144,11 +222,14 @@
                 // barangay_select.removeAttribute('disabled');
                 barangay_select.classList.remove('bg-gray-100');
             } catch (error) {
-                console.error('Error fetching provinces:', error);
+                console.error('Error fetching Barangay:', error);
             }
         }
         async function setDefaultAddress() {
+            fetchingNum++;
             try {
+                region_select.value = 'REGION X (NORTHERN MINDANAO)'
+
                 let regCode = region_select.options[region_select.selectedIndex].getAttribute('data-code');
                 let responseReg = await fetch('/user/address-api/province/' + regCode);
                 let provinces = await responseReg.json();
@@ -188,8 +269,98 @@
                     option.selected = (brgy.id == 31225);
                     barangay_select.add(option);
                 });
+
+                if (--fetchingNum == 0) {
+                    loading_form.classList.add('hidden');
+                    content_form.classList.remove('hidden');
+                    console.log('default' + fetchingNum);
+
+                }
+
             } catch (error) {
-                console.error('Error fetching provinces:', error);
+                console.error('Error Setting Default Address:', error);
+            }
+        }
+
+
+        async function setEditAddres(data) {
+            fetchingNum++;
+            try {
+                region_select.value = data['region'];
+
+                let regCode = region_select.options[region_select.selectedIndex].getAttribute('data-code');
+                let responseReg = await fetch('/user/address-api/province/' + regCode);
+                let provinces = await responseReg.json();
+
+                provinces.forEach(prov => {
+                    let option = document.createElement('option');
+                    option.value = prov.provDesc;
+                    option.text = prov.provDesc;
+                    option.setAttribute('data-code', prov.provCode);
+                    option.selected = (prov.provDesc == data['province']);
+                    province_select.add(option);
+                });
+
+
+                let provCode = province_select.options[province_select.selectedIndex].getAttribute('data-code');
+                let responseCityMun = await fetch('/user/address-api/cityMun/' + provCode);
+                let cityMunicipality = await responseCityMun.json();
+
+                cityMunicipality.forEach(cityMun => {
+                    let option = document.createElement('option');
+                    option.value = cityMun.citymunDesc;
+                    option.text = cityMun.citymunDesc;
+                    option.setAttribute('data-code', cityMun.citymunCode);
+                    option.selected = (cityMun.citymunDesc == data['city_municipality'])
+                    cityMun_select.add(option);
+                });
+
+
+                let citymunCode = cityMun_select.options[cityMun_select.selectedIndex].getAttribute('data-code');
+                let responseBrgy = await fetch('/user/address-api/barangay/' + citymunCode);
+                let barangay = await responseBrgy.json();
+
+                barangay.forEach(brgy => {
+                    let option = document.createElement('option');
+                    option.value = brgy.brgyDesc;
+                    option.text = brgy.brgyDesc;
+                    option.selected = (brgy.brgyDesc == data['barangay']);
+                    barangay_select.add(option);
+                });
+
+                if (--fetchingNum == 0) {
+                    loading_form.classList.add('hidden');
+                    content_form.classList.remove('hidden');
+                }
+
+            } catch (error) {
+                console.error('Error Setting Edit Address:', error);
+            }
+        }
+
+        function setPutMethod() {
+            // Get the _method hidden input field and update its value
+            let methodInput = document.querySelector('#address-method-inp');
+            if (methodInput) {
+                methodInput.value = "PUT";
+            } else {
+                // If the _method input does not exist, create it
+                let newMethodInput = document.createElement("input");
+                newMethodInput.setAttribute("type", "hidden");
+                newMethodInput.setAttribute("name", "_method");
+                newMethodInput.setAttribute("value", "PUT");
+                theFormElement.appendChild(newMethodInput);
+
+            }
+        }
+
+        function removePutMethod() {
+            // Select the _method hidden input field
+            var methodInput = document.querySelector('#address-method-inp');
+
+            // If the input exists, remove it from the DOM
+            if (methodInput) {
+                methodInput.remove();
             }
         }
     </script>

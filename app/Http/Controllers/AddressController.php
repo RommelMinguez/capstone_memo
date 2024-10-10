@@ -36,7 +36,7 @@ class AddressController extends Controller
             ]);
         }
 
-        return redirect('user/address')->with('success', 'Address Added Successfully');
+        return redirect('/user/address')->with('success', 'Address Added Successfully.');
     }
 
     public function updateMainAddress($address) {
@@ -48,13 +48,28 @@ class AddressController extends Controller
     }
 
     public function updateAddress(Address $address) {
+        // dd('updating address' , request()->all());
 
+        $attributes = request()->validate([
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:255',
+            'region' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+            'city_municipality' => 'required|string|max:255',
+            'barangay' => 'required|string|max:255',
+            'street_building' => 'required|string|max:255',
+            'unit_floor' => 'max:255'
+        ]);
+
+        $address->update($attributes);
+
+        return redirect('/user/address')->with('success', 'Address Edited Successfully.');
     }
 
     public function destroy(Address $address) {
         $address->delete();
 
-        return redirect('/user/address')->with('success', 'Address Successfully Deleted.');
+        return redirect('/user/address')->with('success', 'Address Deleted Successfully.');
     }
 
 
