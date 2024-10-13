@@ -30,7 +30,7 @@ class AddressController extends Controller
 
         $address = Auth::user()->addresses()->create($attributes);
 
-        if (!Auth::user()->address_id) {
+        if (!Auth::user()->mainAddress) {
             Auth::user()->update([
                 'address_id' => $address->id,
             ]);

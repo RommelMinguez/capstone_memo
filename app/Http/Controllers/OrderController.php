@@ -16,7 +16,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        if(!session('order')) {
+        // dd(session('orderUser') == Auth::user()->id, session('orderUser'), session('order'));
+        if(!session('order') || !(session('orderUser') == Auth::user()->id)) {
             return redirect('user/cart')->with('error', 'Please Select an Item.');
         }
 
@@ -39,7 +40,8 @@ class OrderController extends Controller
             'delivery_time' => ['required', 'date_format:H:i'],
             //'address' => ['required'],
             'payment_method' => ['required'],
-            'total' => ['required', 'numeric']
+            'total' => ['required', 'numeric'],
+            'address_id' => 'required'
         ]);
 
         //get the items in order
@@ -48,11 +50,11 @@ class OrderController extends Controller
         //create an order record
         $order = Order::create([
             'user_id' => Auth::user()->id,
+            'address_id' => request()->address_id,
             //'status' => 'pending',
             'total' => request()->total,
             'prefered_date' => request()->delivery_date,
             'prefered_time' => request()->delivery_time,
-            'address' => 'temporary address placeholdeer',
             'payment_method' => request()->payment_method,
         ]);
 
@@ -140,7 +142,7 @@ class OrderController extends Controller
             ]
         );
 
-        session(['order' => [$order->id]]);
+        session(['order' => [$order->id], 'orderUser' => Auth::user()->id]);
         return redirect('/user/order');
     }
 }

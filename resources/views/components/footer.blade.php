@@ -26,7 +26,7 @@
         </div>
         <div>
             <h3 class="font-bold mb-7">CONTACT US</h3>
-            <ul class="flex flex-col gap-5">
+            <ul class="flex flex-col gap-2">
                 <li>
                     <a
                         href="https://mail.google.com/mail/?view=cm&fs=1&to=edwardabunda26@gmail.com&su=Customer%20Inquiry%20Regarding%20Website/Cakes/Orders&body=Dear%20Edward%2C%0A%0AI%20have%20a%20question%20about%20the%20website%2C%20cakes%2C%20orders%2C%20or%20another%20related%20matter.%20Could%20you%20please%20assist%20me%20with%20the%20following%20details%3F%0A%0A%2D%20%5BYour%20Inquiry%20Here%5D%0A%0AThank%20you%2C%0A%5BYour%20Name%5D"

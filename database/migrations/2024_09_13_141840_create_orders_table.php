@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('address_id')->nullable()->constrained()->onDelete('set null');
             //$table->string('status');
             $table->decimal('total');
             $table->date('prefered_date');
             $table->time('prefered_time');
-            $table->string('address');
             $table->string('payment_method');
             $table->dateTime('date_delivered')->nullable();
             $table->timestamps();
@@ -26,8 +26,8 @@ return new class extends Migration
 
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id');
-            $table->foreignId('cake_id');
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('cake_id')->constrained()->onDelete('cascade');
             $table->string('status');
             $table->smallInteger('quantity');
             $table->smallInteger('age');

@@ -9,15 +9,29 @@
         <main class="pt-20 w-full md:w-5/6">
             <div class="w-full py-10">
                 <div class="w-11/12 m-auto rounded-lg bg-white border shadow-md p-5">
+
+                    @php
+                        $haveDraftOrder = session()->has('order') && (session('orderUser') == Auth::user()->id);
+                    @endphp
+
+                    @if ($haveDraftOrder)
+                        <div class="bg-red-500 hover:bg-red-600 active:scale-95 p-2 rounded-md shadow-md text-white inline-block mb-10 cursor-pointer">
+                            <a href="/user/order">Return to Unfinished Order</a>
+                        </div>
+                    @endif
+
+
                     <div id="open-create-form" class="border-2 border-red-400 border-dashed text-red-400 hover:border-red-500 hover:text-red-500 flex justify-center items-center font-semibold h-20 rounded-lg cursor-pointer">
                         + Add Address
                     </div>
 
                     <br><br><hr>
 
-                    <div class="bg-red-500 bg-opacity-5">
-                        <x-address-card :address="Auth::user()->mainAddress"></x-address-card>
-                    </div>
+                    @if (Auth::user()->mainAddress)
+                        <div class="bg-red-500 bg-opacity-5">
+                            <x-address-card :address="Auth::user()->mainAddress"></x-address-card>
+                        </div>
+                    @endif
 
                     @foreach ($addresses as $address)
                         @if ($address->id != Auth::user()->mainAddress->id)
@@ -349,6 +363,7 @@
                 newMethodInput.setAttribute("type", "hidden");
                 newMethodInput.setAttribute("name", "_method");
                 newMethodInput.setAttribute("value", "PUT");
+                newMethodInput.setAttribute("id", "address-method-inp");
                 theFormElement.appendChild(newMethodInput);
 
             }
@@ -360,7 +375,8 @@
 
             // If the input exists, remove it from the DOM
             if (methodInput) {
-                methodInput.remove();
+                // methodInput.remove();
+                methodInput.value = 'POST';
             }
         }
     </script>

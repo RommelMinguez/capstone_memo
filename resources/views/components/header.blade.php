@@ -93,7 +93,7 @@
                             </a>
 
                             @php
-                                $haveDraftOrder = session()->has('order') && !empty(session('order'));
+                                $haveDraftOrder = session()->has('order') && (session('orderUser') == Auth::user()->id);
                             @endphp
 
                             <x-nav-user-dropdown :haveDraftOrder="$haveDraftOrder"></x-nav-user-dropdown>

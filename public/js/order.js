@@ -140,3 +140,47 @@ buttonPayment.forEach((element, index) => {
         });
     })
 });
+
+
+//ADDRESS
+let address_inp = document.getElementById('address-inp');
+let displayedAddress = document.getElementById('display-address');
+let changeAddress_button = document.getElementById('change-address');
+let closeAddress_button = document.getElementById('close-address');
+let selectAddress = document.getElementById('choose-address');
+let addressCard = document.querySelectorAll('.address-card');
+let newAddress = null;
+
+if (address_inp) {
+    closeAddress_button.addEventListener('click', function() {
+        selectAddress.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    });
+    changeAddress_button.addEventListener('click', function() {
+        selectAddress.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    });
+    addressCard.forEach((element, index) => {
+        element.addEventListener('click', function() {
+            newAddress = JSON.parse(element.getAttribute('data-address'));
+            address_inp.value = newAddress['id'];
+            address_inp.dispatchEvent(new Event('change'));
+            closeAddress_button.dispatchEvent(new Event('click'));
+
+            addressCard.forEach((el, i) => {
+                el.classList.remove('bg-gray-100', 'border-red-500');
+                el.classList.add('bg-white');
+                if (index == i) {
+                    element.classList.remove('bg-white');
+                    element.classList.add('bg-gray-100', 'border-red-500');
+                }
+            })
+        });
+    });
+    address_inp.addEventListener('change', function() {
+        displayedAddress.children[0].children[0].textContent = newAddress['name'];
+        displayedAddress.children[0].children[1].textContent = newAddress['phone_number'];
+        displayedAddress.children[1].textContent = (newAddress['unit_floor'] ? newAddress['unit_floor'] + ', ':'')  + newAddress['street_building'];
+        displayedAddress.children[2].textContent = newAddress['province'] + ', ' + newAddress['city_municipality'] + ', ' + newAddress['barangay'];
+    });
+}

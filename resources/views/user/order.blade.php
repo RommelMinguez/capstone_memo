@@ -36,6 +36,7 @@
             <div class="p-10">
                 <div class="font-semibold">
                     SELECT DELIVERY DATE
+                    <span class="text-red-500 italic">*</span>
                 </div>
                 <br>
                 <div class="flex justify-center gap-5 flex-wrap">
@@ -54,7 +55,7 @@
                 <hr class="border-b-2">
                 <br>
 
-                <div class="font-semibold">SELECT DELIVERY TIME</div>
+                <div class="font-semibold">SELECT DELIVERY TIME <span class="text-red-500 italic">*</span></div>
                 <br>
                 <div class="flex justify-center gap-5 flex-wrap">
                     @for($i = 0, $t = 7; $i < 10; $i++)
@@ -72,23 +73,57 @@
                 <hr class="border-b-2">
                 <br>
 
-                <div class="font-semibold">SELECT DELIVERY ADDRESS</div>
-                <div class="w-3/4 m-auto">
-                    <div class="text-end underline">
-                        change address
+                @php
+                    $address = Auth::user()->mainAddress;
+                @endphp
+
+                <div class="font-semibold">SELECT DELIVERY ADDRESS <span class="text-red-500 italic">*</span></div>
+                @if ($address)
+                    <input id="address-inp" type="hidden" name="address_id" value="{{ $address->id }}">
+                    <div class="w-3/4 m-auto">
+                        <div class="flex justify-between border-b py-5">
+                            <div class="flex justify-start gap-5 items-center">
+                                <div>
+                                    <svg
+                                        class="w-12 fill-red-600"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 576 512">
+                                        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                        <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <ul id="display-address">
+                                        <li>
+                                            <span class="font-bold mr-5">{{ $address->name }}</span>
+                                            <span class="text-gray-400 font-semibold">{{ $address->phone_number }}</span>
+                                        </li>
+                                        <li>{{ $address->unit_floor ? $address->unit_floor.', ':"" }}{{ $address->street_building }}</li>
+                                        <li>{{ Str::title($address->province) }}, {{ Str::title($address->city_municipality) }}, {{ $address->barangay }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="change-address" class="underline cursor-pointer ">
+                                Change Address
+                            </div>
+
+                           <x-address-change></x-address-change>
+
+                        </div>
                     </div>
-                    <div>
-                        ZONE 6  Barangay Poblacion,  Malibtog, Bukidnon
+                @else
+                    <div class="w-3/4 m-auto">
+                        <input type="hidden" required name="address_id">
+                        <a href="/user/address" class="inline-block px-20 py-5 my-5 rounded-lg hover:underline text-red-500 font-bold border-2 border-red-500 border-dashed">
+                            + Add Address
+                        </a>
                     </div>
-                    <div>
-                        Contact Number: 09123456789
-                    </div>
-                </div>
+                @endif
                 <br>
                 <hr class="border-b-2">
             </div>
 
-            <div class="font-bold text-2xl">Payment Method</div>
+            <div class="font-bold text-2xl">Payment Method <span class="text-red-500 italic">*</span></div>
             <br>
             <div class="w-3/4 m-auto flex gap-5">
                 <div class="inp_payment cursor-pointer border-2 border-black text-center w-32 font-semibold py-2 hover:bg-[#F44336] hover:text-white active:scale-95">
@@ -144,6 +179,12 @@
 
 
     <x-footer></x-footer>
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <x-response-failed>{{ $error }}</x-response-failed>
+        @endforeach
+    @endif
 
     <script src="/js/order.js" defer></script>
 </x-layout>

@@ -6,7 +6,7 @@
             {{-- message - close --}}
             <div id="cakeForm" class="">
                 <div class="flex justify-between items-center">
-                    <div class="font-bold">Make a Custom Cake Design Order</div>
+                    <div class="font-bold text-xl">Make a Custom Cake Design Order</div>
                     <div id="closeCreate" title="Close Create Form" class="cursor-pointer aspect-square w-7 rounded-full p-2 hover:bg-red-500 hover:fill-white fill-red-500">
                         <svg
                             class="w-full"

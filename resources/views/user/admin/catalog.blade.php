@@ -69,7 +69,7 @@
                     @endif
 
                     @foreach ($cakes as $cake)
-                        <x-cake-card :cake="$cake" size="small"></x-cake-card>
+                        <x-cake-card-catalog :cake="$cake"></x-cake-card-catalog>
                     @endforeach
                 </div>
                 <div class="my-20 px-20">{{ $cakes->links() }}</div>

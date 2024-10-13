@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('status');
         //    $table->decimal('total');
             $table->timestamps();
@@ -21,8 +21,8 @@ return new class extends Migration
 
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cart_id');
-            $table->foreignId('cake_id');
+            $table->foreignId('cart_id')->constrained()->onDelete('cascade');
+            $table->foreignId('cake_id')->constrained()->onDelete('cascade');
             $table->smallInteger('quantity');
             $table->smallInteger('age');
             $table->string('candle_type')->nullable();

@@ -102,7 +102,7 @@ class CartController extends Controller
     }
 
     public function checkOut() {
-        session(['order' => request()->order]);
+        session(['order' => request()->order, 'orderUser' => Auth::user()->id]);
         // return redirect('/user/order')->with('order', request()->order);
         return redirect('/user/order');
     }
