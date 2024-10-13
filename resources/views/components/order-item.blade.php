@@ -12,6 +12,9 @@
                 <span class="hover:underline  text-xl"><a href="/cakes/{{ $item->cake->id }}" class="font-bold">{{ $item->cake->name }}</a></span>
                 &nbsp;&nbsp;
                 <span class="italic">x{{ $item->quantity }}</span>
+            </li>
+            <li class="text-xs text-red-500">
+                &#8369; {{ number_format($item->cake->price, 2) }}
             </li><br>
             <li>Age: <i>{{ $item->age }}</i></li>
             <li>Candle: <i>{{ $item->candle_type }}</i></li>

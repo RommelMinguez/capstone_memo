@@ -12,8 +12,13 @@
                 @endphp
                 @foreach ($items as $item)
                         <x-order-item :item="$item"></x-order-item>
-                        <span class="hidden">{{ $total += $item->cake->price * $item->quantity }}</span>
+                        @php
+                            $total += $item->cake->price * $item->quantity;
+                        @endphp
                 @endforeach
+                @php
+                    $total = number_format($total, 2);
+                @endphp
             </table>
 
             <br><hr class="border-b-2"><br><br>
@@ -23,7 +28,7 @@
                 <div>
                     <div class="text-3xl font-bold">
                         &#8369;
-                        <span class="ml-2"> {{ number_format($total, 2) }} </span>
+                        <span class="ml-2"> {{ $total }} </span>
                     </div>
                 </div>
             </div>
@@ -49,7 +54,7 @@
                 </div>
                 <br>
                 <div class="w-3/4 m-auto">
-                    <input form="form-place-order" required type="date" id="delivery_date" name="delivery_date" class="block w-full px-3 py-2 bg-[#EDE7E7] border border-gray-300 text-[#F44336] font-semibold rounded-md shadow-sm">
+                    <input data-isAdmin="{{ Auth::user()->is_admin }}" form="form-place-order" required type="date" id="delivery_date" name="delivery_date" class="block w-full px-3 py-2 bg-[#EDE7E7] border border-gray-300 text-[#F44336] font-semibold rounded-md shadow-sm cursor-pointer">
                 </div>
                 <br>
                 <hr class="border-b-2">
@@ -67,7 +72,7 @@
                 </div>
                 <br>
                 <div class="w-3/4 m-auto">
-                    <input form="form-place-order" required type="time" id="delivery_time" name="delivery_time" min="6:00" max="18:00" class="block w-full px-3 py-2 border bg-[#EDE7E7]  border-gray-300 text-[#F44336] font-semibold rounded-md shadow-sm">
+                    <input form="form-place-order" required type="time" id="delivery_time" name="delivery_time" min="6:00" max="18:00" class="block w-full px-3 py-2 border bg-[#EDE7E7]  border-gray-300 text-[#F44336] font-semibold rounded-md shadow-sm cursor-pointer">
                 </div>
                 <br>
                 <hr class="border-b-2">
@@ -79,7 +84,7 @@
 
                 <div class="font-semibold">SELECT DELIVERY ADDRESS <span class="text-red-500 italic">*</span></div>
                 @if ($address)
-                    <input id="address-inp" type="hidden" name="address_id" value="{{ $address->id }}">
+                    <input form="form-place-order"  id="address-inp" type="hidden" name="address_id" value="{{ $address->id }}">
                     <div class="w-3/4 m-auto">
                         <div class="flex justify-between border-b py-5">
                             <div class="flex justify-start gap-5 items-center">
@@ -113,7 +118,6 @@
                     </div>
                 @else
                     <div class="w-3/4 m-auto">
-                        <input type="hidden" required name="address_id">
                         <a href="/user/address" class="inline-block px-20 py-5 my-5 rounded-lg hover:underline text-red-500 font-bold border-2 border-red-500 border-dashed">
                             + Add Address
                         </a>
@@ -175,7 +179,7 @@
     </main>
 
 
-    <x-order-confirmation :items="$items" total="{{ $total }}"></x-order-confirmation>
+    <x-order-confirmation :items="$items" total="{{ $total }}" :address="$address"></x-order-confirmation>
 
 
     <x-footer></x-footer>

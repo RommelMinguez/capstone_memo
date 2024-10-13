@@ -1,6 +1,7 @@
 @props([
     'items',
-    'total' => '00.00'
+    'total' => '00.00',
+    'address'
 ])
 
 <div id="confirmation" class="hidden fixed inset-0 bg-black bg-opacity-50 w-full h-screen z-50 overflow-auto py-10">
@@ -31,7 +32,9 @@
                         </td>
                         <td class="w-auto px-5">
                             <ol>
-                                <li>{{ $item->cake->name }} &nbsp;&nbsp; <span class="text-base italic">x{{ $item->quantity }}</span></li><br>
+                                <li>{{ $item->cake->name }} &nbsp;&nbsp; <span class="text-base italic">x{{ $item->quantity }}</span></li>
+                                <li class="text-xs text-red-500"> &#8369; {{ number_format($item->cake->price, 2) }}</li>
+                                <br>
                                 <li>Age: {{ $item->age }}</li>
                                 <li>Candle: {{ $item->candle_type }}</li>
                                 <li>Dedication: {{ $item->dedication }}</li>
@@ -43,7 +46,7 @@
             </table>
             <br>
 
-            <span class="font-semibold">Delivery Date</span>
+            <span class="font-bold">Delivery Date & Time</span>
             <div class="px-10">
                 <br>
                 <div>Date: <span id="confirm-date">mm/dd/yy</span></div>
@@ -51,14 +54,21 @@
             </div>
             <br>
 
-            <span class="font-semibold">Address</span>
+            <span class="font-bold">Address</span>
             <div class="px-10">
                 <br>
-                Katipunan, Vilanueva, Misamis Oriental
+                <ul id="confirm-address">
+                    <li>
+                        <span class="mr-5">{{ $address->name }}</span>
+                        <span class="text-gray-400">{{ $address->phone_number }}</span>
+                    </li>
+                    <li>{{ $address->unit_floor ? $address->unit_floor.', ':"" }}{{ $address->street_building }}</li>
+                    <li>{{ Str::title($address->province) }}, {{ Str::title($address->city_municipality) }}, {{ $address->barangay }}</li>
+                </ul>
             </div>
             <br>
 
-            <span class="font-semibold">Payment Method</span>
+            <span class="font-bold">Payment Method</span>
             <div class="px-10">
                 <br>
                 <span id="confirm-payment">COD</span>
@@ -67,6 +77,13 @@
             <hr class="border-b-2">
             <br><br>
 
+            @foreach ($items as $item)
+                <div class="flex justify-between w-3/4 m-auto">
+                    <div class="text-xs text-gray-500">{{ $item->cake->name }} (x{{ $item->quantity }})</div>
+                    <div class="text-xs text-gray-500">&#8369; {{ number_format($item->cake->price * $item->quantity, 2) }}</div>
+                </div>
+            @endforeach
+            <br>
             <div class="flex justify-between w-3/4 m-auto">
                 <div class="text-xl font-bold">TOTAL</div>
                 <div>
@@ -81,7 +98,7 @@
         <div class="p-3">
             <form action="/user/order" method="POST" id="form-place-order">
                 @csrf
-                <input type="hidden" name="total" value="{{ $total }}">
+                <input type="hidden" name="total" value="{{ str_replace(',', '', $total) }}">
                 <x-nav-link :isButton='true' type='submit' class="w-full">
                     CONFIRM ORDER
                 </x-nav-link>

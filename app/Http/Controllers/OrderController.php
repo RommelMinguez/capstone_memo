@@ -33,7 +33,7 @@ class OrderController extends Controller
      */
     public function store()
     {
-
+        // dd(request()->all());
         //validate order
         request()->validate([
             'delivery_date' => ['required', 'date', 'after_or_equal:today'],
@@ -103,6 +103,7 @@ class OrderController extends Controller
 
         //redirect to user dashboard
         session()->forget('order');
+        session()->forget('orderUser');
 
         if (Auth::user()->is_admin) {
             return redirect('/admin/orders')->with('success', 'You have place an Order Successfully');

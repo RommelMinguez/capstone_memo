@@ -25,6 +25,7 @@ let buttonDate = document.querySelectorAll('.inp_date');
 let deliveryDate = document.getElementById('delivery_date');
 let buttonTime = document.querySelectorAll('.inp_time');
 let deliveryTime = document.getElementById('delivery_time');
+let isAdmin = deliveryDate.getAttribute('data-isAdmin') == 1 ? true:false;
 
 let confirmDate = document.getElementById('confirm-date');
 let confirmTime = document.getElementById('confirm-time');
@@ -37,12 +38,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // date input
     buttonDate.forEach((element, index) => { //button real time content
         let today = new Date();
-        today.setDate(today.getDate() + index);
+        let dayLabel = 'null';
 
-        let dayLabel = 'Sunday';
-        if (index == 0) dayLabel = 'Today';
-        else if (index == 1) dayLabel = 'Tommorow';
-        else dayLabel = daysOfWeek[today.getDay()];
+        if (isAdmin) {
+            today.setDate(today.getDate() + index);
+            switch (index) {
+                case 0:
+                    dayLabel = 'Today';
+                    break;
+                case 1:
+                    dayLabel = 'Tommorow';
+                    break;
+                default:
+                    dayLabel = daysOfWeek[today.getDay()];
+            }
+        }
+        else {
+            today.setDate(today.getDate() + index + 2);
+            dayLabel = daysOfWeek[today.getDay()];
+        }
+
 
         element.children[0].textContent = dayLabel;
         element.children[1].textContent = monthsOfYear[(today.getMonth())] + '/' + today.getDate() + '/' + today.getFullYear();
@@ -50,7 +65,11 @@ document.addEventListener('DOMContentLoaded', function() {
         element.addEventListener('click', function() { // button is clicked
             const formattedDate = today.toISOString().split('T')[0];
             deliveryDate.value = formattedDate;
-            confirmDate.textContent = formattedDate;
+            confirmDate.textContent = today.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
 
             buttonDate.forEach((button, i) => {
                 if (index == i) {
@@ -73,7 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
         element.addEventListener('click', function() { // button is clicked
             let formattedHour = String(hour).padStart(2, '0');
             deliveryTime.value = formattedHour + ':00';
-            confirmTime.textContent = deliveryTime.value;
+
+            confirmTime.textContent =  formatTime(deliveryTime.value) ;
 
             buttonTime.forEach((button, i) => {
                 if (index == i) {
@@ -87,36 +107,64 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-//update button design
-deliveryDate.addEventListener('change', function() {
+//update button design and confirm details
+deliveryDate.addEventListener('input', function() {
+
+    let currentDate = new Date(deliveryDate.value);
+    confirmDate.textContent = currentDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
     buttonDate.forEach(element => {
         element.classList.remove('bg-[#F44336]');
         element.classList.remove('text-white');
     })
 });
-deliveryTime.addEventListener('change', function() {
-    buttonDate.forEach(element => {
+deliveryTime.addEventListener('input', function() {
+
+    confirmTime.textContent = formatTime(deliveryTime.value);
+
+    buttonTime.forEach(element => {
         element.classList.remove('bg-[#F44336]');
         element.classList.remove('text-white');
     })
 });
+
+function formatTime(time) {
+    let [hours, minutes] = time.split(':').map(Number);
+    let ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12; // Convert 0 (midnight) or 12 (noon) to 12
+    return `${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+}
+
 //set current date time as default value
 function setDateTimeDefault() {
     let defaultDate = new Date();
+
+    if (isAdmin) defaultDate.setDate(defaultDate.getDate());
+    else defaultDate.setDate(defaultDate.getDate() + 2);
+
     let formattedDate = defaultDate.toISOString().split('T')[0];
     deliveryDate.setAttribute('min',  formattedDate);
     deliveryDate.value = formattedDate;
     buttonDate[0].classList.add('bg-[#F44336]');
     buttonDate[0].classList.add('text-white');
 
-    let hour = String(defaultDate.getHours()).padStart(2, '0');
-    deliveryTime.value = hour + ':00';
+    // let hour = String(defaultDate.getHours()).padStart(2, '0');
+    deliveryTime.value = '12:00';
+    buttonTime[4].classList.add('bg-[#F44336]', 'text-white');
 
     buttonPayment[1].classList.add('bg-[#F44336]');
     buttonPayment[1].classList.add('text-white');
 
-    confirmDate.textContent = formattedDate;
-    confirmTime.textContent = deliveryTime.value;
+    confirmDate.textContent = defaultDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    confirmTime.textContent = '12:00 PM';
     confirmPayment.textContent = paymentMethod.value;
 }
 
@@ -145,6 +193,7 @@ buttonPayment.forEach((element, index) => {
 //ADDRESS
 let address_inp = document.getElementById('address-inp');
 let displayedAddress = document.getElementById('display-address');
+let displayedAddress_confirmation = document.getElementById('confirm-address');
 let changeAddress_button = document.getElementById('change-address');
 let closeAddress_button = document.getElementById('close-address');
 let selectAddress = document.getElementById('choose-address');
@@ -182,5 +231,10 @@ if (address_inp) {
         displayedAddress.children[0].children[1].textContent = newAddress['phone_number'];
         displayedAddress.children[1].textContent = (newAddress['unit_floor'] ? newAddress['unit_floor'] + ', ':'')  + newAddress['street_building'];
         displayedAddress.children[2].textContent = newAddress['province'] + ', ' + newAddress['city_municipality'] + ', ' + newAddress['barangay'];
+
+        displayedAddress_confirmation.children[0].children[0].textContent = newAddress['name'];
+        displayedAddress_confirmation.children[0].children[1].textContent = newAddress['phone_number'];
+        displayedAddress_confirmation.children[1].textContent = (newAddress['unit_floor'] ? newAddress['unit_floor'] + ', ':'')  + newAddress['street_building'];
+        displayedAddress_confirmation.children[2].textContent = newAddress['province'] + ', ' + newAddress['city_municipality'] + ', ' + newAddress['barangay'];
     });
 }
