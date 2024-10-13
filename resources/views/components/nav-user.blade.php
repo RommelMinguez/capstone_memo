@@ -155,11 +155,11 @@
                             Tags
                         </li>
                     </a>
-                    <a href="/admin/candle">
+                    {{-- <a href="/admin/candle">
                         <li class="{{ request()->is('admin/candle') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
                             Candles
                         </li>
-                    </a>
+                    </a> --}}
                     <hr>
                 </div>
 

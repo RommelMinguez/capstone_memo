@@ -12,13 +12,33 @@
             </div>
             <div class="px-10 py-5">
                 <ul class="flex cursor-pointer border-b-2 w-fit relative">
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] z-20">All Orders</li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] z-20">Pending</li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] z-20">Baking</li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] z-20">To Receive</li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] z-20 ">To Review</li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] z-20">Completed</li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] z-20">Canceled</li>
+                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] z-20">
+                        All Orders
+                    </li>
+                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                        Pending
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                    </li>
+                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                        Baking
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                    </li>
+                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                        To Receive
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                    </li>
+                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                        To Review
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                    </li>
+                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                        Completed
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                    </li>
+                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                        Canceled
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                    </li>
 
                     {{-- <li id="selected-tab" class="absolute h-full border-b-2 border-red-500 bg-[#eaeaea] rounded-t-lg text-red-500"></li> --}}
                 </ul>
@@ -70,6 +90,7 @@
         let completed = document.querySelectorAll('.order-completed');
         let canceled = document.querySelectorAll('.order-canceled');
         let empty = document.querySelector('#empty-msg');
+        let countIndicator = document.querySelectorAll('.number-indicator');
 
         tabs.forEach((element, index) => {
             element.addEventListener('click', function() {
@@ -99,36 +120,55 @@
             }
         }
         function moveItems() { // move pending to pending tab, baking to baking tab ...
+            let count = 0;
             contents.forEach((parent, index) => {
                 if (index === 0) {
                     pending.forEach(child => {
                         parent.appendChild(child);
-                    })
+                        count++;
+                    });
+                    addCountIndicator(count, index);
+                    count = 0;
                 }
                 else if (index === 1) {
                     baking.forEach(child => {
                         parent.appendChild(child);
-                    })
+                        count++;
+                    });
+                    addCountIndicator(count, index);
+                    count = 0;
                 }
                 else if (index === 2) {
                     receive.forEach(child => {
                         parent.appendChild(child);
-                    })
+                        count++;
+                    });
+                    addCountIndicator(count, index);
+                    count = 0;
                 }
                 else if (index === 3) {
                     review.forEach(child => {
                         parent.appendChild(child);
-                    })
+                        count++;
+                    });
+                    addCountIndicator(count, index);
+                    count = 0;
                 }
                 else if (index === 4) {
                     completed.forEach(child => {
                         parent.appendChild(child);
-                    })
+                        count++;
+                    });
+                    addCountIndicator(count, index);
+                    count = 0;
                 }
                 else if (index === 5) {
                     canceled.forEach(child => {
                         parent.appendChild(child);
-                    })
+                        count++;
+                    });
+                    addCountIndicator(count, index);
+                    count = 0;
                 }
             })
         }
@@ -147,6 +187,13 @@
                 if (contents[selectedTabIndex].children.length != 0) {
                     empty.classList.add('hidden');
                 }
+            }
+        }
+
+        function addCountIndicator(count, index) {
+            if (count > 0) {
+                countIndicator[index].classList.remove('hidden');
+                countIndicator[index].textContent = count;
             }
         }
 
