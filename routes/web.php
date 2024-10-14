@@ -7,6 +7,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CustomerMiddleware;
+use App\Models\ArchivedCake;
 use App\Models\Tag;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -95,6 +96,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin/catalog', [CakeController::class, 'create']);
     Route::post('/admin/catalog', [CakeController::class, 'store']);
     Route::get('/admin/catalog/search', [CakeController::class, 'searchCatalog']);
+    Route::delete('/admin/catalog/{cake}', [CakeController::class, 'archivedCake']);
+    Route::patch('/admin/catalog/{cake}', [CakeController::class, 'update']);
 
     Route::get('/admin/tags', [TagController::class, 'index']);
     Route::post('/admin/tags', [TagController::class, 'store']);
@@ -124,7 +127,18 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 
 
 
+Route::get('/admin/catalog/restore', function() {
+    $archive = ArchivedCake::all();
 
+    foreach ($archive as $cake) {
+        DB::transaction(function () use ($cake) {
+            Cake::create($cake->toArray());
+            $cake->delete();
+        });
+    }
+
+    return redirect('/admin/catalog')->with('success', 'Archived Cakes Restored');
+});
 
 Route::get('user/reset-password', function() {
     Auth::user()->update([

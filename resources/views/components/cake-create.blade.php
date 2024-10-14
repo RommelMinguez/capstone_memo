@@ -39,7 +39,7 @@
                                     <label for="imageInput" class="cursor-pointer bg-red-400 text-white p-2 rounded-md focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 hover:bg-red-500 shadow-sm border pointer-events-auto">
                                         Upload Photo
                                     </label>
-                                    <input id="imageInput" name="imageInput" type="file" required class="hidden" accept="image/*" />
+                                    <input id="imageInput" name="imageInput" type="file" required class="absolute bottom-0 left-0 -z-10" accept="image/*" />
                                 </div>
                             </div>
 
@@ -50,7 +50,7 @@
 
                             <input id="name" name="name" type="text" title="Cake Name" placeholder="Chiffon Cake" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full">
 
-                            <input id="price" name="price" type="number" title="Price" placeholder="500.00" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-32 mr-2">
+                            <input id="price" name="price" type="number" step="0.01" title="Price" placeholder="500.00" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-32 mr-2">
                             <label for="price" class="font-semibold">PHP</label>
 
                             <br><br>
@@ -65,7 +65,7 @@
                                 @foreach ($tagGroups as $category => $tags)
                                     @if ($category == 'EVENT')
                                         @foreach ($tags as $tag)
-                                            <x-cake-tag tagId="{{ $tag->id }}" tagName="selected-tag">{{ $tag->name }}</x-cake-tag>
+                                            <x-cake-tag tagId="{{ $tag->id }}" tagName="attached-tag">{{ $tag->name }}</x-cake-tag>
                                         @endforeach
                                     @endif
                                 @endforeach
@@ -98,7 +98,7 @@
                                         <div>{{ $category }}</div>
                                         <div class="flex flex-wrap gap-2 py-2">
                                             @foreach ($tags as $tag)
-                                                <x-cake-tag tagId="{{ $tag->id }}" tagName="selected-tag">{{ $tag->name }}</x-cake-tag>
+                                                <x-cake-tag tagId="{{ $tag->id }}" tagName="attached-tag">{{ $tag->name }}</x-cake-tag>
                                             @endforeach
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
 
                     {{-- CREATE BUTTON --}}
                     <div class="flex justify-end mt-10 mb-5 gap-5">
-                        <button type="reset" class="px-5 py-2 rounded-md border shadow-md font-bold bg-white hover:bg-gray-100 active:scale-95">Cancel</button>
+                        <button id="reset-button" type="reset" class="px-5 py-2 rounded-md border shadow-md font-bold bg-white hover:bg-gray-100 active:scale-95">Cancel</button>
                         <button type="submit" class="px-5 py-2 rounded-md border bg-red-500 shadow-md text-white font-bold hover:bg-red-600 active:scale-95">Create</button>
                     </div>
                 </form>
