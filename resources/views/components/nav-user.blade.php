@@ -44,49 +44,7 @@
                     </li>
                 </a>
                 {{-- <li class="hover:bg-[rgb(217,217,217)] px-10 py-3 font-semibold">Custom Design</li> --}}
-                <br><hr class="border-b-2 mb-2">
 
-                <li id="profile" class="{{ (request()->is('user/info') || request()->is('user/change-password') || request()->is('user/address')) ? 'bg-[#eaeaea] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex justify-between cursor-pointer">
-                    <a href="/user/info" class="flex items-center gap-5">
-                        <svg
-                            class="aspect-square h-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512">
-                            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z"/>
-                        </svg>
-                        <div>Profile</div>
-                    </a>
-                    <div id="profile_rotate" class="transition {{ (request()->is('user/info') || request()->is('user/change-password') || request()->is('user/address')) ? '-rotate-90':'' }}  select-none aspect-square h-6 p-1">
-                        <svg
-                            class="h-full"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512">
-                            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
-                        </svg>
-                    </div>
-                </li>
-
-                <div id="profile_more" class="{{ (request()->is('user/info') || request()->is('user/change-password') || request()->is('user/address')) ? 'block bg-[#eaeaea]':'hidden' }}  select-none">
-                    <hr>
-                    <a href="/user/info">
-                        <li class="{{ request()->is('user/info') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
-                            Account
-                        </li>
-                    </a>
-                    <a href="/user/address">
-                        <li class="{{ request()->is('user/address') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
-                            Address
-                        </li>
-                    </a>
-                    <a href="/user/change-password">
-                        <li class="{{ request()->is('user/change-password') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
-                            Password
-                        </li>
-                    </a>
-                    <hr>
-                </div>
             </ol>
 
         @else
@@ -181,7 +139,51 @@
 
         @endif
 
+        <br><hr class="border-b-2 mb-2">
 
+        <ul>
+            <div id="profile" class="{{ (request()->is('user/info') || request()->is('user/change-password') || request()->is('user/address')) ? 'bg-[#eaeaea] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex justify-between cursor-pointer">
+                <a href="/user/info" class="flex items-center gap-5">
+                    <svg
+                        class="aspect-square h-6"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z"/>
+                    </svg>
+                    <div>Profile</div>
+                </a>
+                <div id="profile_rotate" class="transition {{ (request()->is('user/info') || request()->is('user/change-password') || request()->is('user/address')) ? '-rotate-90':'' }}  select-none aspect-square h-6 p-1">
+                    <svg
+                        class="h-full"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div id="profile_more" class="{{ (request()->is('user/info') || request()->is('user/change-password') || request()->is('user/address')) ? 'block bg-[#eaeaea]':'hidden' }}  select-none">
+                <hr>
+                <a href="/user/info">
+                    <li class="{{ request()->is('user/info') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
+                        Account
+                    </li>
+                </a>
+                <a href="/user/address">
+                    <li class="{{ request()->is('user/address') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
+                        Address
+                    </li>
+                </a>
+                <a href="/user/change-password">
+                    <li class="{{ request()->is('user/change-password') ? 'bg-[#D9D9D9]':'' }}  hover:bg-[#D9D9D9] pl-28 py-1">
+                        Password
+                    </li>
+                </a>
+                <hr>
+            </div>
+        </ul>
 
 
 

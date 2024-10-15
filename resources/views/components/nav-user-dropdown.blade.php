@@ -72,6 +72,43 @@
             </li>
             <hr>
             <li class="hover:bg-red-500">
+                <a href="/user/info" class="flex gap-2 px-4 pt-3 pb-1 fill-white hover:font-semibold">
+                    <svg
+                        class="w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464l349.5 0c-8.9-63.3-63.3-112-129-112l-91.4 0c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3z"/>
+                    </svg>
+                    <div>Profile</div>
+                </a>
+            </li>
+            <li class="hover:bg-red-500">
+                <a href="/user/address" class="flex gap-2 px-4 py-1 fill-white hover:font-semibold">
+                    <svg
+                        class="w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>
+                    </svg>
+                    <div>Address</div>
+                </a>
+            </li>
+            <li class="hover:bg-red-500">
+                <a href="/user/change-password" class="flex gap-2 px-4 pt-1 pb-3 fill-white hover:font-semibold">
+                    <svg
+                        class="w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                        <path d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"/>
+                    </svg>
+                    <div>Password</div>
+                </a>
+            </li>
+            <hr>
+            <li class="hover:bg-red-500">
                 <form action="/logout" method="POST">
                     @csrf
                     <button type="submit" class="flex gap-2 px-4 py-2 text-red-500 fill-red-500 items-center hover:text-white hover:fill-white font-semibold w-full">

@@ -56,12 +56,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/order', [OrderController::class, 'create']);
     Route::post('/user/order', [OrderController::class, 'store']);
 
-});
-
-
-Route::middleware([CustomerMiddleware::class])->group(function () {
-    Route::get('/user', [UserController::class, 'showtrackOrder']);
-    Route::get('/user/message', [UserController::class, 'showMessage']);
     Route::get('/user/info', [UserController::class, 'showInfo']);
     Route::patch('/user/info', [UserController::class, 'updateInfo']);
     Route::get('/user/change-password', [UserController::class, 'showChangePassword']);
@@ -77,7 +71,12 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::patch('/user/address/{address}', [AddressController::class, 'updateMainAddress']);
     Route::put('/user/address/{address}', [AddressController::class, 'updateAddress']);
     Route::delete('/user/address/{address}', [AddressController::class, 'destroy']);
+});
 
+
+Route::middleware([CustomerMiddleware::class])->group(function () {
+    Route::get('/user', [UserController::class, 'showtrackOrder']);
+    Route::get('/user/message', [UserController::class, 'showMessage']);
 
     Route::get('/user/cart', [CartController::class, 'index']);
 

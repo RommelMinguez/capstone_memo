@@ -57,6 +57,7 @@
             <span class="font-bold">Address</span>
             <div class="px-10">
                 <br>
+            @if ($address)
                 <ul id="confirm-address">
                     <li>
                         <span class="mr-5">{{ $address->name }}</span>
@@ -65,6 +66,9 @@
                     <li>{{ $address->unit_floor ? $address->unit_floor.', ':"" }}{{ $address->street_building }}</li>
                     <li>{{ Str::title($address->province) }}, {{ Str::title($address->city_municipality) }}, {{ $address->barangay }}</li>
                 </ul>
+            @else
+                <div class="text-red-500 italic"><a href="/user/address">Please add an address. <span>*</span></a></div>
+            @endif
             </div>
             <br>
 
