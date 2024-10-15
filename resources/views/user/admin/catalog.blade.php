@@ -136,6 +136,7 @@
 
     <x-cake-create :tagGroups="$tagGroups"></x-cake-create>
     <x-cake-delete-confirmation></x-cake-delete-confirmation>
+    <x-cake-update :tagGroups="$tagGroups"></x-cake-update>
 
     @session('success')
         <x-response-success>{{ session('success') }}</x-response-success>

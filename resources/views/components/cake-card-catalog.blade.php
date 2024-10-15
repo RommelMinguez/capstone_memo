@@ -2,7 +2,12 @@
 <div class="w-[200px] h-[320px] bg-[#FEF6E4] rounded-xl shadow-xl overflow-hidden cursor-pointer cake-card hover:scale-105 relative group">
 
     <div class="absolute inset-0 h-12 w-full bg-black bg-opacity-90 group-hover:flex hidden justify-center z-20 ">
-        <div title="Edit" class="border-r w-1/2 hover:bg-white hover:bg-opacity-50 flex items-center justify-center fill-blue-400 hover:fill-blue-600">
+
+        @php
+            $tagsAttachedArr = $cake->tags->pluck('id')->toArray();
+        @endphp
+
+        <div title="Edit" data-cake="{{ json_encode($cake) }}" data-tags="{{ json_encode($tagsAttachedArr) }}" data-cakeImage="{{ Storage::url($cake->image_src) }}" class="update-show border-r w-1/2 hover:bg-white hover:bg-opacity-50 flex items-center justify-center fill-blue-400 hover:fill-blue-600">
             <svg
                 class="w-6 "
                 xmlns="http://www.w3.org/2000/svg"

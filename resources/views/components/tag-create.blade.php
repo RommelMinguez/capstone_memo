@@ -24,7 +24,7 @@
 
                 <div class="flex justify-between items-center gap-10 pb-5">
                     <label for="tag_name" class="">Tag Name:</label>
-                    <input type="text" id="tag_name" name="tag_name" required placeholder="Birthday" class="p-2 border rounded-md shadow-sm w-60">
+                    <input type="text" id="tag_name" name="tag_name" required  class="p-2 border rounded-md shadow-sm w-60">
                 </div>
                 <div class="flex justify-between items-center gap-10 pb-10">
                     <label for="tag_category" class="">Category:</label>

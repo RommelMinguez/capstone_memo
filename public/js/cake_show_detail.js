@@ -43,13 +43,15 @@ buyNow.addEventListener('click', function() {
     }
     form.reportValidity();
 });
-cartAdd.addEventListener('click', function() {
-    if (form.checkValidity()) {
-        form.action = '/user/cart';
-        form.submit();
-    }
-    form.reportValidity();
-});
+if (cartAdd) {
+    cartAdd.addEventListener('click', function() {
+        if (form.checkValidity()) {
+            form.action = '/user/cart';
+            form.submit();
+        }
+        form.reportValidity();
+    });
+}
 
 //SHOW MODAL
 let modal = document.getElementById('modal_confirmation');

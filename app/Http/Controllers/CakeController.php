@@ -98,7 +98,7 @@ class CakeController extends Controller
      */
     public function create() {
         $tagGroups = Tag::all()->groupBy('category');
-        $cakes = Cake::latest()->simplePaginate(20);
+        $cakes = Cake::latest()->with('tags')->simplePaginate(20);
         return view('user.admin.catalog', compact('tagGroups', 'cakes'));
     }
 
@@ -136,6 +136,29 @@ class CakeController extends Controller
 
     function update(Cake $cake) {
 
+        request()->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric|min:0',
+            'update_image' => 'image|mimes:jpeg,png,jpg,gif|max:10240'
+        ]);
+
+        if(request()->update_image == '') {
+            $path = $cake->image_src;
+        } else {
+            $path = request()->file('update_image')->store('public/images/memo-cake');
+        }
+
+        $cake->update([
+            'name' => request()->name,
+            'description' => request()->description,
+            'price' => request()->price,
+            'image_src' => $path
+        ]);
+
+        $cake->tags()->sync(request('updated-tag'));
+
+        return redirect()->back()->with('success', "Cake is Updated Successfully.");
     }
 
 
