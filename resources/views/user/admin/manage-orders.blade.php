@@ -1,3 +1,7 @@
+@php
+use Carbon\Carbon;
+@endphp
+
 <x-layout :useDatatableCDN="true">
 
     <x-header></x-header>
@@ -28,7 +32,7 @@
 
             <div class="p-5">
 
-                <div class="bg-[#FFEFF5] rounded-lg h-fit shadow-md shadow-gray-500">
+                <div class="bg-gray-50 rounded-lg h-fit shadow-md shadow-gray-500">
 
                     <div class="p-5">
 
@@ -44,34 +48,42 @@
                             </ul>
                         </div>
 
-                        <div class="bg-gray-100 rounded-b-xl rounded-tr-xl border shadow-md p-3">
+                        <div class="bg-gray-50 rounded-b-xl rounded-tr-xl border shadow-md p-3">
                             <table id="order_all" class="display border-collapse w-full table-fixed">
                                 <thead>
                                     <tr class="border-y-2">
-                                        <th class=" w-14">ID</th>
+                                        <th class=" w-20">Item no.</th>
+                                        <th class=" w-20">Order no.</th>
                                         <th class=" w-auto">Customer Name</th>
                                         <th class=" w-auto">Cake Name</th>
-                                        <th class=" w-auto">Order Date</th>
-                                        <th class=" w-auto">Total Amount</th>
-                                        <th class=" w-auto">Status</th>
-                                        <th class=" w-auto">Delivery Date</th>
-                                        <th class=" w-auto">Action</th>
+                                        <th class=" w-auto">Date Ordered</th>
+                                        <th class=" w-28">Total</th>
+                                        <th class=" w-28">Status</th>
+                                        {{-- <th class=" w-auto">Delivery Date</th> --}}
+                                        <th class=" w-28">Action</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     @foreach($allOrders as $order)
-                                        <tr class="orderDetails border-b">
-                                            <td class="cursor-pointer">{{ $order->id }}</td>
-                                            <td class="cursor-pointer">{{ $order->order->user->first_name }} {{ $order->order->user->last_name }}</td>
-                                            <td class="cursor-pointer">{{ $order->cake->name }}</td>
-                                            <td class="cursor-pointer">{{ $order->created_at }}</td>
-                                            <td class="cursor-pointer">{{ $order->sub_total }}</td>
-                                            <td class="cursor-pointer">{{ $order->status }}</td>
-                                            <td class="cursor-pointer">{{ $order->order->prefered_date }} {{ $order->order->prefered_time }}</td>
+                                        {{-- @php
+                                            // use Carbon\Carbon;
+                                            $formattedTime = Carbon::parse($order->order->prefered_time)->format('H:i');
+                                            $formattedDate = Carbon::parse($order->order->prefered_date)->format('F d, Y');
+                                        @endphp --}}
+                                        <tr class="orderDetails border-b" data-order="{{ json_encode($order) }}">
+                                            <td class="cursor-pointer text-center">{{ $order->id }}</td>
+                                            <td class="cursor-pointer text-center">{{ $order->order->id }}</td>
+                                            <td class="cursor-pointer text-center">{{ $order->order->user->first_name }} {{ $order->order->user->last_name }}</td>
+                                            <td class="cursor-pointer text-center">{{ $order->cake->name }} x{{ $order->quantity }}</td>
+                                            <td class="cursor-pointer text-center">{{ $order->created_at->diffForHumans() }}</td>
+                                            <td class="cursor-pointer text-center">{{ $order->sub_total }}</td>
+                                            <td class="cursor-pointer text-center">{{ $order->status }}</td>
+                                            {{-- <td class="cursor-pointer text-center">{{ $formattedDate }} <br> {{ $formattedTime }}</td> --}}
                                             <td class="py-2 text-center">
-                                                <select class="text-white text-xs py-1 px-3 rounded-md shadow-md bg-[#F55447] cursor-pointer">
-                                                    <option value="pending">Pending</option>
-                                                </select>
+                                                <button type="button" class="text-white text-xs py-1 px-3 rounded-md shadow-md bg-[#F55447] cursor-pointer active:scale-95">
+                                                    Next &Gt;
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -91,57 +103,8 @@
         <x-response-success>{{ session('success') }}</x-response-success>
     @endsession
 
+    <x-order-full-detail></x-order-full-detail>
 
-    <script>
-        let orderDetail = document.querySelectorAll('.orderDetails')
-        orderDetail.forEach((element, index) => {
-            element.addEventListener('click', function() {
-                console.log(index);
-
-            });
-        });
-
-        let tabs = document.querySelectorAll('.order-tab');
-        tabs.forEach((element, index) => {
-            element.addEventListener('click', function() {
-                tabs.forEach((e, i) => {
-                    e.classList.remove('border-b-2', 'border-red-500',  'bg-[#eedee4]', 'rounded-t-lg', 'text-red-500');
-                });
-                element.classList.add('border-b-2', 'border-red-500',  'bg-[#eedee4]', 'rounded-t-lg', 'text-red-500');
-            });
-        });
-
-
-        // DATATABLES FILTER BY STATUS
-        $(document).ready(function() {
-            // Initialize the DataTable
-            var table = $('#order_all').DataTable();
-
-            //Button to reset filter and show all records
-            $('#reset-filter').on('click', function() {
-                table.column(5).search('').draw(); // Clear the search to show all records
-            });
-
-            // Button to filter by  status
-            $('#filter-pending').on('click', function() {
-                table.column(5).search('pending').draw();
-            });
-            $('#filter-baking').on('click', function() {
-                table.column(5).search('baking').draw();
-            });
-            $('#filter-receive').on('click', function() {
-                table.column(5).search('receive').draw();
-            });
-            $('#filter-review').on('click', function() {
-                table.column(5).search('review').draw();
-            });
-            $('#filter-completed').on('click', function() {
-                table.column(5).search('completed').draw();
-            });
-            $('#filter-canceled').on('click', function() {
-                table.column(5).search('canceled').draw();
-            });
-        });
-    </script>
+    <script src="/js/manage_order.js" defer></script>
 
 </x-layout>

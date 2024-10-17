@@ -193,7 +193,7 @@
                                     <th class="p-2 w-20">No.</th>
                                     <th class="p-2 w-auto">Customer Name</th>
                                     <th class="p-2 w-auto">Cake</th>
-                                    <th class="p-2 w-auto">Date</th>
+                                    <th class="p-2 w-auto">Date Ordered</th>
                                     <th class="p-2 w-40">Status</th>
                                 </tr>
                             </thead>
@@ -202,8 +202,8 @@
                                     <tr class="text-center border-b odd:bg-[#feebf2]">
                                         <td >{{ $order->order_id }}</td>
                                         <td >{{ $order->order->user->last_name }}, {{ $order->order->user->first_name }}</td>
-                                        <td >{{ $order->cake->name }}</td>
-                                        <td >{{ $order->created_at }}</td>
+                                        <td >{{ $order->cake->name }} </td>
+                                        <td >{{ $order->created_at->diffForHumans() }}</td>
                                         <td >{{ $order->status }}</td>
                                     </tr>
                                 @endforeach
