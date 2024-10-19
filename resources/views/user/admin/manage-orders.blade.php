@@ -38,13 +38,33 @@ use Carbon\Carbon;
 
                         <div class="flex">
                             <ul class="flex cursor-pointer w-fit relative text-sm">
-                                <li id="reset-filter" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 border-b-2 border-red-500 bg-[#eedee4] rounded-t-lg text-red-500">All Orders</li>
-                                <li id="filter-pending" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20">Pending</li>
-                                <li id="filter-baking" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20">Baking</li>
-                                <li id="filter-receive" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20">To Receive</li>
-                                <li id="filter-review" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 ">To Review</li>
-                                <li id="filter-completed" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20">Completed</li>
-                                <li id="filter-canceled" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20">Canceled</li>
+                                <li id="reset-filter" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 border-b-2 border-red-500 bg-[#eedee4] rounded-t-lg text-red-500">
+                                    All Orders
+                                </li>
+                                <li id="filter-pending" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative">
+                                    Pending
+                                    <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                                </li>
+                                <li id="filter-baking" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative">
+                                    Baking
+                                    <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                                </li>
+                                <li id="filter-receive" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative">
+                                    To Receive
+                                    <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                                </li>
+                                {{-- <li id="filter-review" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative ">
+                                    To Review
+                                    <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                                </li> --}}
+                                <li id="filter-completed" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative">
+                                    Completed
+                                    <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                                </li>
+                                <li id="filter-canceled" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative">
+                                    Canceled
+                                    <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                                </li>
                             </ul>
                         </div>
 
@@ -71,7 +91,7 @@ use Carbon\Carbon;
                                             $formattedTime = Carbon::parse($order->order->prefered_time)->format('H:i');
                                             $formattedDate = Carbon::parse($order->order->prefered_date)->format('F d, Y');
                                         @endphp --}}
-                                        <tr class="orderDetails border-b" data-order="{{ json_encode($order) }}">
+                                        <tr class="orderDetails border-b" data-id="{{ $order->id }}">
                                             <td class="cursor-pointer text-center">{{ $order->id }}</td>
                                             <td class="cursor-pointer text-center">{{ $order->order->id }}</td>
                                             <td class="cursor-pointer text-center">{{ $order->order->user->first_name }} {{ $order->order->user->last_name }}</td>
@@ -82,7 +102,7 @@ use Carbon\Carbon;
                                             {{-- <td class="cursor-pointer text-center">{{ $formattedDate }} <br> {{ $formattedTime }}</td> --}}
                                             <td class="py-2 text-center">
                                                 <button type="button" class="text-white text-xs py-1 px-3 rounded-md shadow-md bg-[#F55447] cursor-pointer active:scale-95">
-                                                    Next &Gt;
+                                                    DETAILS
                                                 </button>
                                             </td>
                                         </tr>
@@ -105,6 +125,9 @@ use Carbon\Carbon;
 
     <x-order-full-detail></x-order-full-detail>
 
+    <script>
+        let filterWord = '{!! request()->filter !!}';
+    </script>
     <script src="/js/manage_order.js" defer></script>
 
 </x-layout>

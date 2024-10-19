@@ -32,7 +32,8 @@ class AdminController extends Controller
             ->first();
 
 
-        $income = OrderItem::sum('sub_total') - OrderItem::where('status', 'canceled')->sum('sub_total');
+        // $income = OrderItem::sum('sub_total') - OrderItem::where('status', 'canceled')->sum('sub_total');
+        $income = OrderItem::whereIn('status', ['completed', 'review'])->sum('sub_total');
 
         $latestOrders = OrderItem::with('order.user', 'cake')->latest()->limit(10)->get();
 
@@ -48,10 +49,24 @@ class AdminController extends Controller
 
     public function manageOrders() {
 
-        $all = OrderItem::latest()->with('cake', 'order.user', 'order.address', 'order.orderItems')->get();
+        $all = OrderItem::latest()->with('cake', 'order.user', 'order.address', 'order.orderItems.cake')->get();
 
         return view('user.admin.manage-orders', [
             'allOrders' => $all,
         ]);
+    }
+
+    public function updateStatus(OrderItem $item) {
+        $updated = $item->update([
+            'status' => request()->item,
+        ]);
+
+        return response()->json(['is_success' => $updated, 'status' => request()->item]);
+    }
+    public function showOrder(OrderItem $item) {
+        $all = OrderItem::with('cake', 'order.user', 'order.address', 'order.orderItems.cake')->find($item->id);
+        // $all = OrderItem::latest()->with('cake');
+
+        return response()->json($all);
     }
 }

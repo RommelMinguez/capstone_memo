@@ -10,6 +10,13 @@ let deliveryDate = document.getElementById('delivery-date');
 let address = document.getElementById('address');
 let paymentMethod = document.getElementById('payment-method');
 
+let orderItem = document.getElementById('order-item').cloneNode(true);
+let orderItem_display = document.getElementById('display-order-item');
+
+let status_all = document.getElementById('status-set-all');
+// let status_items = document.querySelectorAll('status-item');
+let status_items = [];
+let n = 0;
 
 
 
@@ -22,24 +29,13 @@ orderDetail_show.forEach((element, index) => {
         orderDetail_content.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
 
-        let orderData = JSON.parse(element.getAttribute('data-order'));
-        console.log(orderData);
+        document.getElementById('detail-loading').classList.remove('hidden');
+        document.getElementById('detail-content-load').classList.add('hidden');
 
-        orderID.textContent = orderData['order']['id'];
+        // let orderData = JSON.parse(element.getAttribute('data-order'));
+        // console.log(element.getAttribute('data-id'));
+        getOrderData(element.getAttribute('data-id'), element);
 
-        customerInfo.children[0].textContent = toTitleCase(orderData['order']['user']['first_name'] + ' ' + orderData['order']['user']['last_name']);
-        customerInfo.children[1].textContent = orderData['order']['user']['email'];
-        customerInfo.children[2].textContent = orderData['order']['user']['phone_number'];
-
-        const date = new Date(orderData['order']['prefered_date']+'T'+orderData['order']['prefered_time']);
-        deliveryDate.children[0].innerHTML= formatDateTime(date);
-
-        address.children[0].children[0].textContent = toTitleCase(orderData['order']['address']['name']);
-        address.children[0].children[1].textContent = orderData['order']['address']['phone_number'];
-        address.children[1].textContent = orderData['order']['address']['street_building'] + ((orderData['order']['address']['unit_floor']) ? ', '+orderData['order']['address']['unit_floor']:'');
-        address.children[2].textContent = orderData['order']['address']['province'] + ', ' + orderData['order']['address']['city_municipality'] + ', ' + orderData['order']['address']['barangay'];
-
-        paymentMethod.children[0].textContent = orderData['order']['payment_method'];
     });
 });
 orderDetail_close.addEventListener('click', function() {
@@ -51,7 +47,124 @@ orderDetail_close.addEventListener('click', function() {
 
 
 
+let bgColorArr = ['bg-yellow-500', 'bg-orange-500', 'bg-green-500', 'bg-blue-500', 'bg-red-500'];
+let isSettingDefault = true;
 
+
+async function getOrderData(id, element) {
+    try {
+        const response = await fetch('/admin/orders/' + id);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const orderData = await response.json();
+        // console.log(orderData);
+
+        orderID.textContent = orderData['order']['id'];
+        paymentMethod.children[0].textContent = orderData['order']['payment_method'];
+        displayItems(orderData['order']['order_items'], element);
+        displayUserData(orderData['order']['user']);
+        displayAddressData(orderData['order']['address']);
+        displayDateData(orderData['order']);
+
+        document.getElementById('detail-loading').classList.add('hidden');
+        document.getElementById('detail-content-load').classList.remove('hidden');
+
+        return true;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        throw error;
+    }
+}
+
+
+
+
+status_all.addEventListener('change', function() {
+    bgColorArr.forEach(bg => {
+        this.classList.remove(bg);
+    });
+    this.classList.add(bgColorArr[this.selectedIndex-1]);
+
+    status_items.forEach((element, index) => {
+        element.value = this.value;
+    });
+    status_items.forEach((element, index) => {
+        element.dispatchEvent(new Event('change'));
+    });
+
+
+
+});
+
+function displayItems(items, row) {
+    orderItem_display.innerHTML = '';
+    status_items = [];
+    Object.values(items).forEach(values => {
+        let clone = orderItem.cloneNode(true);
+
+        clone.children[0].children[0].children[0].src = formatImagePath(values['cake']['image_src']);
+        clone.children[1].children[0].children[0].children[0].textContent =  values['cake']['name'];
+        clone.children[1].children[0].children[0].children[1].textContent =  'x' + values['quantity'];
+        clone.children[1].children[0].children[1].children[0].textContent =  values['cake']['price'];
+        clone.children[1].children[0].children[3].children[0].textContent =  values['age'];
+        clone.children[1].children[0].children[4].children[0].textContent =  values['candle_type'];
+        clone.children[1].children[0].children[5].children[0].textContent =  values['dedication'];
+        clone.children[2].children[0].children[1].children[0].textContent =  (values['quantity'] * values['cake']['price']).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        isSettingDefault = true;
+        clone.children[2].children[0].children[0].children[1].addEventListener('change', function() {
+            bgColorArr.forEach(bg => {
+                this.classList.remove(bg);
+            });
+            this.classList.add(bgColorArr[this.selectedIndex]);
+
+            if (!isSettingDefault) {
+                updateStatus(values['id'], {item: this.value});
+
+                var row = table.row(function(idx, data, node) {
+                    return data[0] == values['id'].toString();
+                });
+                table.cell(row, 6).data(this.value).draw();
+
+                updateStatusAll();
+            }
+        });
+        clone.children[2].children[0].children[0].children[1].value = values['status'];
+        clone.children[2].children[0].children[0].children[1].dispatchEvent(new Event('change'));
+        status_items[n++] = clone.children[2].children[0].children[0].children[1];
+
+
+        isSettingDefault = false;
+        orderItem_display.appendChild(clone);
+    });
+
+    updateStatusAll();
+    n = 0;
+}
+
+function displayUserData(userData) {
+    customerInfo.children[0].textContent = toTitleCase(userData['first_name'] + ' ' + userData['last_name']);
+    customerInfo.children[1].textContent = userData['email'];
+    customerInfo.children[2].textContent = userData['phone_number'];
+}
+
+function displayAddressData(addressData) {
+    address.children[0].children[0].textContent = toTitleCase(addressData['name']);
+    address.children[0].children[1].textContent = addressData['phone_number'];
+    address.children[1].textContent = addressData['street_building'] + ((addressData['unit_floor']) ? ', '+addressData['unit_floor']:'');
+    address.children[2].textContent = addressData['province'] + ', ' + addressData['city_municipality'] + ', ' + addressData['barangay'];
+}
+
+function displayDateData(dateData) {
+    const date = new Date(dateData['prefered_date']+'T'+dateData['prefered_time']);
+    deliveryDate.children[0].innerHTML= formatDateTime(date);
+}
+
+
+function formatImagePath(path) {
+    return path.replace('public/', '/storage/');
+}
 function formatDateTime(date) {
     const optionsDate = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
     const optionsTime = { hour: 'numeric', minute: 'numeric', hour12: true };
@@ -69,6 +182,64 @@ function toTitleCase(str) {
         .join(' ');    // Join the words back into a single string
 }
 
+async function updateStatus(id, data) {
+    // console.log(data);
+
+    try {
+        const response = await fetch('/admin/orders/' + id, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const updatedData = await response.json();
+
+        // console.log(updatedData);
+        updateFilterCount();
+
+        return updatedData;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        throw error;
+    }
+}
+
+function updateStatusAll() {
+    if (status_items.length == 1) {
+        status_all.value = status_items[0].value;
+        bgColorArr.forEach(bg => {
+            status_all.classList.remove(bg);
+        });
+        status_all.classList.add(bgColorArr[status_all.selectedIndex-1]);
+    } else {
+        for(let i = 0; i < status_items.length-1; i++) {
+            if (status_items[i].value == status_items[i+1].value) {
+                status_all.value = status_items[i].value;
+                bgColorArr.forEach(bg => {
+                    status_all.classList.remove(bg);
+                });
+                status_all.classList.add(bgColorArr[status_all.selectedIndex-1]);
+            } else {
+                status_all.value = '';
+                bgColorArr.forEach(bg => {
+                    status_all.classList.remove(bg);
+                });
+                status_all.classList.add('bg-[#D9D9D9]');
+                break;
+            }
+
+        }
+    }
+}
+
+
 
 
 
@@ -84,10 +255,12 @@ tabs.forEach((element, index) => {
 });
 
 
+let table = null;
+
 // DATATABLES FILTER BY STATUS
 $(document).ready(function() {
     // Initialize the DataTable
-    var table = $('#order_all').DataTable();
+    table = $('#order_all').DataTable();
 
     //Button to reset filter and show all records
     $('#reset-filter').on('click', function() {
@@ -97,6 +270,10 @@ $(document).ready(function() {
     // Button to filter by  status
     $('#filter-pending').on('click', function() {
         table.column(6).search('pending').draw();
+        // let rowCount = table.rows({ filter: 'applied' }).count();
+        // let filterPending = document.getElementById('filter-pending');
+        // filterPending.children[0].textContent = rowCount;
+        // filterPending.children[0].classList.remove('hidden');
     });
     $('#filter-baking').on('click', function() {
         table.column(6).search('baking').draw();
@@ -104,13 +281,97 @@ $(document).ready(function() {
     $('#filter-receive').on('click', function() {
         table.column(6).search('receive').draw();
     });
-    $('#filter-review').on('click', function() {
-        table.column(6).search('review').draw();
-    });
+    // $('#filter-review').on('click', function() {
+    //     table.column(6).search('review').draw();
+    // });
     $('#filter-completed').on('click', function() {
         table.column(6).search('completed').draw();
     });
     $('#filter-canceled').on('click', function() {
         table.column(6).search('canceled').draw();
     });
+
+    updateFilterCount();
 });
+
+
+function updateFilterCount() {
+    let data = table.rows().data();
+    let countStatus = {
+        pending: 0,
+        baking: 0,
+        receive: 0,
+        // review: 0,
+        completed: 0,
+        canceled: 0,
+    }
+    data.each(function(row) {
+        switch (row[6]) {
+            case 'pending':
+                countStatus['pending']++;
+                break;
+            case 'baking':
+                countStatus['baking']++;
+                break;
+            case 'receive':
+                countStatus['receive']++;
+                break;
+            // case 'review':
+            //     countStatus['review']++;
+            //     break;
+            case 'completed':
+                countStatus['completed']++;
+                break;
+            default:
+                countStatus['canceled']++;
+        }
+    });
+    document.getElementById('filter-pending').children[0].textContent = countStatus['pending'];
+    document.getElementById('filter-baking').children[0].textContent = countStatus['baking'];
+    document.getElementById('filter-receive').children[0].textContent = countStatus['receive'];
+    // document.getElementById('filter-review').children[0].textContent = countStatus['review'];
+    document.getElementById('filter-completed').children[0].textContent = countStatus['completed'];
+    document.getElementById('filter-canceled').children[0].textContent = countStatus['canceled'];
+
+    if (countStatus['pending'] > 0) document.getElementById('filter-pending').children[0].classList.remove('hidden');
+    else document.getElementById('filter-pending').children[0].classList.add('hidden');
+    if (countStatus['baking'] > 0) document.getElementById('filter-baking').children[0].classList.remove('hidden');
+    else document.getElementById('filter-baking').children[0].classList.add('hidden');
+    if (countStatus['receive'] > 0) document.getElementById('filter-receive').children[0].classList.remove('hidden');
+    else document.getElementById('filter-receive').children[0].classList.add('hidden');
+    // if (countStatus['review'] > 0) document.getElementById('filter-review').children[0].classList.remove('hidden');
+    // else document.getElementById('filter-review').children[0].classList.add('hidden');
+    if (countStatus['completed'] > 0) document.getElementById('filter-completed').children[0].classList.remove('hidden');
+    else document.getElementById('filter-completed').children[0].classList.add('hidden');
+    if (countStatus['canceled'] > 0) document.getElementById('filter-canceled').children[0].classList.remove('hidden');
+    else document.getElementById('filter-canceled').children[0].classList.add('hidden');
+
+    defaultFilter();
+}
+
+
+function defaultFilter() {
+    switch (filterWord) {
+        case 'pending':
+            tabs[1].dispatchEvent(new Event('click'));
+            document.getElementById('filter-pending').dispatchEvent(new Event('click'));
+            break;
+        case 'baking':
+            tabs[2].dispatchEvent(new Event('click'));
+            document.getElementById('filter-baking').dispatchEvent(new Event('click'));
+            break;
+        case 'receive':
+            tabs[3].dispatchEvent(new Event('click'));
+            document.getElementById('filter-received').dispatchEvent(new Event('click'));
+            break;
+        case 'completed':
+            tabs[4].dispatchEvent(new Event('click'));
+            document.getElementById('filter-completed').dispatchEvent(new Event('click'));
+            break;
+        case 'canceled':
+            tabs[5].dispatchEvent(new Event('click'));
+            document.getElementById('filter-canceled').dispatchEvent(new Event('click'));
+            break;
+        default:
+    }
+}

@@ -16,12 +16,34 @@
             </button>
         </div>
 
-        <div class="font-bold text-xl px-10 pt-4">Order # <span id="order-id">0</span></div>
 
-        <div class="px-20 py-5">
-            <table class="table-fixed w-full">
 
-                    <tr class="border-y-2">
+
+        <div id="detail-loading" class="p-20">
+            <x-loading></x-loading>
+        </div>
+
+        <div id="detail-content-load" class="px-20 hidden">
+
+            <div class="flex justify-between  py-5">
+                <div class="font-bold text-xl ">Order # <span id="order-id">0</span></div>
+                <div class="flex text-xs">
+                    <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
+                    <select id="status-set-all" class="py-1 border bg-[#D9D9D9] border-gray-500 rounded-r-md text-white font-semibold">
+                        <option value="" disabled selected></option>
+                        <option value="pending" class="bg-yellow-500 hover:bg-yellow-500">Pending</option>
+                        <option value="baking" class="bg-orange-500">Baking</option>
+                        <option value="receive" class="bg-green-500">To Recieve</option>
+                        {{-- <option value="review" class="bg-blue-500">To Review</option> --}}
+                        <option value="completed" class="bg-blue-500">Completed</option>
+                        <option value="canceled" class="bg-red-500">Cancel</option>
+                    </select>
+                </div>
+            </div>
+
+            <table id="display-order-item" class="table-fixed w-full">
+
+                    <tr id="order-item" class="border-y-2 ">
                         <td class="w-48 p-2">
                             <div class="w-40 h-40 m-auto shadow-md border rounded-sm">
                                 <img src="" alt="cake" class="w-full h-full object-cover " >
@@ -29,16 +51,33 @@
                         </td>
                         <td class="w-auto px-5">
                             <ol>
-                                <li>Cake Name &nbsp;&nbsp; <span class="text-base italic">xN</span></li>
-                                <li class="text-xs text-red-500"> &#8369; 00.00</li>
+                                <li class="flex gap-5">
+                                    <span>Cake Name</span>
+                                    <span class="text-base italic">xN</span>
+                                </li>
+                                <li class="text-xs text-red-500"> &#8369; <span>00.00</span></li>
                                 <br>
                                 <li>Age: <span>1</span></li>
                                 <li>Candle: <span>none</span></li>
                                 <li>Dedication: <span>sample text</span></li>
                             </ol>
                         </td>
-                        <td class="w-32 text-center">
-                            00.00
+                        <td class="w-32 text-center h-full">
+                            <div class="flex flex-col justify-between h-40">
+                                <div class="flex text-xs">
+                                    <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
+                                    <select class="py-1 border border-gray-500 rounded-r-md text-white font-semibold status-item">
+                                        <option value="pending" class="bg-yellow-500 hover:bg-yellow-500">Pending</option>
+                                        <option value="baking" class="bg-orange-500">Baking</option>
+                                        <option value="receive" class="bg-green-500">To Recieve</option>
+                                        {{-- <option value="review" class="bg-blue-500">To Review</option> --}}
+                                        <option value="completed" class="bg-blue-500">Completed</option>
+                                        <option value="canceled" class="bg-red-500">Cancel</option>
+                                    </select>
+                                </div>
+                                <div class="font-bold text-red-500">&#8369; <span>00.00</span></div>
+                                <div></div>
+                            </div>
                         </td>
                     </tr>
 

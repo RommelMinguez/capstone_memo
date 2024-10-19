@@ -14,7 +14,7 @@
 
             <div class="p-10">
                 <div class="flex  items-center gap-x-10 gap-y-5 flex-wrap">
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                    <a href="/admin/orders?filter=pending" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['pending'] }}</div>
                             <div class="text-xs">Pending Orders</div>
@@ -27,8 +27,8 @@
                                 <path fill="#F55447" d="M17 22q-2.075 0-3.537-1.463T12 17t1.463-3.537T17 12t3.538 1.463T22 17t-1.463 3.538T17 22m1.675-2.625l.7-.7L17.5 16.8V14h-1v3.2zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h4.175q.275-.875 1.075-1.437T12 1q1 0 1.788.563T14.85 3H19q.825 0 1.413.588T21 5v6.25q-.45-.325-.95-.55T19 10.3V5h-2v3H7V5H5v14h5.3q.175.55.4 1.05t.55.95zm7-16q.425 0 .713-.288T13 4t-.288-.712T12 3t-.712.288T11 4t.288.713T12 5"/>
                             </svg>
                         </div>
-                    </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                    </a>
+                    <a href="/admin/orders?filter=baking" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['baking'] }}</div>
                             <div class="text-xs">Baking</div>
@@ -42,8 +42,8 @@
                                 <path fill="#F55447" d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5m-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0M9 23v-6h14v6zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5z"/>
                             </svg>
                         </div>
-                    </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                    </a>
+                    <a href="/admin/orders?filter=receive" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['receive'] }}</div>
                             <div class="text-xs">To Receive</div>
@@ -58,8 +58,8 @@
                                 <path fill="#F55447" d="M2.277 5.247a.75.75 0 0 1 .924-.522l1.703.472A2.71 2.71 0 0 1 6.8 7.075l2.151 7.786l.158.547a2.96 2.96 0 0 1 1.522 1.267l.31-.096l8.87-2.305a.75.75 0 1 1 .378 1.452l-8.837 2.296l-.33.102c-.006 1.27-.883 2.432-2.21 2.776c-1.59.414-3.225-.502-3.651-2.044s.518-3.129 2.108-3.542q.119-.03.237-.052L5.354 7.474a1.21 1.21 0 0 0-.85-.831L2.8 6.17a.75.75 0 0 1-.523-.923"/>
                             </svg>
                         </div>
-                    </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                    </a>
+                    {{-- <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['review'] }}</div>
                             <div class="text-xs">To Review</div>
@@ -78,8 +78,8 @@
                                 />
                             </svg>
                         </div>
-                    </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                    </div> --}}
+                    <a href="/admin/orders?filter=completed" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['completed'] }}</div>
                             <div class="text-xs">Completed</div>
@@ -94,8 +94,8 @@
                                 <path fill="#F55447" d="M25 5h-3V4a2.006 2.006 0 0 0-2-2h-8a2.006 2.006 0 0 0-2 2v1H7a2.006 2.006 0 0 0-2 2v21a2.006 2.006 0 0 0 2 2h9v-2H7V7h3v3h12V7h3v11h2V7a2.006 2.006 0 0 0-2-2m-5 3h-8V4h8Z"/>
                             </svg>
                         </div>
-                    </div>
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                    </a>
+                    <a href="/admin/orders?filter=canceled" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['canceled'] }}</div>
                             <div class="text-xs">Canceled</div>
@@ -112,7 +112,7 @@
                                 </g>
                             </svg>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 {{-- OVERALL SUMMARY --}}
@@ -120,7 +120,7 @@
 
                 <div class="flex justify-center items-center gap-x-10 gap-y-10 flex-wrap">
 
-                    <div class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                    <a href="/admin/orders" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $totalOrder }}</div>
                             <div class="text-xs">Total Orders</div>
@@ -137,7 +137,7 @@
                                 </g>
                             </svg>
                         </div>
-                    </div>
+                    </a>
 
                     <div class="min:w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-[#F55447] flex justify-between items-center gap-5 p-7 cursor-pointer">
                         <div class="text-white">
