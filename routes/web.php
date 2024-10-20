@@ -29,6 +29,10 @@ use Illuminate\Validation\ValidationException;
 
 Route::view('/laravel', 'laravel-welcome');
 
+Route::get('/about', function() {
+    return view('about');
+});
+
 Route::get('/', function () {
     return view('memories-cake', ['cakes' => Cake::limit(4)->latest()->get()]);
 });

@@ -7,13 +7,13 @@
         <!-- HEADER SECTION -->
         <div class="relative w-full h-[800px] overflow-hidden pt-20 shadow-md shadow-gray-700">
             <img src="images/cake-sample-1.jpeg" alt="featured background cake" class="absolute top-0 left-0 w-full h-full object-cover z-[0]">
-            <div class="bg-[#9D9595] w-full h-full absolute top-0 left-0 opacity-70 z-10"></div>
+            <div class="bg-[#050505] w-full h-full absolute top-0 left-0 opacity-70 z-10"></div>
             <div class="relative flex flex-col items-start justify-center px-40 z-20 w-full h-full">
-                <h1 class="text-6xl font-localLobster">
+                <h1 class="text-6xl text-white font-localLobster">
                     Bake Your Memories <br>
                     Every time!
                 </h1>
-                <h2 class="mt-10 text-xl font-semibold">
+                <h2 class="mt-10 text-xl text-white font-semibold">
                     Build memories with our sweetest <br>
                     cakes in the town
                 </h2>

@@ -48,7 +48,7 @@ class AdminController extends Controller
 
     public function manageOrders() {
 
-        $all = OrderItem::latest()->with('cake', 'order.user')->get();
+        $all = OrderItem::latest()->with('cake', 'order.user', 'order.address', 'order.orderItems')->get();
 
         return view('user.admin.manage-orders', [
             'allOrders' => $all,
