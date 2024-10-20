@@ -1,3 +1,18 @@
+@php
+    $statusCount = [
+        'pending' => '',
+        'baking' => '',
+        'receive' => '',
+        'review' => '',
+        'completed' => '',
+        'canceled' => '',
+    ];
+
+    foreach ($allItems as $status => $items) {
+        $statusCount[$status] = count($items);
+    }
+@endphp
+
 <x-layout>
 
     <x-header></x-header>
@@ -17,43 +32,102 @@
                     </li>
                     <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         Pending
-                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
+                            {{ $statusCount['pending'] }}
+                        </d>
                     </li>
                     <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         Baking
-                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
+                            {{ $statusCount['baking'] }}
+                        </d>
                     </li>
                     <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         To Receive
-                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
+                            {{ $statusCount['receive'] }}
+                        </d>
                     </li>
                     <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         To Review
-                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
+                            {{ $statusCount['review'] }}
+                        </d>
                     </li>
                     <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         Completed
-                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
+                            {{ $statusCount['completed'] }}
+                        </d>
                     </li>
                     <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         Canceled
-                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
+                        <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
+                            {{ $statusCount['canceled'] }}
+                        </d>
                     </li>
 
                     {{-- <li id="selected-tab" class="absolute h-full border-b-2 border-red-500 bg-[#eaeaea] rounded-t-lg text-red-500"></li> --}}
                 </ul>
 
                 <table class="table-fixed w-full">
+                    {{-- <tbody class="order-content"></tbody>
                     <tbody class="order-content"></tbody>
                     <tbody class="order-content"></tbody>
                     <tbody class="order-content"></tbody>
                     <tbody class="order-content"></tbody>
-                    <tbody class="order-content"></tbody>
-                    <tbody class="order-content"></tbody>
+                    <tbody class="order-content"></tbody> --}}
 
-                    @foreach ($items as $item)
+                    {{-- @foreach ($items as $item)
                         <x-track-order-item :item="$item" class="order-{{ $item->status }}"></x-track-order-item>
-                    @endforeach
+                    @endforeach --}}
+                    {{-- @foreach ($allItems as $status => $items)
+                        @foreach ($items as $item)
+                            <x-track-order-item :item="$item" class="order-{{ $status }}"></x-track-order-item>
+                        @endforeach
+                    @endforeach --}}
+                    <tbody class="order-content">
+                        @if (isset($allItems['pending']))
+                            @foreach ($allItems['pending'] as $item)
+                                <x-track-order-item :item="$item"></x-track-order-item>
+                            @endforeach
+                        @endif
+                    </tbody>
+                    <tbody class="order-content">
+                        @if (isset($allItems['baking']))
+                            @foreach ($allItems['baking'] as $item)
+                                <x-track-order-item :item="$item"></x-track-order-item>
+                            @endforeach
+                        @endif
+                    </tbody>
+                    <tbody class="order-content">
+                        @if (isset($allItems['receive']))
+                            @foreach ($allItems['receive'] as $item)
+                                <x-track-order-item :item="$item"></x-track-order-item>
+                            @endforeach
+                        @endif
+                    </tbody>
+                    <tbody class="order-content">
+                        @if (isset($allItems['review']))
+                            @foreach ($allItems['review'] as $item)
+                                <x-track-order-item :item="$item" :toReview='true'></x-track-order-item>
+                            @endforeach
+                        @endif
+                    </tbody>
+                    <tbody class="order-content">
+                        @if (isset($allItems['completed']))
+                            @foreach ($allItems['completed'] as $item)
+                                <x-track-order-item :item="$item"></x-track-order-item>
+                            @endforeach
+                        @endif
+                    </tbody>
+                    <tbody class="order-content">
+                        @if (isset($allItems['canceled']))
+                            @foreach ($allItems['canceled'] as $item)
+                                <x-track-order-item :item="$item"></x-track-order-item>
+                            @endforeach
+                        @endif
+                    </tbody>
                 </table>
 
                 <div id="empty-msg" class="{{ count($items) == 0 ? '':'hidden' }}">
@@ -73,130 +147,8 @@
         <x-response-success>{{ session('success') }}</x-response-success>
     @endsession
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function()
-        {
-            moveItems();
-            tabs[0].classList.add('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'rounded-t-lg', 'text-red-500');
-        });
+    <x-order-details></x-order-details>
 
-        let tabs = document.querySelectorAll('.order-tab');
-        let contents = document.querySelectorAll('.order-content');
-
-        let pending = document.querySelectorAll('.order-pending');
-        let baking = document.querySelectorAll('.order-baking');
-        let receive = document.querySelectorAll('.order-receive');
-        let review = document.querySelectorAll('.order-review');
-        let completed = document.querySelectorAll('.order-completed');
-        let canceled = document.querySelectorAll('.order-canceled');
-        let empty = document.querySelector('#empty-msg');
-        let countIndicator = document.querySelectorAll('.number-indicator');
-
-        tabs.forEach((element, index) => {
-            element.addEventListener('click', function() {
-                tabs.forEach((e, i) => {
-                    e.classList.remove('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'rounded-t-lg', 'text-red-500');
-                });
-                element.classList.add('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'rounded-t-lg', 'text-red-500');
-
-                hideContents();
-                showContent(index-1);
-                showEmptyMsg(index-1);
-            });
-        });
-
-        function hideContents() {
-            contents.forEach(element => {
-                element.classList.add('hidden');
-            });
-        }
-        function showContent(selectedTabIndex) {
-            if (selectedTabIndex === -1) {
-                contents.forEach(element => {
-                    element.classList.remove('hidden');
-                });
-            } else {
-                contents[selectedTabIndex].classList.remove('hidden');
-            }
-        }
-        function moveItems() { // move pending to pending tab, baking to baking tab ...
-            let count = 0;
-            contents.forEach((parent, index) => {
-                if (index === 0) {
-                    pending.forEach(child => {
-                        parent.appendChild(child);
-                        count++;
-                    });
-                    addCountIndicator(count, index);
-                    count = 0;
-                }
-                else if (index === 1) {
-                    baking.forEach(child => {
-                        parent.appendChild(child);
-                        count++;
-                    });
-                    addCountIndicator(count, index);
-                    count = 0;
-                }
-                else if (index === 2) {
-                    receive.forEach(child => {
-                        parent.appendChild(child);
-                        count++;
-                    });
-                    addCountIndicator(count, index);
-                    count = 0;
-                }
-                else if (index === 3) {
-                    review.forEach(child => {
-                        parent.appendChild(child);
-                        count++;
-                    });
-                    addCountIndicator(count, index);
-                    count = 0;
-                }
-                else if (index === 4) {
-                    completed.forEach(child => {
-                        parent.appendChild(child);
-                        count++;
-                    });
-                    addCountIndicator(count, index);
-                    count = 0;
-                }
-                else if (index === 5) {
-                    canceled.forEach(child => {
-                        parent.appendChild(child);
-                        count++;
-                    });
-                    addCountIndicator(count, index);
-                    count = 0;
-                }
-            })
-        }
-
-        function showEmptyMsg(selectedTabIndex) {
-            empty.classList.remove('hidden');
-            if (selectedTabIndex == -1) {
-                for(let i = 0; i < contents.length; i++) {
-                    let content = contents[i];
-                    if (content.children.length != 0) {
-                        empty.classList.add('hidden');
-                        break;
-                    }
-                }
-            } else {
-                if (contents[selectedTabIndex].children.length != 0) {
-                    empty.classList.add('hidden');
-                }
-            }
-        }
-
-        function addCountIndicator(count, index) {
-            if (count > 0) {
-                countIndicator[index].classList.remove('hidden');
-                countIndicator[index].textContent = count;
-            }
-        }
-
-    </script>
+    <script src="/js/track_order.js" defer></script>
 
 </x-layout>

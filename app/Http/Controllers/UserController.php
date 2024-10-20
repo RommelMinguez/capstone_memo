@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderItem;
 use Hash;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
@@ -17,11 +18,17 @@ class UserController extends Controller
     {
         $orders = Auth::user()->orders()->pluck('id');
 
-        $items = OrderItem::whereIn('order_id', $orders)->with('cake')->latest()->get();
+        $allItems = OrderItem::whereIn('order_id', $orders)->with('cake', 'order.address')->latest()->get()->groupBy('status');
+        $allItems->put('review', collect());
+        $allItems->get('completed')->each(function ($item, $key) use ($allItems) {
+            $hasReview = Auth::user()->reviews()->where('cake_id', $item->cake->id)->exists();
+            if (!$hasReview) {
+                $allItems->get('review')->push($item);
+                $allItems->get('completed')->forget($key);
+            }
+        });
 
-        return view('user.track-order', [
-            'items' => $items
-        ]);
+        return view('user.track-order', compact('allItems'));
     }
 
     public function showMessage()

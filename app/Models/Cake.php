@@ -22,4 +22,7 @@ class Cake extends Model
     {
         return $this->belongsToMany(Tag::class, 'cake_tag');
     }
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
 }

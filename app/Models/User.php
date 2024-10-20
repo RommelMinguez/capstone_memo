@@ -23,6 +23,9 @@ class User extends Authenticatable
     public function mainAddress() {
         return $this->belongsTo(Address::class, 'address_id');
     }
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
 
     /**
      * The attributes that are mass assignable.
