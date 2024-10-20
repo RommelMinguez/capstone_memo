@@ -1,6 +1,7 @@
 <x-layout>
     <x-header></x-header>
 
+<<<<<<< HEAD
 
     {{-- Main Content --}}
 
@@ -10,6 +11,14 @@
         <div class="bg-white w-[1300px] h-auto border border-gray-300 shadow-lg p-5 rounded-lg flex flex-wrap">
             <!-- Left Text Section -->
             <div class="w-full lg:w-1/2 p-6" data-aos="fade-right">
+=======
+    {{-- Main Content --}}
+    <div class="flex justify-center items-start min-h-screen mb-10 pt-5 pl-8" style="margin-top: 100px">
+        <!-- "About Us" Label -->
+        <div class="bg-white w-[1300px] h-auto border border-gray-300 shadow-lg p-5 rounded-lg flex flex-wrap">
+            <!-- Left Text Section -->
+            <div class="w-full lg:w-1/2 p-6">
+>>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
                 <h1 class="text-4xl font-localLobster text-black mb-10">We Bake Every Cake From the Core of Our Hearts</h1>
                 <p class="text-gray-700 leading-relaxed mb-7">
                     At Memories Cake, we believe that every special occasion deserves to be celebrated with the perfect cake.
@@ -29,13 +38,21 @@
             </div>
 
             <!-- Right Image Section -->
+<<<<<<< HEAD
             <div class="w-full lg:w-1/2 flex flex-col justify-between items-center p-6" data-aos="fade-left">
+=======
+            <div class="w-full lg:w-1/2 flex flex-col justify-between items-center p-6">
+>>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
                 <div class="w-full">
                     <img class="w-full h-auto rounded-lg object-cover" src="images/baking-hands.jpg" alt="Baking Image">
                 </div>
 
                 <!-- Statistics Section -->
+<<<<<<< HEAD
                 <div class="grid grid-cols-2 gap-6 mt-8 w-full" data-aos="zoom-in">
+=======
+                <div class="grid grid-cols-2 gap-6 mt-8 w-full">
+>>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
                     <div class="bg-pink-100 text-center p-6 rounded-lg">
                         <h2 class="text-3xl font-bold" style="color:#F44336;">5</h2>
                         <p class="text-gray-700">Years Experience</p>
@@ -58,7 +75,11 @@
     </div>
 
    <!-- New Section: I am the Baker -->
+<<<<<<< HEAD
 <div class="bg-gray-100 mt-20 p-8 w-full border  border-gray-300 flex flex-col md:flex-row items-start space-x-0 md:space-x-6 h-auto md:h-[450px]" data-aos="fade-up">
+=======
+<div class="bg-gray-100 mt-20 p-8 w-full border  border-gray-300 flex flex-col md:flex-row items-start space-x-0 md:space-x-6 h-auto md:h-[450px]">
+>>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
     <!-- Baker's Photo with Overlay Border -->
     <div class="relative w-full md:w-1/3 mb-6 md:mb-0">
         <!-- Border div -->
@@ -68,11 +89,17 @@
     </div>
 
     <!-- Baker's Info -->
+<<<<<<< HEAD
     <div class="w-full md:w-2/3" data-aos="fade-left">
         <h2 class="text-red-600 text-xl ml-1 font-bold">HI!</h2>
         <h3 class="text-3xl font-bold mb-4">
              <div class="typing-animation" id="typingText">I am the Baker</div> <!-- Typing effect applied to this span -->
                 </h3>
+=======
+    <div class="w-full md:w-2/3">
+        <h2 class="text-red-600 text-xl ml-1 font-bold">HI!</h2>
+        <h3 class="text-3xl font-bold mb-4">I am the Baker</h3>
+>>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
         <p class="text-gray-700 mb-4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
         </p>
@@ -106,7 +133,11 @@
 
 
 <!-- New Section: Testimonials Carousel -->
+<<<<<<< HEAD
 <div class="flex justify-center items-center mb-[200px] mt-20 p-10" data-aos="fade-up">
+=======
+<div class="flex justify-center items-center mb-[200px] mt-20 p-10">
+>>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
     <div class="max-w-screen-lg w-full relative">
         <h2 class="text-3xl font-bold text-center mb-8">What our Customers Are Saying</h2>
 
@@ -155,6 +186,7 @@
     .testimonial-card {
         min-width: 300px;
         transition: transform 0.5s ease, opacity 0.5s ease;
+<<<<<<< HEAD
         }
 
         /* Add a fade-in and fade-out effect to simulate card change */
@@ -213,10 +245,39 @@
 
 
 
+=======
+    }
+
+    /* Add a fade-in and fade-out effect to simulate card change */
+    .fade-enter {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    .fade-enter-active {
+        opacity: 1;
+        transform: scale(1);
+    }
+    .fade-exit {
+        opacity: 1;
+        transform: scale(1);
+    }
+    .fade-exit-active {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 2rem;
+    }
+>>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
 </style>
 
 
 
+<<<<<<< HEAD
     <script>
         const testimonials = [
             {
@@ -333,6 +394,88 @@ setInterval(restartTypingAnimation, 8500);
                 offset: 120,  // Offset value to trigger animation earlier/later in view
             });
    </script>
+=======
+<script>
+    const testimonials = [
+        {
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            author: "Edward Abunda Jr.",
+            stars: 5
+        },
+        {
+            text: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            author: "John Doe",
+            stars: 4
+        },
+        {
+            text: "Excepteur sint occaecat cupidatat non proident.",
+            author: "Jane Smith",
+            stars: 5
+        },
+        {
+            text: "Ut enim ad minim veniam, quis nostrud exercitation.",
+            author: "Mark Spencer",
+            stars: 4
+        }
+    ];
+
+    let currentIndex = 1;  // Start with the second testimonial
+    const leftCard = document.getElementById('leftCard');
+    const centerCard = document.getElementById('centerCard');
+    const rightCard = document.getElementById('rightCard');
+    const prevTestimonial = document.getElementById('prevTestimonial');
+    const nextTestimonial = document.getElementById('nextTestimonial');
+
+    // Function to update card content
+    function updateCards() {
+        const prevIndex = (currentIndex === 0) ? testimonials.length - 1 : currentIndex - 1;
+        const nextIndex = (currentIndex === testimonials.length - 1) ? 0 : currentIndex + 1;
+
+        // Update left, center, and right cards
+        leftCard.querySelector('p').textContent = testimonials[prevIndex].text;
+        leftCard.querySelector('.font-bold').textContent = testimonials[prevIndex].author;
+
+        centerCard.querySelector('p').textContent = testimonials[currentIndex].text;
+        centerCard.querySelector('.font-bold').textContent = testimonials[currentIndex].author;
+
+        rightCard.querySelector('p').textContent = testimonials[nextIndex].text;
+        rightCard.querySelector('.font-bold').textContent = testimonials[nextIndex].author;
+    }
+
+    // Apply transition with smooth fade and replace
+    function smoothTransition(isNext = true) {
+        centerCard.classList.add('fade-exit-active');
+        setTimeout(() => {
+            currentIndex = isNext ?
+                (currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1) :
+                (currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1);
+
+            updateCards();
+            centerCard.classList.remove('fade-exit-active');
+            centerCard.classList.add('fade-enter-active');
+            setTimeout(() => {
+                centerCard.classList.remove('fade-enter-active');
+            }, 500); // Match the transition duration
+        }, 500); // Time it with CSS fade-out duration
+    }
+
+    // Handle Next button click
+    nextTestimonial.addEventListener('click', () => {
+        smoothTransition(true);
+    });
+
+    // Handle Previous button click
+    prevTestimonial.addEventListener('click', () => {
+        smoothTransition(false);
+    });
+
+    // Initial card update
+    updateCards();
+</script>
+
+
+
+>>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
 
 
 </x-layout>
