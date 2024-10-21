@@ -1,7 +1,6 @@
 <x-layout>
     <x-header></x-header>
 
-<<<<<<< HEAD
 
     {{-- Main Content --}}
 
@@ -11,14 +10,6 @@
         <div class="bg-white w-[1300px] h-auto border border-gray-300 shadow-lg p-5 rounded-lg flex flex-wrap">
             <!-- Left Text Section -->
             <div class="w-full lg:w-1/2 p-6" data-aos="fade-right">
-=======
-    {{-- Main Content --}}
-    <div class="flex justify-center items-start min-h-screen mb-10 pt-5 pl-8" style="margin-top: 100px">
-        <!-- "About Us" Label -->
-        <div class="bg-white w-[1300px] h-auto border border-gray-300 shadow-lg p-5 rounded-lg flex flex-wrap">
-            <!-- Left Text Section -->
-            <div class="w-full lg:w-1/2 p-6">
->>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
                 <h1 class="text-4xl font-localLobster text-black mb-10">We Bake Every Cake From the Core of Our Hearts</h1>
                 <p class="text-gray-700 leading-relaxed mb-7">
                     At Memories Cake, we believe that every special occasion deserves to be celebrated with the perfect cake.
@@ -38,21 +29,13 @@
             </div>
 
             <!-- Right Image Section -->
-<<<<<<< HEAD
             <div class="w-full lg:w-1/2 flex flex-col justify-between items-center p-6" data-aos="fade-left">
-=======
-            <div class="w-full lg:w-1/2 flex flex-col justify-between items-center p-6">
->>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
                 <div class="w-full">
                     <img class="w-full h-auto rounded-lg object-cover" src="images/baking-hands.jpg" alt="Baking Image">
                 </div>
 
                 <!-- Statistics Section -->
-<<<<<<< HEAD
                 <div class="grid grid-cols-2 gap-6 mt-8 w-full" data-aos="zoom-in">
-=======
-                <div class="grid grid-cols-2 gap-6 mt-8 w-full">
->>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
                     <div class="bg-pink-100 text-center p-6 rounded-lg">
                         <h2 class="text-3xl font-bold" style="color:#F44336;">5</h2>
                         <p class="text-gray-700">Years Experience</p>
@@ -75,11 +58,7 @@
     </div>
 
    <!-- New Section: I am the Baker -->
-<<<<<<< HEAD
 <div class="bg-gray-100 mt-20 p-8 w-full border  border-gray-300 flex flex-col md:flex-row items-start space-x-0 md:space-x-6 h-auto md:h-[450px]" data-aos="fade-up">
-=======
-<div class="bg-gray-100 mt-20 p-8 w-full border  border-gray-300 flex flex-col md:flex-row items-start space-x-0 md:space-x-6 h-auto md:h-[450px]">
->>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
     <!-- Baker's Photo with Overlay Border -->
     <div class="relative w-full md:w-1/3 mb-6 md:mb-0">
         <!-- Border div -->
@@ -89,19 +68,13 @@
     </div>
 
     <!-- Baker's Info -->
-<<<<<<< HEAD
     <div class="w-full md:w-2/3" data-aos="fade-left">
         <h2 class="text-red-600 text-xl ml-1 font-bold">HI!</h2>
         <h3 class="text-3xl font-bold mb-4">
              <div class="typing-animation" id="typingText">I am the Baker</div> <!-- Typing effect applied to this span -->
                 </h3>
-=======
-    <div class="w-full md:w-2/3">
-        <h2 class="text-red-600 text-xl ml-1 font-bold">HI!</h2>
-        <h3 class="text-3xl font-bold mb-4">I am the Baker</h3>
->>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
         <p class="text-gray-700 mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+            As the owner of Memories Cakes by Memo Bakeshop, she brings joy through her handcrafted pastries and custom celebration cakes
         </p>
 
         <!-- Contact Info Grid -->
@@ -133,20 +106,20 @@
 
 
 <!-- New Section: Testimonials Carousel -->
-<<<<<<< HEAD
 <div class="flex justify-center items-center mb-[200px] mt-20 p-10" data-aos="fade-up">
-=======
-<div class="flex justify-center items-center mb-[200px] mt-20 p-10">
->>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
     <div class="max-w-screen-lg w-full relative">
         <h2 class="text-3xl font-bold text-center mb-8">What our Customers Are Saying</h2>
 
         <!-- Testimonial Carousel -->
         <div class="flex justify-center items-center relative">
             <!-- Left Arrow -->
-            <button id="prevTestimonial" class="text-gray-400 hover:text-gray-800 transition absolute left-0 z-10">
-                &lt;
-            </button>
+            <button id="prevTestimonial" class="text-gray-400 hover:text-gray-800 mr-2 transition absolute left-0 z-10">
+    <img class="w-6 h-6 filter transition-transform duration-300 transform hover:-translate-x-2"
+         width="26" height="26"
+         src="https://img.icons8.com/metro/26/back.png"
+         alt="back"
+         style="filter: brightness(0) saturate(100%) invert(53%) sepia(96%) saturate(4617%) hue-rotate(337deg) brightness(98%) contrast(103%);"/>
+</button>
 
             <!-- Testimonial Cards Container -->
             <div class="flex space-x-4 items-center">
@@ -173,9 +146,14 @@
             </div>
 
             <!-- Right Arrow -->
-            <button id="nextTestimonial" class="text-gray-400 hover:text-gray-800 transition absolute right-0 z-10">
-                &gt;
-            </button>
+        <button id="nextTestimonial" class="text-gray-400 hover:text-gray-800 transition absolute right-0 z-10">
+            <img class="w-6 h-6 filter ml-5 transition-transform duration-300 transform hover:translate-x-2"
+                src="https://img.icons8.com/metro/26/forward.png"
+                alt="forward"
+                style="filter: brightness(0) saturate(100%) invert(53%) sepia(96%) saturate(4617%) hue-rotate(337deg) brightness(98%) contrast(103%);">
+        </button>
+
+
         </div>
     </div>
 </div>
@@ -186,7 +164,6 @@
     .testimonial-card {
         min-width: 300px;
         transition: transform 0.5s ease, opacity 0.5s ease;
-<<<<<<< HEAD
         }
 
         /* Add a fade-in and fade-out effect to simulate card change */
@@ -245,116 +222,99 @@
 
 
 
-=======
-    }
-
-    /* Add a fade-in and fade-out effect to simulate card change */
-    .fade-enter {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    .fade-enter-active {
-        opacity: 1;
-        transform: scale(1);
-    }
-    .fade-exit {
-        opacity: 1;
-        transform: scale(1);
-    }
-    .fade-exit-active {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 2rem;
-    }
->>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
 </style>
 
 
 
-<<<<<<< HEAD
     <script>
-        const testimonials = [
-            {
-                text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                author: "Edward Abunda Jr.",
-                stars: 5
-            },
-            {
-                text: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                author: "John Doe",
-                stars: 4
-            },
-            {
-                text: "Excepteur sint occaecat cupidatat non proident.",
-                author: "Jane Smith",
-                stars: 5
-            },
-            {
-                text: "Ut enim ad minim veniam, quis nostrud exercitation.",
-                author: "Mark Spencer",
-                stars: 4
-            }
-        ];
+       // Testimonial data
+const testimonials = [
+    {
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        author: "Edward Abunda Jr.",
+        stars: 5
+    },
+    {
+        text: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        author: "John Doe",
+        stars: 4
+    },
+    {
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.",
+        author: "Jane Smith",
+        stars: 5
+    },
+    {
+        text: "Ut enim ad minim veniam, quis nostrud exercitation.",
+        author: "Mark Spencer",
+        stars: 5
+    }
+];
 
-        let currentIndex = 1;  // Start with the second testimonial
-        const leftCard = document.getElementById('leftCard');
-        const centerCard = document.getElementById('centerCard');
-        const rightCard = document.getElementById('rightCard');
-        const prevTestimonial = document.getElementById('prevTestimonial');
-        const nextTestimonial = document.getElementById('nextTestimonial');
+// Get DOM elements
+let currentIndex = 1;
+const leftCard = document.getElementById('leftCard');
+const centerCard = document.getElementById('centerCard');
+const rightCard = document.getElementById('rightCard');
+const nextTestimonial = document.getElementById('nextTestimonial');
 
-        // Function to update card content
-        function updateCards() {
-            const prevIndex = (currentIndex === 0) ? testimonials.length - 1 : currentIndex - 1;
-            const nextIndex = (currentIndex === testimonials.length - 1) ? 0 : currentIndex + 1;
+// Function to generate stars
+function generateStars(count) {
+    return '★'.repeat(count);
+}
 
-            // Update left, center, and right cards
-            leftCard.querySelector('p').textContent = testimonials[prevIndex].text;
-            leftCard.querySelector('.font-bold').textContent = testimonials[prevIndex].author;
+// Function to update cards content
+function updateCards() {
+    const prevIndex = (currentIndex === 0) ? testimonials.length - 1 : currentIndex - 1;
+    const nextIndex = (currentIndex === testimonials.length - 1) ? 0 : currentIndex + 1;
 
-            centerCard.querySelector('p').textContent = testimonials[currentIndex].text;
-            centerCard.querySelector('.font-bold').textContent = testimonials[currentIndex].author;
+    // Update left card
+    leftCard.querySelector('p:first-child').textContent = `"${testimonials[prevIndex].text}"`;
+    leftCard.querySelector('.font-bold').textContent = testimonials[prevIndex].author;
 
-            rightCard.querySelector('p').textContent = testimonials[nextIndex].text;
-            rightCard.querySelector('.font-bold').textContent = testimonials[nextIndex].author;
-        }
+    // Update center card
+    centerCard.querySelector('.text-red-500').textContent = generateStars(testimonials[currentIndex].stars);
+    centerCard.querySelector('p:nth-child(2)').textContent = `"${testimonials[currentIndex].text}"`;
+    centerCard.querySelector('.font-bold').textContent = testimonials[currentIndex].author;
 
-        // Apply transition with smooth fade and replace
-        function smoothTransition(isNext = true) {
-            centerCard.classList.add('fade-exit-active');
-            setTimeout(() => {
-                currentIndex = isNext ?
-                    (currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1) :
-                    (currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1);
+    // Update right card
+    rightCard.querySelector('p:first-child').textContent = `"${testimonials[nextIndex].text}"`;
+    rightCard.querySelector('.font-bold').textContent = testimonials[nextIndex].author;
+}
 
-                updateCards();
-                centerCard.classList.remove('fade-exit-active');
-                centerCard.classList.add('fade-enter-active');
-                setTimeout(() => {
-                    centerCard.classList.remove('fade-enter-active');
-                }, 500); // Match the transition duration
-            }, 500); // Time it with CSS fade-out duration
-        }
+// Function to handle smooth transition
+function smoothTransition() {
+    // Add fade-out effect
+    centerCard.classList.add('opacity-0');
+    leftCard.classList.add('opacity-0');
+    rightCard.classList.add('opacity-0');
 
-        // Handle Next button click
-        nextTestimonial.addEventListener('click', () => {
-            smoothTransition(true);
-        });
-
-        // Handle Previous button click
-        prevTestimonial.addEventListener('click', () => {
-            smoothTransition(false);
-        });
-
-        // Initial card update
+    // Update index and content after fade-out
+    setTimeout(() => {
+        currentIndex = (currentIndex === testimonials.length - 1) ? 0 : currentIndex + 1;
         updateCards();
 
+        // Add fade-in effect
+        centerCard.classList.remove('opacity-0');
+        leftCard.classList.remove('opacity-0');
+        rightCard.classList.remove('opacity-0');
+    }, 300); // Match this with CSS transition duration
+}
+
+// Add click event listener for next button
+nextTestimonial.addEventListener('click', () => {
+    smoothTransition();
+});
+
+// Optional: Add auto-play functionality
+function startAutoPlay(interval = 5000) {
+    setInterval(smoothTransition, interval);
+}
+
+// Initialize the carousel
+updateCards();
+// Uncomment the next line if you want auto-play
+// startAutoPlay();
 
       function restartTypingAnimation() {
     const typingElement = document.getElementById('typingText');
@@ -383,10 +343,8 @@ setInterval(restartTypingAnimation, 8500);
 
     </script>
 
-    <!-- AOS Initialization -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script>
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+     <script>
             AOS.init({
                 once: false,  // Ensure animations play every time elements are scrolled into view
                 duration: 1200,  // Animation duration (in milliseconds)
@@ -394,88 +352,5 @@ setInterval(restartTypingAnimation, 8500);
                 offset: 120,  // Offset value to trigger animation earlier/later in view
             });
    </script>
-=======
-<script>
-    const testimonials = [
-        {
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            author: "Edward Abunda Jr.",
-            stars: 5
-        },
-        {
-            text: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            author: "John Doe",
-            stars: 4
-        },
-        {
-            text: "Excepteur sint occaecat cupidatat non proident.",
-            author: "Jane Smith",
-            stars: 5
-        },
-        {
-            text: "Ut enim ad minim veniam, quis nostrud exercitation.",
-            author: "Mark Spencer",
-            stars: 4
-        }
-    ];
-
-    let currentIndex = 1;  // Start with the second testimonial
-    const leftCard = document.getElementById('leftCard');
-    const centerCard = document.getElementById('centerCard');
-    const rightCard = document.getElementById('rightCard');
-    const prevTestimonial = document.getElementById('prevTestimonial');
-    const nextTestimonial = document.getElementById('nextTestimonial');
-
-    // Function to update card content
-    function updateCards() {
-        const prevIndex = (currentIndex === 0) ? testimonials.length - 1 : currentIndex - 1;
-        const nextIndex = (currentIndex === testimonials.length - 1) ? 0 : currentIndex + 1;
-
-        // Update left, center, and right cards
-        leftCard.querySelector('p').textContent = testimonials[prevIndex].text;
-        leftCard.querySelector('.font-bold').textContent = testimonials[prevIndex].author;
-
-        centerCard.querySelector('p').textContent = testimonials[currentIndex].text;
-        centerCard.querySelector('.font-bold').textContent = testimonials[currentIndex].author;
-
-        rightCard.querySelector('p').textContent = testimonials[nextIndex].text;
-        rightCard.querySelector('.font-bold').textContent = testimonials[nextIndex].author;
-    }
-
-    // Apply transition with smooth fade and replace
-    function smoothTransition(isNext = true) {
-        centerCard.classList.add('fade-exit-active');
-        setTimeout(() => {
-            currentIndex = isNext ?
-                (currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1) :
-                (currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1);
-
-            updateCards();
-            centerCard.classList.remove('fade-exit-active');
-            centerCard.classList.add('fade-enter-active');
-            setTimeout(() => {
-                centerCard.classList.remove('fade-enter-active');
-            }, 500); // Match the transition duration
-        }, 500); // Time it with CSS fade-out duration
-    }
-
-    // Handle Next button click
-    nextTestimonial.addEventListener('click', () => {
-        smoothTransition(true);
-    });
-
-    // Handle Previous button click
-    prevTestimonial.addEventListener('click', () => {
-        smoothTransition(false);
-    });
-
-    // Initial card update
-    updateCards();
-</script>
-
-
-
->>>>>>> 417ae9792128ec33c9c9273b314d7c98eef10ef9
-
 
 </x-layout>
