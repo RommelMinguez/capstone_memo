@@ -27,11 +27,11 @@
                     {{-- RATINGS --}}
                     <div class="flex gap-3 fill-[#f44336]">
                         @php
-                            $rating = 1.1;
+                            $rating = $reviewRating['average'];
                         @endphp
 
                         @for($i = 0; $i < 5; $i++, $rating--)
-                            @if ($rating > 1)
+                            @if ($rating >= 1)
                                 <svg
                                     class="w-5"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@
                                 </svg>
                             @endif
                         @endfor
-                        <span>(0)</span>
+                        <span>({{ $reviewRating['count'] }})</span>
                     </div>
                 </div>
                 <div class="mb-10 text-xl font-bold text-[#F44336]">
@@ -142,18 +142,54 @@
             </div>
         </div>
 
-        <div class="bg-gray-50 w-full p-20">
-            <div class="flex justify-between">
-                <div></div>
-                <div>Reviews</div>
-                <div>write reviews</div>
+        <div class="bg-gray-50 w-full p-20 max-h-[2000px] overflow-auto">
+
+            @auth
+                @php
+                    $hasOrder = Auth::user()->orders()
+                        ->whereHas('orderItems', function ($query) use ($cake) {
+                            $query->where('cake_id', $cake->id)
+                                ->where('status', 'completed');
+                        })
+                        ->exists();
+
+                    // $hasMyReview = Auth::user()->reviews()->where('cake_id', $cake->id)->exists();
+                    $myReview = Auth::user()->reviews()->where('cake_id', $cake->id)->first();
+                @endphp
+                @if ($hasOrder)
+                    <div class="mb-20">
+                        <div class="text-red-500 font-bold border-red-500 flex gap-10">
+                            <div>Your Review</div>
+                            <div id="update-review-btn" class="text-blue-500 underline text-base font-normal cursor-pointer {{ $myReview ? '':'hidden' }}">EDIT</div>
+                        </div>
+                        @if ($myReview)
+                            <x-feedback :review="$myReview"></x-feedback>
+                            <x-review-update :myReview="$myReview"></x-review-update>
+                        @else
+                            <div id="create-review-btn" class="m-5 font-semibold text-sm py-2 px-5 border text-white cursor-pointer bg-red-500 hover:bg-red-600 active:scale-95 shadow-md w-fit rounded-md">Write a review.</div>
+                            <x-review-create :cake_id="$cake->id"></x-review-create>
+                        @endif
+                    </div>
+                @endif
+            @endauth
+
+            <div class="flex justify-center">
+                <div class="text-red-500 font-bold border-b-2 border-red-500">Ratings and reviews</div>
             </div>
 
-            @for($i = 0; $i < 5; $i++)
-                <x-feedback></x-feedback>
-            @endfor
+            @foreach ($reviews as $review)
+                <x-feedback :review="$review"></x-feedback>
+            @endforeach
 
-            <div class="m-auto pt-10 underline text-center">Read more reviews</div>
+            {{-- @empty($review)
+                <div>nothing</div>
+            @endempty --}}
+            @if (count($reviews) == 0)
+                <div class="p-10 text-center">No reviews yet. ;( <br>"Be the first to place an order and share your experience!"</div>
+            @endif
+
+            {{-- <div class="m-auto pt-10 underline text-center text-red-500">Read more reviews</div> --}}
+            <br><br>
         </div>
 
     </div>
@@ -184,6 +220,12 @@
             </div>
         </div>
     </div>
+
+
+
+    @session('success')
+        <x-response-success>{{ session('success') }}</x-response-success>
+    @endsession
 
     <script src="/js/cake_show_detail.js" defer></script>
 

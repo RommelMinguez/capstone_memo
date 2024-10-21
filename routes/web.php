@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CakeController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -75,6 +76,9 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/user/address/{address}', [AddressController::class, 'updateMainAddress']);
     Route::put('/user/address/{address}', [AddressController::class, 'updateAddress']);
     Route::delete('/user/address/{address}', [AddressController::class, 'destroy']);
+
+    Route::post('/user/review', [ReviewController::class, 'store']);
+    Route::patch('/user/review/{review}', [ReviewController::class, 'update']);
 });
 
 

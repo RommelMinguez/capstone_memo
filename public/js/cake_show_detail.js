@@ -66,3 +66,66 @@ closeModal.addEventListener('click', function() {
     modal.classList.add('hidden');
     document.body.style.overflow = 'auto';
 });
+
+
+
+//REVIEWS
+let createReview_modal = document.getElementById('create-review');
+let createReview_btn = document.getElementById('create-review-btn');
+let closeReview_btn = document.getElementById('close-create-review');
+let ratingFull_star = document.getElementById('rating-star-full').cloneNode(true);
+let ratingNone_star = document.getElementById('rating-star-none').cloneNode(true);
+let rating = document.getElementById('rating');
+let rating_btn = document.querySelectorAll('.rating-btn');
+let submitReview_btn = document.getElementById('submit-review');
+let createReview_form = document.getElementById('create-review-form');
+let isReviewSubmitted = false;
+
+let updateReview_modal = document.getElementById('update-review');
+let updateReview_btn = document.getElementById('update-review-btn');
+let closeUpdateReview_btn = document.getElementById('close-update-review');
+
+if (createReview_btn) {
+    createReview_btn.addEventListener('click', function() {
+        createReview_modal.classList.remove('hidden');
+    });
+
+    closeReview_btn.addEventListener('click', function() {
+        createReview_modal.classList.add('hidden');
+    })
+}
+
+if (closeUpdateReview_btn) {
+    updateReview_btn.addEventListener('click', function() {
+        updateReview_modal.classList.remove('hidden');
+    });
+
+    closeUpdateReview_btn.addEventListener('click', function() {
+        updateReview_modal.classList.add('hidden');
+    })
+}
+
+rating_btn.forEach((element, index) => {
+    element.addEventListener('click', function() {
+        rating.value = index+1;
+
+        rating_btn.forEach((star, score) => {
+            star.innerHTML = '';
+            if (score <= index) {
+                star.appendChild(ratingFull_star.cloneNode(true));
+            } else {
+                star.appendChild(ratingNone_star.cloneNode(true));
+            }
+        })
+    });
+})
+
+submitReview_btn.addEventListener('click', function() {
+    createReview_form.reportValidity();
+    if (rating.value == '') {
+        alert('please rate and write a comment.');
+    } else if (createReview_form.checkValidity() && !isReviewSubmitted) {
+        createReview_form.submit();
+        isReviewSubmitted = true;
+    }
+});

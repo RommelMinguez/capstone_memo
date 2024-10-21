@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ArchivedCake;
 use App\Models\Cake;
+use App\Models\Review;
 use App\Models\Tag;
 use Auth;
 use DB;
@@ -26,9 +27,16 @@ class CakeController extends Controller
 
         $cake->with('tags');
 
+        $reviewRating = [
+            'average' => $cake->reviews()->avg('rating'),
+            'count' => $cake->reviews()->count(),
+        ];
+
         return view('cakes.show', [
             'cake' => $cake,
             'show_modal' => session('showModal'),
+            'reviews' => Review::where('cake_id', $cake->id)->with('user')->latest()->get(),
+            'reviewRating' => $reviewRating,
         ]);
     }
 
