@@ -130,7 +130,7 @@
                     </tbody>
                 </table>
 
-                <div id="empty-msg" class="{{ count($items) == 0 ? '':'hidden' }}">
+                <div id="empty-msg" class="{{ count($allItems) == 0 ? '':'hidden' }}">
                     <br>
                     <div class="text-center mt-10 italic text-xl">
                         Your Order List is empty ;(
@@ -145,6 +145,9 @@
 
     @session('success')
         <x-response-success>{{ session('success') }}</x-response-success>
+    @endsession
+    @session('error')
+        <x-response-failed>{{ session('error') }}</x-response-failed>
     @endsession
 
     <x-order-details></x-order-details>

@@ -5,7 +5,7 @@
             <div>
                 <span class="font-semibold">Order Details</span>
             </div>
-            <button id="close-order-detail" class="bg-red-500 hover:bg-[#D22115] aspect-square w-7 rounded-md shadow-md font-bold text-white text-3xl m-0 p-0 overflow-hidden">
+            <button onclick="hideDetails()" class="bg-red-500 hover:bg-[#D22115] aspect-square w-7 rounded-md shadow-md font-bold text-white text-3xl m-0 p-0 overflow-hidden">
                 <svg
                     class="aspect-square w-4 m-auto"
                     xmlns="http://www.w3.org/2000/svg"
@@ -48,20 +48,16 @@
                                 <li>Age: <span>1</span></li>
                                 <li>Candle: <span>none</span></li>
                                 <li>Dedication: <span>sample text</span></li>
+                                <li class="my-2">
+                                    <a href="#" class="hidden bg-blue-500 py-1 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 text-white font-semibold text-xs">write a review</a>
+                                </li>
                             </ol>
                         </td>
                         <td class="w-32 text-center h-full">
                             <div class="flex flex-col justify-between h-40">
                                 <div class="flex text-xs">
                                     <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
-                                    <select class="py-1 border border-gray-500 rounded-r-md text-white font-semibold status-item">
-                                        <option value="pending" class="bg-yellow-500 hover:bg-yellow-500">Pending</option>
-                                        <option value="baking" class="bg-orange-500">Baking</option>
-                                        <option value="receive" class="bg-green-500">To Recieve</option>
-                                        {{-- <option value="review" class="bg-blue-500">To Review</option> --}}
-                                        <option value="completed" class="bg-blue-500">Completed</option>
-                                        <option value="canceled" class="bg-red-500">Cancel</option>
-                                    </select>
+                                    <div class="py-1 px-2 border border-gray-500 rounded-r-md text-white" >Pending</div>
                                 </div>
                                 <div class="font-bold text-red-500">&#8369; <span>00.00</span></div>
                                 <div></div>
@@ -74,52 +70,49 @@
 
             <br>
 
-            {{-- FULL INFORMATION --}}
-            <div class="flex justify-between">
-
                 {{-- address --}}
-                <div class="w-6/12 mb-5">
-                    <div class="font-bold mb-5">
-                        Address
-                    </div>
-                    <div class="ml-10">
-                        <ul id="address">
-                            <li>
-                                <span>Name</span>
-                                <span class="ml-5 text-gray-600">phone</span>
-                            </li>
-                            <li>Address:</li>
-                            <li>Address:</li>
-                        </ul>
-                    </div>
+            <div class="mb-5">
+                <div class="font-bold mb-5">
+                    Address
                 </div>
-
-                {{-- DATE --}}
-                <div class="w-6/12 mb-5">
-                    <div class="font-bold mb-5">
-                        Delivery Date
-                    </div>
-                    <div class="ml-10">
-                        <ul id="delivery-date">
-                            <li>DateTime</li>
-                        </ul>
-                    </div>
+                <div class="ml-10">
+                    <ul id="address">
+                        <li>
+                            <span>Name</span>
+                            <span class="ml-5 text-gray-600">phone</span>
+                        </li>
+                        <li>Address:</li>
+                        <li>Address:</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="flex justify-between">
-                {{-- PAYMENT --}}
-                <div class="w-5/12 mb-5">
-                    <div class="font-bold mb-5">
-                        Payment Method
-                    </div>
-                    <div class="ml-10">
-                        <ul id="payment-method">
-                            <li>COD</li>
-                        </ul>
-                    </div>
+            {{-- DATE --}}
+            <div class="mb-5">
+                <div class="font-bold mb-5">
+                    Delivery Date
+                </div>
+                <div class="ml-10">
+                    <ul id="delivery-date">
+                        <li>DateTime</li>
+                    </ul>
                 </div>
             </div>
+
+
+
+            {{-- PAYMENT --}}
+            <div class="mb-5">
+                <div class="font-bold mb-5">
+                    Payment Method
+                </div>
+                <div class="ml-10">
+                    <ul id="payment-method">
+                        <li>COD</li>
+                    </ul>
+                </div>
+            </div>
+
 
 
             <br><hr><br>
@@ -129,12 +122,27 @@
                 <div>
                     <div class="text-3xl font-bold">
                         &#8369;
-                        <span class="ml-2">00.00</span>
+                        <span class="ml-2" id="total">00.00</span>
                     </div>
                 </div>
             </div>
             <br><br>
 
+            <div>
+                <form action="" class="w-full" method="POST" id="cancel-order-form">
+                    @csrf
+                    @method('PATCH')
+                    <button class="w-full text-center rounded-md shadow-md font-bold text-lg text-white bg-red-500 hover:bg-red-600 active:scale-95 py-2 mb-4 cursor-pointer">
+                        Cancel Order
+                    </button>
+                </form>
+
+                {{-- <a href="#" id="write-review" class=" block text-center rounded-md shadow-md font-bold text-lg text-white bg-blue-500 hover:bg-blue-600 active:scale-95 py-2 mb-4 cursor-pointer">
+                    Write a review.
+                </a> --}}
+            </div>
+
+            <br><br>
         </div>
     </div>
 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -145,5 +146,18 @@ class OrderController extends Controller
 
         session(['order' => [$order->id], 'orderUser' => Auth::user()->id]);
         return redirect('/user/order');
+    }
+
+
+    function userCancelOrder(OrderItem $item) {
+        if ($item->status == 'pending') {
+            $item->update([
+                'status' => 'canceled'
+            ]);
+        } else {
+            return redirect()->back()->with('error', '403 FORBIDDEN: action not allowed.');
+        }
+
+        return redirect()->back()->with('success', 'Order was Canceled.');
     }
 }

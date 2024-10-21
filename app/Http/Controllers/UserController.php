@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $orders = Auth::user()->orders()->pluck('id');
 
-        $allItems = OrderItem::whereIn('order_id', $orders)->with('cake', 'order.address')->latest()->get()->groupBy('status');
+        $allItems = OrderItem::whereIn('order_id', $orders)->with('cake', 'order.address', 'order.user', 'order.orderItems.cake')->latest()->get()->groupBy('status');
         $allItems->put('review', collect());
         $allItems->get('completed')->each(function ($item, $key) use ($allItems) {
             $hasReview = Auth::user()->reviews()->where('cake_id', $item->cake->id)->exists();
@@ -27,6 +27,8 @@ class UserController extends Controller
                 $allItems->get('completed')->forget($key);
             }
         });
+
+        //dd($allItems->toArray());
 
         return view('user.track-order', compact('allItems'));
     }

@@ -142,7 +142,7 @@
             </div>
         </div>
 
-        <div class="bg-gray-50 w-full p-20 max-h-[2000px] overflow-auto">
+        <div class="bg-gray-50 w-full p-20 max-h-[2000px] overflow-auto" id="ratingAndReviews">
 
             @auth
                 @php

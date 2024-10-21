@@ -84,6 +84,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::get('/user', [UserController::class, 'showtrackOrder']);
+    Route::patch('/user/cancel-order/{item}', [OrderController::class, 'userCancelOrder']);
     Route::get('/user/message', [UserController::class, 'showMessage']);
 
     Route::get('/user/cart', [CartController::class, 'index']);

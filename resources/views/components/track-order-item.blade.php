@@ -11,7 +11,7 @@
 @endphp
 
 {{-- <tr {{ $attributes->merge(['class' => 'border-y-2'])}}> --}}
-<tr class="border-y-2 hover:bg-[#fdf2d8] cursor-pointer">
+<tr class="border-y-2 hover:bg-[#fdf2d8] cursor-pointer" onclick="showDetails({{ json_encode($item->toArray()) }})">
     <td class="w-52 p-2">
         <div class="w-40 h-40 m-auto shadow-md border rounded-sm">
             <a href="/cakes/{{ $item->cake->id }}"><img src="{{ Storage::url($item->cake->image_src) }}" alt="cake" class="w-full h-full object-cover " ></a>
@@ -23,7 +23,12 @@
                 <span class="hover:underline  text-xl"><a href="/cakes/{{ $item->cake->id }}" class="font-bold">{{ $item->cake->name }}</a></span>
                 &nbsp;&nbsp;
                 <span class="italic">x{{ $item->quantity }}</span>
-            </li><br>
+            </li>
+            <li class="text-xs text-red-500">
+                &#8369;
+                <span class="ml-2">{{ number_format($item->cake->price, 2) }}</span>
+            </li>
+            <br>
             <li>
                 Age: <span>{{ $item->age }}</span>
             </li>
