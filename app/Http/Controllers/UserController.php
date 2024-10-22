@@ -20,13 +20,15 @@ class UserController extends Controller
 
         $allItems = OrderItem::whereIn('order_id', $orders)->with('cake', 'order.address', 'order.user', 'order.orderItems.cake')->latest()->get()->groupBy('status');
         $allItems->put('review', collect());
-        $allItems->get('completed')->each(function ($item, $key) use ($allItems) {
-            $hasReview = Auth::user()->reviews()->where('cake_id', $item->cake->id)->exists();
-            if (!$hasReview) {
-                $allItems->get('review')->push($item);
-                $allItems->get('completed')->forget($key);
-            }
-        });
+        if ($allItems->has('completed')) {
+            $allItems->get('completed')->each(function ($item, $key) use ($allItems) {
+                $hasReview = Auth::user()->reviews()->where('cake_id', $item->cake->id)->exists();
+                if (!$hasReview) {
+                    $allItems->get('review')->push($item);
+                    $allItems->get('completed')->forget($key);
+                }
+            });
+        }
 
         //dd($allItems->toArray());
 

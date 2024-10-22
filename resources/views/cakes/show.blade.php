@@ -27,7 +27,7 @@
                     {{-- RATINGS --}}
                     <div class="flex gap-3 fill-[#f44336]">
                         @php
-                            $rating = $reviewRating['average'];
+                            $rating = $reviewRating['average'] ?? 0;
                         @endphp
 
                         @for($i = 0; $i < 5; $i++, $rating--)
