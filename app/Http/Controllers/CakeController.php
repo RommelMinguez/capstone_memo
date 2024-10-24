@@ -18,10 +18,11 @@ class CakeController extends Controller
      *
      */
     public function index() {
-        return view('cakes.index', [
-            'cakes' => Cake::latest()->simplePaginate(21),
-            'tagGroups' => Tag::all()->groupBy('category'),
-        ]);
+
+        $cakes = Cake::withAvg('reviews', 'rating')->latest()->simplePaginate(21);
+        $tagGroups = Tag::all()->groupBy('category');
+
+        return view('cakes.index', compact('cakes', 'tagGroups'));
     }
     public function show(Cake $cake) {
 
@@ -58,6 +59,7 @@ class CakeController extends Controller
         $tagIds = request()->input('selected-tag', []);
 
         $cakes = Cake::with('tags')
+            ->withAvg('reviews', 'rating')
             ->where(function($query) use ($searchText) {
                 // Search for cakes where the name or description matches the search text
                 $query->where('name', 'LIKE', '%' . $searchText . '%')
@@ -82,7 +84,7 @@ class CakeController extends Controller
                     $cakes->orderBy('name', 'asc');
                     break;
                 default:
-                    // todo sort by rating
+                    $cakes->orderBy('reviews_avg_rating', 'desc');
             }
         }
 

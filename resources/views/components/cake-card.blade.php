@@ -16,11 +16,11 @@
             <div class="flex gap-3 fill-[#f44336]">
 
                 @php
-                    $rating = 1.1;
+                    $rating = $cake->reviews_avg_rating ?? 0;
                 @endphp
 
                 @for($i = 0; $i < 5; $i++, $rating--)
-                    @if ($rating > 1)
+                    @if ($rating >= 1)
                         <svg
                             class="w-4"
                             xmlns="http://www.w3.org/2000/svg"

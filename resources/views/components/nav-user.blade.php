@@ -63,7 +63,7 @@
                     </li>
                 </a>
 
-                <a href="/admin/orders">
+                <a href="/admin/orders?filter=pending">
                     <li class="{{ request()->is('admin/orders') ? 'bg-[#D9D9D9] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex items-center gap-5">
                         <svg
                             class="aspect-square h-6"
