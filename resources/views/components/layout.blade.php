@@ -16,7 +16,10 @@
     <link rel="icon" type="image/png" href="{{ asset('images/new-memo-logo.png') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/custom-animation.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('fonts/custom-fonts.css') }}">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    @if (request()->is('about'))
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    @endif
 
 
 

@@ -18,7 +18,8 @@ let status_all = document.getElementById('status-set-all');
 let status_items = [];
 let n = 0;
 
-
+let totalOrder_label = document.getElementById('order-total');
+let totalOrderAmount = 0;
 
 
 
@@ -66,6 +67,7 @@ async function getOrderData(id, element) {
         displayUserData(orderData['order']['user']);
         displayAddressData(orderData['order']['address']);
         displayDateData(orderData['order']);
+        totalOrder_label.textContent = totalOrderAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         document.getElementById('detail-loading').classList.add('hidden');
         document.getElementById('detail-content-load').classList.remove('hidden');
@@ -100,8 +102,12 @@ status_all.addEventListener('change', function() {
 function displayItems(items, row) {
     orderItem_display.innerHTML = '';
     status_items = [];
+    totalOrderAmount = 0;
     Object.values(items).forEach(values => {
         let clone = orderItem.cloneNode(true);
+
+        let subTotal = values['quantity'] * values['cake']['price'];
+        totalOrderAmount += subTotal;
 
         clone.children[0].children[0].children[0].src = formatImagePath(values['cake']['image_src']);
         clone.children[1].children[0].children[0].children[0].textContent =  values['cake']['name'];
@@ -110,7 +116,7 @@ function displayItems(items, row) {
         clone.children[1].children[0].children[3].children[0].textContent =  values['age'];
         clone.children[1].children[0].children[4].children[0].textContent =  values['candle_type'];
         clone.children[1].children[0].children[5].children[0].textContent =  values['dedication'];
-        clone.children[2].children[0].children[1].children[0].textContent =  (values['quantity'] * values['cake']['price']).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        clone.children[2].children[0].children[1].children[0].textContent =  subTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         isSettingDefault = true;
         clone.children[2].children[0].children[0].children[1].addEventListener('change', function() {
@@ -362,7 +368,7 @@ function defaultFilter() {
             break;
         case 'receive':
             tabs[3].dispatchEvent(new Event('click'));
-            document.getElementById('filter-received').dispatchEvent(new Event('click'));
+            document.getElementById('filter-receive').dispatchEvent(new Event('click'));
             break;
         case 'completed':
             tabs[4].dispatchEvent(new Event('click'));

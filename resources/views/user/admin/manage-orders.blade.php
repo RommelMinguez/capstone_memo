@@ -50,7 +50,7 @@ use Carbon\Carbon;
                                     <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
                                 </li>
                                 <li id="filter-receive" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative">
-                                    To Receive
+                                    For Delivery
                                     <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
                                 </li>
                                 {{-- <li id="filter-review" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative ">
@@ -84,6 +84,16 @@ use Carbon\Carbon;
                                     </tr>
                                 </thead>
 
+                                @php
+                                    $bgStatus = [
+                                        'pending' => 'text-yellow-500',
+                                        'baking' => 'text-orange-500',
+                                        'receive' => 'text-green-500',
+                                        'completed' => 'text-blue-500',
+                                        'canceled' => 'text-red-500',
+                                    ]
+                                @endphp
+
                                 <tbody>
                                     @foreach($allOrders as $order)
                                         {{-- @php
@@ -94,11 +104,29 @@ use Carbon\Carbon;
                                         <tr class="orderDetails border-b" data-id="{{ $order->id }}">
                                             <td class="cursor-pointer text-center">{{ $order->id }}</td>
                                             <td class="cursor-pointer text-center">{{ $order->order->id }}</td>
-                                            <td class="cursor-pointer text-center">{{ $order->order->user->first_name }} {{ $order->order->user->last_name }}</td>
-                                            <td class="cursor-pointer text-center">{{ $order->cake->name }} x{{ $order->quantity }}</td>
-                                            <td class="cursor-pointer text-center">{{ $order->created_at->diffForHumans() }}</td>
-                                            <td class="cursor-pointer text-center">{{ $order->sub_total }}</td>
-                                            <td class="cursor-pointer text-center">{{ $order->status }}</td>
+                                            <td class="cursor-pointer ">
+                                                <div class="flex items-center gap-2">
+                                                    <div class="w-6 aspect-square rounded-full shadow-md overflow-hidden inline-block border">
+                                                        <img src="{{ Storage::url($order->order->user->image_src) }}" alt="profile pic" class="object-cover">
+                                                    </div>
+                                                    <div class="inline-block">
+                                                        {{ $order->order->user->first_name }} {{ $order->order->user->last_name }}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="cursor-pointer">
+                                                <div class="flex items-center gap-2">
+                                                    <div class="w-6 aspect-square rounded-full border shadow-md overflow-hidden inline-block">
+                                                        <img src="{{ Storage::url($order->cake->image_src) }}" alt="profile pic" class="object-cover">
+                                                    </div>
+                                                    <span>
+                                                        {{ $order->cake->name }}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td class="cursor-pointer text-center font-semibold">{{ $order->created_at->diffForHumans() }}</td>
+                                            <td class="cursor-pointer text-center">&#8369; &nbsp;{{ number_format($order->sub_total, 2) }}</td>
+                                            <td class="cursor-pointer text-center {{ $bgStatus[$order->status] }}">{{ $order->status }}</td>
                                             {{-- <td class="cursor-pointer text-center">{{ $formattedDate }} <br> {{ $formattedTime }}</td> --}}
                                             <td class="py-2 text-center">
                                                 <button type="button" class="text-white text-xs py-1 px-3 rounded-md shadow-md bg-[#F55447] cursor-pointer active:scale-95">

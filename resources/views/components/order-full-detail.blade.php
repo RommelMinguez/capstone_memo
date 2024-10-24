@@ -33,7 +33,7 @@
                         <option value="" disabled selected></option>
                         <option value="pending" class="bg-yellow-500 hover:bg-yellow-500">Pending</option>
                         <option value="baking" class="bg-orange-500">Baking</option>
-                        <option value="receive" class="bg-green-500">To Recieve</option>
+                        <option value="receive" class="bg-green-500">For Delivery</option>
                         {{-- <option value="review" class="bg-blue-500">To Review</option> --}}
                         <option value="completed" class="bg-blue-500">Completed</option>
                         <option value="canceled" class="bg-red-500">Cancel</option>
@@ -69,7 +69,7 @@
                                     <select class="py-1 border border-gray-500 rounded-r-md text-white font-semibold status-item">
                                         <option value="pending" class="bg-yellow-500 hover:bg-yellow-500">Pending</option>
                                         <option value="baking" class="bg-orange-500">Baking</option>
-                                        <option value="receive" class="bg-green-500">To Recieve</option>
+                                        <option value="receive" class="bg-green-500">For Delivery</option>
                                         {{-- <option value="review" class="bg-blue-500">To Review</option> --}}
                                         <option value="completed" class="bg-blue-500">Completed</option>
                                         <option value="canceled" class="bg-red-500">Cancel</option>
@@ -156,7 +156,7 @@
                 <div>
                     <div class="text-3xl font-bold">
                         &#8369;
-                        <span class="ml-2">00.00</span>
+                        <span class="ml-2" id="order-total">00.00</span>
                     </div>
                 </div>
             </div>

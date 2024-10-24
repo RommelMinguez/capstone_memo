@@ -46,7 +46,7 @@
                     <a href="/admin/orders?filter=receive" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['receive'] }}</div>
-                            <div class="text-xs">To Receive</div>
+                            <div class="text-xs">For Delivery</div>
                         </div>
                         <div class="h-full">
                             <svg

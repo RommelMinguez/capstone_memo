@@ -4,7 +4,7 @@
     $bgStatus = [
         'pending' => 'bg-yellow-500',
         'baking' => 'bg-orange-500',
-        'receive' => 'bg-greeen-500',
+        'receive' => 'bg-green-500',
         'completed' => 'bg-blue-500',
         'canceled' => 'bg-red-500',
     ]
