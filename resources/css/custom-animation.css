@@ -139,3 +139,38 @@
 #loading span:nth-child(20){
     animation-delay:950ms;
 }
+
+
+
+
+
+
+
+/* LOADING BOX */
+.loading-box {
+    background: #aaa;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shimmer animation */
+.loading-box::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%; /* Start off-screen to the left */
+    width: 200%; /* Wide enough to fully cover and move across the box */
+    height: 100%;
+    background: linear-gradient(90deg, rgba(224, 224, 224, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(224, 224, 224, 0) 100%);
+    animation: shimmer 1.5s infinite;
+}
+
+/* Keyframes for the shimmer animation */
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}

@@ -42,6 +42,9 @@ Route::get('/', function () {
 
 Route::get('/cakes', [CakeController::class, 'index']);
 Route::get('/cakes/search', [CakeController::class, 'search']);
+Route::get('/cakes/custom', [CakeController::class, 'custom'])->middleware([CustomerMiddleware::class]);
+Route::post('/cakes/custom', [CakeController::class, 'customStore'])->middleware([CustomerMiddleware::class]);
+Route::post('/cakes/custom/generated', [CakeController::class, 'aiGeneratedStore'])->middleware([CustomerMiddleware::class]);
 Route::get('/cakes/{cake}', [CakeController::class, 'show']);
 
 
@@ -157,6 +160,10 @@ Route::get('user/reset-password', function() {
     return redirect('/user/change-password');
 });
 
+
+
+
+
 Route::view('/test', 'test');
 
 Route::get('/test-query', function() {
@@ -183,10 +190,3 @@ Route::post('/test-upload', function() {
     return back()->with('success', 'Image uploaded successfully!')->with('path', $path);
 })->name('image.store');
 
-
-Route::get('/test2', function() {
-    $test = Tag::all()->groupBy('category');
-
-    foreach($test as $category => $tags)
-    dd($test);
-});

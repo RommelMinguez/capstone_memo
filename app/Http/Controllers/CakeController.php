@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ArchivedCake;
 use App\Models\Cake;
+use App\Models\CustomImage;
 use App\Models\Review;
 use App\Models\Tag;
 use Auth;
@@ -179,8 +180,53 @@ class CakeController extends Controller
 
 
 
+    public function custom() {
+        $tagGroups = Tag::all()->groupBy('category');
+        $generatedImages = CustomImage::where('type', 'ai_generated')->latest()->limit(20)->get();
+
+        return view('cakes.custom', compact('tagGroups', 'generatedImages'));
+    }
     public function customStore() {
-        dd(request()->all(), 'todo');
+        $files = request()->file('additional-image'); // Get the uploaded files
+        dump($files);
+        foreach ($files as $file) {
+            // Process each file (e.g., store it)
+            $path = $file->store('public/images/additional'); // Adjust the path as needed
+            dump($path);
+        }
+
+
+        dd(request()->all());
+    }
+
+    public function aiGeneratedStore() {
+
+        if (request()->hasFile('image')) {
+            $imageContents = file_get_contents(request()->file('image'));
+            $imageHash = md5($imageContents);
+
+            if (!CustomImage::where('hash', $imageHash)->exists()) {
+                $imagePath = request()->file('image')->store('public/images/ai_generated');
+
+                $img = CustomImage::create([
+                    'type' => 'ai_generated',
+                    'ai_name' => request()->ai_name,
+                    'path' => $imagePath,
+                    'prompt' => request()->prompt,
+                    'hash' => $imageHash,
+                    'user_id' => Auth::user()->id,
+                ]);
+
+                return response()->json(['message' => 'Image stored successfully.', 'storedData' => $img]);
+            }
+
+            $img = CustomImage::where('hash', $imageHash)->first();
+            return response()->json(['message' => 'Image already exist.', 'storedData' => $img]);
+        }
+
+        return response()->json(['message' => 'No image found'], 400);
+
+
     }
 
 

@@ -90,8 +90,9 @@
             {{-- CUSTOM DESIGN --}}
 
             @if (Auth::check() && !Auth::user()->is_admin)
-                <div id="customCake_btn" class="flex items-center mb-10 px-10">
-                    <div class="flex text-base bg-red-500 py-2 px-5 rounded-md shadow-md font-bold text-white cursor-pointer hover:bg-red-600 active:scale-95">
+                {{-- <div id="customCake_btn" class="flex items-center mb-10 px-10"> --}}
+                <div class="flex items-center mb-10 px-10">
+                    <a href="/cakes/custom" class="border flex text-base bg-red-500 py-2 px-5 rounded-md shadow-md font-bold text-white cursor-pointer hover:bg-red-600 active:scale-95">
                         <svg
                             class="inline-block w-5 h-5 m-auto"
                             xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +103,7 @@
                         <div>
                             &nbsp; Design Your Cake
                         </div>
-                    </div>
+                    </a>
                 </div>
             @endif
 
@@ -170,73 +171,29 @@
 
     <x-footer></x-footer>
 
-    <x-cake-custom :tagGroups="$tagGroups"></x-cake-custom>
+    {{-- <x-cake-custom :tagGroups="$tagGroups"></x-cake-custom> --}}
 
 
     <script>
 
         // SHOW AND HIDE CUSTOM CAKE FORM
-        let btn_customCake = document.getElementById('customCake_btn');
-        let form_customCake = document.getElementById('customCake_form');
-        let btn_closeCreateForm = document.getElementById('closeCreate');
+        // let btn_customCake = document.getElementById('customCake_btn');
+        // let form_customCake = document.getElementById('customCake_form');
+        // let btn_closeCreateForm = document.getElementById('closeCreate');
 
-        if (btn_customCake) {
-            btn_customCake.addEventListener('click', function() {
-                document.body.style.overflow = 'hidden';
-                form_customCake.classList.remove('hidden');
-            });
-        }
+        // if (btn_customCake) {
+        //     btn_customCake.addEventListener('click', function() {
+        //         document.body.style.overflow = 'hidden';
+        //         form_customCake.classList.remove('hidden');
+        //     });
+        // }
 
-        btn_closeCreateForm.addEventListener('click', function() {
-            document.body.style.overflow = 'auto';
-            form_customCake.classList.add('hidden');
-        });
+        // btn_closeCreateForm.addEventListener('click', function() {
+        //     document.body.style.overflow = 'auto';
+        //     form_customCake.classList.add('hidden');
+        // });
 
-        // CUSTOM FORM IMAGE PREVIEW
-        const imageInput = document.getElementById('imageInput');
-        const imagePreview = document.getElementById('imagePreview');
-        const imageIcon = document.getElementById('imageIcon');
-        //const imageCard = document.getElementById('imageCard');
 
-        imageInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    imagePreview.src = event.target.result;
-                    imagePreview.classList.remove('hidden');
-
-                    imageIcon.classList.add('hidden');
-                    imageIcon.classList.add('bg-black', 'bg-opacity-70');
-                    imageIcon.children[0].classList.add('hidden');
-                    imageIcon.children[1].children[0].textContent = 'Change Image';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                imagePreview.classList.add('hidden');
-
-                imageIcon.classList.remove('hidden');
-                imageIcon.classList.remove('bg-black', 'bg-opacity-50');
-                imageIcon.children[0].classList.remove('hidden');
-                imageIcon.children[1].children[0].textContent = 'Upload Image';
-
-            }
-        });
-
-        // CUSTOM CAKE ADDITIONAL OPTION
-        let additionalOption = document.getElementById('additionalOption');
-
-        additionalOption.children[0].addEventListener('click', function() {
-            if (additionalOption.children[1].classList.contains('hidden')) {
-                this.children[1].classList.add('-rotate-90');
-                additionalOption.children[1].classList.remove('hidden');
-            } else {
-                this.children[1].classList.remove('-rotate-90');
-
-                additionalOption.children[1].classList.add('hidden');
-                // additionalOption.children[1].classList.('translate-y-0');
-            }
-        });
 
         // SEARCH TAG
         let btn_tag = document.querySelectorAll('.search_tag_btn');

@@ -4,7 +4,7 @@
         <div class="w-[850px] min-w-[850px] bg-[#FEF6E4] shadow-xl rounded-l-3xl">
             <div class="w-9/12 m-auto mt-20">
                 <h1 class="font-bold text-3xl mb-5">Create Account</h1>
-                <form action="/register" method="POST">
+                <form action="/register" method="POST" autocomplete="off">
 
                     @csrf
 
