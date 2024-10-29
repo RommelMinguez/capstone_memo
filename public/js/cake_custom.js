@@ -168,6 +168,8 @@ async function checkHordeStatus(id, dsc, display) {
         if (data.faulted || !data.is_possible) {
             clearInterval(checkStatus_interval);
             console.error('Something went wrong, image failed to generate.');
+            isHordeDone = true;
+            updatePromt();
         }
         if (data.done) {
             clearInterval(checkStatus_interval);

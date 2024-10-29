@@ -182,7 +182,7 @@ class CakeController extends Controller
 
     public function custom() {
         $tagGroups = Tag::all()->groupBy('category');
-        $generatedImages = CustomImage::where('type', 'ai_generated')->latest()->limit(20)->get();
+        $generatedImages = CustomImage::where('type', 'ai_generated')->orderBy('updated_at', 'desc')->limit(40)->get();
 
         return view('cakes.custom', compact('tagGroups', 'generatedImages'));
     }
@@ -199,15 +199,18 @@ class CakeController extends Controller
         dd(request()->all());
     }
 
-    public function aiGeneratedStore() {
-
+    public function aiGeneratedStore()
+    {
         if (request()->hasFile('image')) {
             $imageContents = file_get_contents(request()->file('image'));
             $imageHash = md5($imageContents);
+            $imageRecord = CustomImage::where('hash', $imageHash)->first();
 
-            if (!CustomImage::where('hash', $imageHash)->exists()) {
+            if ($imageRecord) { // exist
+                $imageRecord->touch();
+                return response()->json(['message' => 'Image already exist.', 'storedData' => $imageRecord]);
+            } else { // new image
                 $imagePath = request()->file('image')->store('public/images/ai_generated');
-
                 $img = CustomImage::create([
                     'type' => 'ai_generated',
                     'ai_name' => request()->ai_name,
@@ -216,17 +219,10 @@ class CakeController extends Controller
                     'hash' => $imageHash,
                     'user_id' => Auth::user()->id,
                 ]);
-
                 return response()->json(['message' => 'Image stored successfully.', 'storedData' => $img]);
             }
-
-            $img = CustomImage::where('hash', $imageHash)->first();
-            return response()->json(['message' => 'Image already exist.', 'storedData' => $img]);
         }
-
         return response()->json(['message' => 'No image found'], 400);
-
-
     }
 
 
