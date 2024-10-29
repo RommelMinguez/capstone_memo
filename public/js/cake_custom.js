@@ -174,7 +174,7 @@ async function checkHordeStatus(id, dsc, display) {
         }
         if (data.done) {
             clearInterval(checkStatus_interval);
-            console.log('AI Horde success');
+            console.log('AI Horde success: showing result');
             displayHordeImage(data.generations[0].img, dsc, display);
         }
 
@@ -219,7 +219,7 @@ async function storeImage(imageBlob, prompt_dsc, ai_name) {
         formData.append("prompt", prompt_dsc);
         formData.append("ai_name", ai_name);
 
-        const response = await fetch("/cakes/custom/generated", {
+        const response = await fetch("/api/save-generated-image", {
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
@@ -232,6 +232,7 @@ async function storeImage(imageBlob, prompt_dsc, ai_name) {
         }
 
         const data = await response.json();
+
         console.log("Image stored successfully:", data['message']);
 
         return data['storedData'];
@@ -407,11 +408,13 @@ custom_form_submit.addEventListener('click', function() {
     let hasImage = imageInput.value != '';
     let hasImage_ai = ai_image_inp.value != '';
 
-    console.log(ai_image_inp.value);
-    console.log(imageInput.value);
+    console.log('upload: ' + hasImage);
+    console.log("ai: "+hasImage_ai);
+    console.log('valid: '+isValid);
 
 
-    if (isValid && hasImage && !isSubmitted) {
+
+    if (isValid && (hasImage || hasImage_ai) && !isSubmitted) {
         isSubmitted = true;
         custom_form.submit();
     } else if (!hasImage && !hasImage_ai) {

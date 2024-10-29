@@ -1,7 +1,10 @@
 <?php
 
+
+use App\Models\CustomImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::post('/generate-horde', function(Request $request) {
@@ -52,3 +55,36 @@ Route::get('/generate-horde/status/{id}', function($id) {
 
     return response()->json($response->json());
 });
+
+
+
+Route::group(['middleware' => ['web']], function () {
+    Route::post('/save-generated-image', function() {
+        if (request()->hasFile('image')) {
+            $imageContents = file_get_contents(request()->file('image'));
+            $imageHash = md5($imageContents);
+            $imageRecord = CustomImage::where('hash', $imageHash)->first();
+
+            if ($imageRecord) { // exist
+                $imageRecord->touch();
+                return response()->json(['message' => 'Image already exist.', 'storedData' => $imageRecord]);
+            } else { // new image
+
+                $imagePath = request()->file('image')->store('public/images/ai_generated');
+
+                $img = CustomImage::create([
+                    'type' => 'ai_generated',
+                    'ai_name' => request()->ai_name,
+                    'path' => $imagePath,
+                    'prompt' => request()->prompt,
+                    'hash' => $imageHash,
+                    'user_id' => Auth::user()->id,
+                ]);
+                return response()->json(['message' => 'Image stored successfully.', 'storedData' => $img]);
+            }
+        }
+        return response()->json(['message' => 'No image found'], 400);
+    });
+
+});
+

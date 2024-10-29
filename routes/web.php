@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CakeController;
+use App\Http\Controllers\CustomOrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -42,9 +43,8 @@ Route::get('/', function () {
 
 Route::get('/cakes', [CakeController::class, 'index']);
 Route::get('/cakes/search', [CakeController::class, 'search']);
-Route::get('/cakes/custom', [CakeController::class, 'custom'])->middleware([CustomerMiddleware::class]);
-Route::post('/cakes/custom', [CakeController::class, 'customStore'])->middleware([CustomerMiddleware::class]);
-Route::post('/cakes/custom/generated', [CakeController::class, 'aiGeneratedStore'])->middleware([CustomerMiddleware::class]);
+Route::get('/cakes/custom', [CustomOrderController::class, 'create'])->middleware([CustomerMiddleware::class]);
+Route::post('/cakes/custom', [CustomOrderController::class, 'store'])->middleware([CustomerMiddleware::class]);
 Route::get('/cakes/{cake}', [CakeController::class, 'show']);
 
 
