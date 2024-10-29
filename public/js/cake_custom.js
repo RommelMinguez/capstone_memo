@@ -34,6 +34,7 @@ function selectGeneratedImage(imgEl) {
     aiClose_btn.dispatchEvent(new Event('click'));
 
     ai_image_inp.value = imgEl.getAttribute('data-id');
+    imageInput.value = null;
 }
 
 
@@ -275,6 +276,7 @@ imageInput.addEventListener('change', function() {
         reader.onload = function(event) {
             imagePreview.src = event.target.result;
             imagePreview.classList.remove('hidden');
+            ai_image_inp.value = null;
 
             imageIcon.classList.add('hidden');
             imageIcon.classList.add('bg-black', 'bg-opacity-70');
@@ -406,6 +408,7 @@ custom_form_submit.addEventListener('click', function() {
     let hasImage_ai = ai_image_inp.value != '';
 
     console.log(ai_image_inp.value);
+    console.log(imageInput.value);
 
 
     if (isValid && hasImage && !isSubmitted) {
