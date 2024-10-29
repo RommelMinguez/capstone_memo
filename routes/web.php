@@ -96,7 +96,7 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::put('/user/cart', [CartController::class, 'update']);
     Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);
 
-    Route::post('/user/custom', [CakeController::class, 'customStore']);
+    Route::get('/user/custom-order', [CustomOrderController::class, 'trackCustom']);
 });
 
 
@@ -105,6 +105,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin/orders', [AdminController::class, 'manageOrders']);
     Route::get('/admin/orders/{item}', [AdminController::class, 'showOrder']);
     Route::patch('/admin/orders/{item}', [AdminController::class, 'updateStatus']);
+
+    Route::get('/admin/custom', [CustomOrderController::class, 'manageCustom']);
 
     Route::get('/admin/catalog', [CakeController::class, 'create']);
     Route::post('/admin/catalog', [CakeController::class, 'store']);

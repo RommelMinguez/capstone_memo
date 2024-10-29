@@ -26,6 +26,9 @@ class User extends Authenticatable
     public function reviews() {
         return $this->hasMany(Review::class);
     }
+    public function customOrders() {
+        return $this->hasMany(CustomOrder::class);
+    }
 
     /**
      * The attributes that are mass assignable.

@@ -10,4 +10,8 @@ class CustomImage extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function customOrder() {
+        return $this->belongsTo(CustomOrder::class);
+    }
 }

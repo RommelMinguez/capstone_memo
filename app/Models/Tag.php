@@ -15,4 +15,9 @@ class Tag extends Model
     {
         return $this->belongsToMany(Cake::class, 'cake_tag');
     }
+
+    public function customOrders()
+    {
+        return $this->belongsToMany(CustomOrder::class, 'custom_tag');
+    }
 }
