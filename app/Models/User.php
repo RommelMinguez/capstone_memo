@@ -28,6 +28,9 @@ class User extends Authenticatable
     public function reviews() {
         return $this->hasMany(Review::class);
     }
+    public function customOrders() {
+        return $this->hasMany(CustomOrder::class);
+    }
 
     // In User.php
 public function favorites()

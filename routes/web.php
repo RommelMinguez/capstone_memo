@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CakeController;
+use App\Http\Controllers\CustomOrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -44,22 +45,24 @@ Route::get('/', function () {
 
 
 
- Route::get('/conversations', [MessagesController::class, 'getConversations'])
-    ->middleware('auth');
-Broadcast::routes(['middleware' => ['auth']]);
-Route::middleware(['auth'])->group(function () {
-    Route::post('/chatify/api/typing', [MessageControllerApi::class, 'typing'])
-         ->name('chatify.api.typing');
-    Route::post('/chatify/api/update-status', [MessageControllerApi::class, 'updateStatus'])
-         ->name('chatify.api.updateStatus');
+//  Route::get('/conversations', [MessagesController::class, 'getConversations'])
+//     ->middleware('auth');
+// Broadcast::routes(['middleware' => ['auth']]);
+// Route::middleware(['auth'])->group(function () {
+//     Route::post('/chatify/api/typing', [MessageControllerApi::class, 'typing'])
+//          ->name('chatify.api.typing');
+//     Route::post('/chatify/api/update-status', [MessageControllerApi::class, 'updateStatus'])
+//          ->name('chatify.api.updateStatus');
 
-});
+// });
 
 
 
 
 Route::get('/cakes', [CakeController::class, 'index']);
 Route::get('/cakes/search', [CakeController::class, 'search']);
+Route::get('/cakes/custom', [CustomOrderController::class, 'create'])->middleware([CustomerMiddleware::class]);
+Route::post('/cakes/custom', [CustomOrderController::class, 'store'])->middleware([CustomerMiddleware::class]);
 Route::get('/cakes/{cake}', [CakeController::class, 'show']);
 
 
@@ -111,7 +114,7 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::put('/user/cart', [CartController::class, 'update']);
     Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);
 
-    Route::post('/user/custom', [CakeController::class, 'customStore']);
+    Route::get('/user/custom-order', [CustomOrderController::class, 'trackCustom']);
 });
 
 
@@ -120,6 +123,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin/orders', [AdminController::class, 'manageOrders']);
     Route::get('/admin/orders/{item}', [AdminController::class, 'showOrder']);
     Route::patch('/admin/orders/{item}', [AdminController::class, 'updateStatus']);
+
+    Route::get('/admin/custom', [CustomOrderController::class, 'manageCustom']);
 
     Route::get('/admin/catalog', [CakeController::class, 'create']);
     Route::post('/admin/catalog', [CakeController::class, 'store']);
@@ -175,6 +180,10 @@ Route::get('user/reset-password', function() {
     return redirect('/user/change-password');
 });
 
+
+
+
+
 Route::view('/test', 'test');
 
 Route::get('/test-query', function() {
@@ -201,10 +210,3 @@ Route::post('/test-upload', function() {
     return back()->with('success', 'Image uploaded successfully!')->with('path', $path);
 })->name('image.store');
 
-
-Route::get('/test2', function() {
-    $test = Tag::all()->groupBy('category');
-
-    foreach($test as $category => $tags)
-    dd($test);
-});

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ArchivedCake;
 use App\Models\Cake;
+use App\Models\CustomImage;
 use App\Models\Review;
 use App\Models\Tag;
 use Auth;
@@ -172,16 +173,6 @@ class CakeController extends Controller
     }
 
 
-
-
-
-
-
-
-
-    public function customStore() {
-        dd(request()->all(), 'todo');
-    }
 
 
 }

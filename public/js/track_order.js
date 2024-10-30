@@ -53,6 +53,7 @@ function showEmptyMsg(selectedTabIndex) {
         }
     }
 }
+showEmptyMsg(-1);
 
 
 

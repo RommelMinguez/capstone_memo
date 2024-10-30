@@ -1,0 +1,6 @@
+
+.placeholder:empty:before {
+    content: "Type Prompt Here...";
+    color: #9ca3af;
+    pointer-events: none;
+}
