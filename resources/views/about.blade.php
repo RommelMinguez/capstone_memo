@@ -5,7 +5,7 @@
     {{-- Main Content --}}
 
     <div class="flex justify-center items-start min-h-screen mb-10 pt-5 pl-8" data-aos="fade-up" style="margin-top: 100px">
-        <!-- "About Us" Label -->
+
 
         <div class="bg-white w-[1300px] h-auto border border-gray-300 shadow-lg p-5 rounded-lg flex flex-wrap">
             <!-- Left Text Section -->
@@ -71,10 +71,10 @@
     <div class="w-full md:w-2/3" data-aos="fade-left">
         <h2 class="text-red-600 text-xl ml-1 font-bold">HI!</h2>
         <h3 class="text-3xl font-bold mb-4">
-             <div class="typing-animation" id="typingText">I am the Baker</div> <!-- Typing effect applied to this span -->
+             <div class="typing-animation" id="typingText">I am the Owner</div> <!-- Typing effect applied to this span -->
                 </h3>
         <p class="text-gray-700 mb-4">
-            As the owner of Memories Cakes by Memo Bakeshop, she brings joy through her handcrafted pastries and custom celebration cakes
+            As the owner of Memories Cakes by Memo Bakeshop, she brings joy through her handcrafted pastries and custom celebration cakes.
         </p>
 
         <!-- Contact Info Grid -->
@@ -314,7 +314,7 @@ function startAutoPlay(interval = 5000) {
 // Initialize the carousel
 updateCards();
 // Uncomment the next line if you want auto-play
-// startAutoPlay();
+ startAutoPlay();
 
       function restartTypingAnimation() {
     const typingElement = document.getElementById('typingText');

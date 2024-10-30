@@ -6,6 +6,7 @@ use App\Http\Controllers\CakeController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CustomerMiddleware;
 use App\Models\ArchivedCake;
@@ -25,6 +26,8 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\Vendor\Chatify\MessagesController;
+
 
 
 
@@ -37,6 +40,21 @@ Route::get('/about', function() {
 Route::get('/', function () {
     return view('memories-cake', ['cakes' => Cake::limit(4)->latest()->get()]);
 });
+
+
+
+
+ Route::get('/conversations', [MessagesController::class, 'getConversations'])
+    ->middleware('auth');
+Broadcast::routes(['middleware' => ['auth']]);
+Route::middleware(['auth'])->group(function () {
+    Route::post('/chatify/api/typing', [MessageControllerApi::class, 'typing'])
+         ->name('chatify.api.typing');
+    Route::post('/chatify/api/update-status', [MessageControllerApi::class, 'updateStatus'])
+         ->name('chatify.api.updateStatus');
+
+});
+
 
 
 

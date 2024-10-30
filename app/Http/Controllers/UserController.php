@@ -107,4 +107,7 @@ class UserController extends Controller
 
         return redirect('/user/change-password')->with('success', 'Password Changed Successfully!');
     }
+
+
+
 }

@@ -157,7 +157,7 @@
                 </a>
             </li>
             <li class="hover:bg-red-500">
-                <a href="/user/message" class="flex gap-2 px-4 pt-1 fill-white hover:font-semibold pb-3">
+                <a href="/chatify" class="flex gap-2 px-4 pt-1 fill-white hover:font-semibold pb-3">
                     <svg
                         class="w-4"
                         xmlns="http://www.w3.org/2000/svg"

@@ -51,7 +51,7 @@
                                 <div>Cart</div>
                             </a>
                         @else
-                            <a href="/user/cart" class="{{ request()->is('user/cart') ? 'text-[#F55447] bg-[#eec9a8] font-semibold': '' }} hover:bg-[#eec9a8] rounded-lg flex gap-1 h-12 p-3 fill-[#F55447] text-[#F55447]">
+                            <a href="/chatify" class="{{ request()->is('/chatify') ? 'text-[#F55447] bg-[#eec9a8] font-semibold': '' }} hover:bg-[#eec9a8] rounded-lg flex gap-1 h-12 p-3 fill-[#F55447] text-[#F55447]">
                                 <svg
                                     class="aspect-square h-full "
                                     xmlns="http://www.w3.org/2000/svg"
