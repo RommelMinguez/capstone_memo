@@ -35,58 +35,42 @@
         </div>
 
         <div class="w-full bg-white px-20 py-5">
-            <div class="font-bold text-2xl">
-                Schedule Delivery
+
+
+            {{--========================================================
+            PAYMENT METHODS
+            =========================================================--}}
+            <div class="font-bold text-2xl">Payment Method <span class="text-red-500 italic">*</span></div>
+            <br>
+            <div class="w-3/4 m-auto flex gap-5">
+                <div class="inp_payment cursor-pointer border-2 border-black text-center w-32 font-semibold py-2 hover:bg-[#F44336] hover:text-white active:scale-95">
+                    <div class="text-xs italic font-light">cash on</div>
+                    <div>DELIVERY</div>
+                </div>
+                <div class="inp_payment cursor-pointer border-2 border-black text-center w-32 font-semibold py-2 hover:bg-[#F44336] hover:text-white active:scale-95 ">
+                    <div class="text-xs italic font-light">cash on</div>
+                    <div>PICK UP</div>
+                </div>
             </div>
-            <div class="p-10">
-                <div class="font-semibold">
-                    SELECT DELIVERY DATE
-                    <span class="text-red-500 italic">*</span>
-                </div>
-                <br>
-                <div class="flex justify-center gap-5 flex-wrap">
-                    @for ($i = 0; $i < 5; $i++)
-                        <div class="inp_date cursor-pointer border-2 border-black text-xs px-5 py-2 hover:bg-[#F44336] hover:text-white active:scale-95">
-                            <div class="text-center font-semibold">date</div>
-                            <div>date</div>
-                        </div>
-                    @endfor
-                </div>
-                <br>
-                <div class="w-3/4 m-auto">
-                    <input data-isAdmin="{{ Auth::user()->is_admin }}" form="form-place-order" required type="date" id="delivery_date" name="delivery_date" class="block w-full px-3 py-2 bg-[#EDE7E7] border border-gray-300 text-[#F44336] font-semibold rounded-md shadow-sm cursor-pointer">
-                </div>
-                <br>
-                <hr class="border-b-2">
-                <br>
+            <input form="form-place-order" type="hidden" name="payment_method" id="payment_method" value="PICK UP">
+            <br><br>
+            <hr class="border-b-2">
+            <br><br>
 
-                <div class="font-semibold">SELECT DELIVERY TIME <span class="text-red-500 italic">*</span></div>
-                <br>
-                <div class="flex justify-center gap-5 flex-wrap">
-                    @for($i = 0, $t = 7; $i < 10; $i++)
-                        <div class="inp_time cursor-pointer border-2 border-black text-center min-w-20 px-5 py-2 text-xs hover:bg-[#F44336] hover:text-white active:scale-95">
-                            <div>{{ $t++ < 12 ? $t : $t - 12 }}:00</div>
-                            <div>{{ $t < 12 ? 'AM':'PM'  }}</div>
-                        </div>
-                    @endfor
-                </div>
-                <br>
-                <div class="w-3/4 m-auto">
-                    <input form="form-place-order" required type="time" id="delivery_time" name="delivery_time" min="6:00" max="18:00" class="block w-full px-3 py-2 border bg-[#EDE7E7]  border-gray-300 text-[#F44336] font-semibold rounded-md shadow-sm cursor-pointer">
-                </div>
-                <br>
-                <hr class="border-b-2">
-                <br>
 
-                @php
-                    $address = Auth::user()->mainAddress;
-                @endphp
+            {{--========================================================
+            DELIVERY ADDRESS
+            =========================================================--}}
+            @php
+                $address = Auth::user()->mainAddress;
+            @endphp
 
-                <div class="font-semibold">SELECT DELIVERY ADDRESS <span class="text-red-500 italic">*</span></div>
+            <div id="delivery_address_container">
+                <div class="font-bold text-2xl">Delivery Address <span class="text-red-500 italic">*</span></div>
                 @if ($address)
                     <input form="form-place-order"  id="address-inp" type="hidden" name="address_id" value="{{ $address->id }}">
                     <div class="w-3/4 m-auto">
-                        <div class="flex justify-between border-b py-5">
+                        <div class="flex justify-between py-5">
                             <div class="flex justify-start gap-5 items-center">
                                 <div>
                                     <svg
@@ -112,7 +96,7 @@
                                 Change Address
                             </div>
 
-                           <x-address-change></x-address-change>
+                        <x-address-change></x-address-change>
 
                         </div>
                     </div>
@@ -123,23 +107,57 @@
                         </a>
                     </div>
                 @endif
-                <br>
+                <br><br>
                 <hr class="border-b-2">
+                <br><br>
             </div>
 
-            <div class="font-bold text-2xl">Payment Method <span class="text-red-500 italic">*</span></div>
-            <br>
-            <div class="w-3/4 m-auto flex gap-5">
-                <div class="inp_payment cursor-pointer border-2 border-black text-center w-32 font-semibold py-2 hover:bg-[#F44336] hover:text-white active:scale-95">
-                    <div>COD</div>
-                    <div class="text-xs italic font-light">cash on delivery</div>
-                </div>
-                <div class="inp_payment cursor-pointer border-2 border-black text-center w-32 font-semibold py-2 hover:bg-[#F44336] hover:text-white active:scale-95 flex items-center justify-center">
-                    PICK UP
-                </div>
+            {{--========================================================
+            SCHEDULE DELIVERY
+            =========================================================--}}
+            <div class="font-bold text-2xl">
+                Schedule Delivery
             </div>
-            <input form="form-place-order" type="hidden" name="payment_method" id="payment_method" value="PICK UP">
-            <br>
+            <div class="p-10">
+                <div class="font-semibold">
+                    SELECT DELIVERY DATE
+                    <span class="text-red-500 italic">*</span>
+                </div>
+                <br>
+                <div class="flex justify-center gap-5 flex-wrap">
+                    @for ($i = 0; $i < 5; $i++)
+                        <div class="inp_date cursor-pointer border-2 border-black text-xs px-5 py-2 hover:bg-[#F44336] hover:text-white active:scale-95">
+                            <div class="text-center font-semibold">date</div>
+                            <div>date</div>
+                        </div>
+                    @endfor
+                </div>
+                <br>
+                <div class="w-3/4 m-auto">
+                    <input data-isAdmin="{{ Auth::user()->is_admin }}" form="form-place-order" required type="date" id="delivery_date" name="delivery_date" class="block w-full px-3 py-2 bg-[#EDE7E7] border border-gray-300 text-[#F44336] font-semibold rounded-md shadow-sm cursor-pointer">
+                </div>
+                <br>
+                <hr class="border-b">
+                <br>
+
+                <div class="font-semibold">SELECT DELIVERY TIME <span class="text-red-500 italic">*</span></div>
+                <br>
+                <div class="flex justify-center gap-5 flex-wrap">
+                    @for($i = 0, $t = 7; $i < 10; $i++)
+                        <div class="inp_time cursor-pointer border-2 border-black text-center min-w-20 px-5 py-2 text-xs hover:bg-[#F44336] hover:text-white active:scale-95">
+                            <div>{{ $t++ < 12 ? $t : $t - 12 }}:00</div>
+                            <div>{{ $t < 12 ? 'AM':'PM'  }}</div>
+                        </div>
+                    @endfor
+                </div>
+                <br>
+                <div class="w-3/4 m-auto">
+                    <input form="form-place-order" required type="time" id="delivery_time" name="delivery_time" min="6:00" max="18:00" class="block w-full px-3 py-2 border bg-[#EDE7E7]  border-gray-300 text-[#F44336] font-semibold rounded-md shadow-sm cursor-pointer">
+                </div>
+                <br>
+            </div>
+
+
             <hr class="border-b-2">
             <br>
 
@@ -150,30 +168,6 @@
                 </x-nav-link>
             </div>
             <br><br><br>
-
-        {{-- <br>
-            <div class="mx-10 flex justify-start items-center">
-                <label for="delivery_date" class="block text-gray-700 font-semibold w-64">PREFERED DELIVERY DATE:</label>
-                <input type="date" id="delivery_date" name="delivery_date" class="ml-10 block w-60 px-3 py-2 bg-[#EDE7E7] text-[#F44336] border border-gray-300 rounded-md shadow-sm">
-            </div>
-            <br>
-            <div class="mx-10 flex justify-start items-center">
-                <label for="delivery_time" class="block text-gray-700 w-64 font-semibold">PREFERED DELIVERY TIME:</label>
-                <input type="time" id="delivery_time" name="delivery_time" min="6:00" max="18:00" class="ml-10 block w-60 px-3 py-2 border bg-[#EDE7E7] text-[#F44336] border-gray-300 rounded-md shadow-sm">
-            </div>
-            <br>
-            <div class="mx-10 flex justify-start items-center">
-                <label for="delivery_address" class="block text-gray-700 w-64 font-semibold">DELIVERY ADDRESS:</label>
-                <select id="delivery_address" name="delivery_address" class="ml-10 block w-96 px-3 py-2 bg-[#EDE7E7] text-[#F44336] border border-gray-300 rounded-md shadow-sm">
-                    <option value="option0" selected>None</option>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
-                </select>            </div>
-            <br>
-            <hr class="border-b-2">
-            <br>
-        --}}
 
         </div>
     </main>

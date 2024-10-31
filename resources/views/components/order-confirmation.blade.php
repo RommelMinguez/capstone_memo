@@ -54,21 +54,23 @@
             </div>
             <br>
 
-            <span class="font-bold">Address</span>
-            <div class="px-10">
-                <br>
-            @if ($address)
-                <ul id="confirm-address">
-                    <li>
-                        <span class="mr-5">{{ $address->name }}</span>
-                        <span class="text-gray-400">{{ $address->phone_number }}</span>
-                    </li>
-                    <li>{{ $address->unit_floor ? $address->unit_floor.', ':"" }}{{ $address->street_building }}</li>
-                    <li>{{ Str::title($address->province) }}, {{ Str::title($address->city_municipality) }}, {{ $address->barangay }}</li>
-                </ul>
-            @else
-                <div class="text-red-500 italic"><a href="/user/address">Please add an address. <span>*</span></a></div>
-            @endif
+            <div id="confirm-address-container">
+                <span class="font-bold">Address</span>
+                <div class="px-10">
+                    <br>
+                    @if ($address)
+                        <ul id="confirm-address">
+                            <li>
+                                <span class="mr-5">{{ $address->name }}</span>
+                                <span class="text-gray-400">{{ $address->phone_number }}</span>
+                            </li>
+                            <li>{{ $address->unit_floor ? $address->unit_floor.', ':"" }}{{ $address->street_building }}</li>
+                            <li>{{ Str::title($address->province) }}, {{ Str::title($address->city_municipality) }}, {{ $address->barangay }}</li>
+                        </ul>
+                    @else
+                        <div class="text-red-500 italic"><a href="/user/address">Please add an address. <span>*</span></a></div>
+                    @endif
+                </div>
             </div>
             <br>
 
@@ -103,9 +105,11 @@
             <form action="/user/order" method="POST" id="form-place-order">
                 @csrf
                 <input type="hidden" name="total" value="{{ str_replace(',', '', $total) }}">
-                <x-nav-link :isButton='true' type='submit' class="w-full">
-                    CONFIRM ORDER
-                </x-nav-link>
+                <div id="confirm-order-btn">
+                    <x-nav-link :isButton='true' type='button' class="w-full">
+                        CONFIRM ORDER
+                    </x-nav-link>
+                </div>
             </form>
         </div>
         <br><br>

@@ -39,10 +39,9 @@ class OrderController extends Controller
         request()->validate([
             'delivery_date' => ['required', 'date', 'after_or_equal:today'],
             'delivery_time' => ['required', 'date_format:H:i'],
-            //'address' => ['required'],
             'payment_method' => ['required'],
             'total' => ['required', 'numeric'],
-            'address_id' => 'required'
+            'address_id' => ['nullable', 'required_if:payment_method,cash on DELIVERY']
         ]);
 
         //get the items in order
