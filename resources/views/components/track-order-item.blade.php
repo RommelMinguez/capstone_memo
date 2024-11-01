@@ -1,4 +1,7 @@
-@props(['item', 'toReview' => false])
+@props([
+    'item',
+    'order',
+    'toReview' => false])
 
 @php
     $bgStatus = [
@@ -11,7 +14,10 @@
 @endphp
 
 {{-- <tr {{ $attributes->merge(['class' => 'border-y-2'])}}> --}}
-<tr class="border-y-2 hover:bg-[#fdf2d8] cursor-pointer" onclick="showDetails({{ json_encode($item->toArray()) }})">
+<tr class="border-y-2 hover:bg-[#fdf2d8] cursor-pointer" onclick="showDetails({{ json_encode($order->toArray()) }})">
+    <td class="w-20 p-2 font-bold text-center">
+        {{ $order->id }}
+    </td>
     <td class="w-52 p-2">
         <div class="w-40 h-40 m-auto shadow-md border rounded-sm">
             <a href="/cakes/{{ $item->cake->id }}"><img src="{{ Storage::url($item->cake->image_src) }}" alt="cake" class="w-full h-full object-cover " ></a>
@@ -55,7 +61,7 @@
         <div class="w-full h-full flex flex-col justify-between items-center py-2">
             <div class="flex text-xs">
                 <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
-                <div class="py-1 px-2 border border-gray-500 rounded-r-md text-white {{ $bgStatus[$item->status] }}" >{{ Str::upper($item->status) }}</div>
+                <div class="py-1 px-2 border border-gray-500 rounded-r-md text-white {{ $bgStatus[$order->status] }}" >{{ Str::upper($order->status) }}</div>
             </div>
             <div class="text-xl font-bold text-[#F44336]">
                 &#8369;

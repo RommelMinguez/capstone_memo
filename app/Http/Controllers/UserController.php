@@ -16,23 +16,43 @@ class UserController extends Controller
 {
     public function showTrackOrder()
     {
-        $orders = Auth::user()->orders()->pluck('id');
+        // $orders = Auth::user()->orders()->pluck('id');
 
-        $allItems = OrderItem::whereIn('order_id', $orders)->with('cake', 'order.address', 'order.user', 'order.orderItems.cake')->latest()->get()->groupBy('status');
-        $allItems->put('review', collect());
-        if ($allItems->has('completed')) {
-            $allItems->get('completed')->each(function ($item, $key) use ($allItems) {
-                $hasReview = Auth::user()->reviews()->where('cake_id', $item->cake->id)->exists();
-                if (!$hasReview) {
-                    $allItems->get('review')->push($item);
-                    $allItems->get('completed')->forget($key);
+        // $allItems = OrderItem::whereIn('order_id', $orders)->with('cake', 'order.address', 'order.user', 'order.orderItems.cake')->latest()->get()->groupBy('status');
+        // $allItems->put('review', collect());
+        // if ($allItems->has('completed')) {
+        //     $allItems->get('completed')->each(function ($item, $key) use ($allItems) {
+        //         $hasReview = Auth::user()->reviews()->where('cake_id', $item->cake->id)->exists();
+        //         if (!$hasReview) {
+        //             $allItems->get('review')->push($item);
+        //             $allItems->get('completed')->forget($key);
+        //         }
+        //     });
+        // }
+
+        $orders = Auth::user()->orders()
+            ->with('address', 'user', 'orderItems.cake')
+            ->orderBy('updated_at', 'desc')
+            ->get()
+            ->groupBy('status');
+        $orders->put('review', collect());
+        if ($orders->has('completed')) {
+            $orders->get('completed')->each(function ($order, $key) use ($orders) {
+                $needsReview = $order->orderItems->contains(function ($item) {
+                    return !Auth::user()->reviews()->where('cake_id', $item->cake->id)->exists();
+                });
+                if ($needsReview) {
+                    $orders->get('review')->push($order);
+                    $orders->get('completed')->forget($key);
                 }
             });
         }
 
-        //dd($allItems->toArray());
+        $reviews = Auth::user()->reviews()->pluck('cake_id');
 
-        return view('user.track-order', compact('allItems'));
+        // dd($orders->toArray());
+
+        return view('user.track-order', compact('orders', 'reviews'));
     }
 
     public function showMessage()

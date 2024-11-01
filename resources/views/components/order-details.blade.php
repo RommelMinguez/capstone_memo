@@ -27,6 +27,10 @@
 
             <div class="flex justify-between  py-5">
                 <div class="font-bold text-xl ">Order # <span id="order-id">0</span></div>
+                <div class="flex text-xs">
+                    <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
+                    <div id="order-status" class="py-1 px-2 border border-gray-500 rounded-r-md text-white" >Pending</div>
+                </div>
             </div>
 
             <table id="display-order-item" class="table-fixed w-full">
@@ -49,16 +53,16 @@
                                 <li>Candle: <span>none</span></li>
                                 <li>Dedication: <span>sample text</span></li>
                                 <li class="my-2">
-                                    <a href="#" class="hidden bg-blue-500 py-1 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 text-white font-semibold text-xs">write a review</a>
+                                    <a href="#" class="bg-blue-500 py-1 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 text-white font-semibold text-xs relative hidden">
+                                        write a review
+                                        <span class="absolute top-0 right-0 w-3 aspect-square rounded-full bg-red-500 border"></span>
+                                    </a>
                                 </li>
                             </ol>
                         </td>
                         <td class="w-32 text-center h-full">
                             <div class="flex flex-col justify-between h-40">
-                                <div class="flex text-xs">
-                                    <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
-                                    <div class="py-1 px-2 border border-gray-500 rounded-r-md text-white" >Pending</div>
-                                </div>
+                                <div></div>
                                 <div class="font-bold text-red-500">&#8369; <span>00.00</span></div>
                                 <div></div>
                             </div>
@@ -69,6 +73,19 @@
 
 
             <br>
+
+
+            {{-- PAYMENT --}}
+            <div class="mb-5">
+                <div class="font-bold mb-5">
+                    Payment Method
+                </div>
+                <div class="ml-10">
+                    <ul id="payment-method">
+                        <li>COD</li>
+                    </ul>
+                </div>
+            </div>
 
                 {{-- address --}}
             <div class="mb-5">
@@ -101,20 +118,6 @@
 
 
 
-            {{-- PAYMENT --}}
-            <div class="mb-5">
-                <div class="font-bold mb-5">
-                    Payment Method
-                </div>
-                <div class="ml-10">
-                    <ul id="payment-method">
-                        <li>COD</li>
-                    </ul>
-                </div>
-            </div>
-
-
-
             <br><hr><br>
 
             <div class="flex justify-between w-3/4 m-auto">
@@ -136,10 +139,6 @@
                         Cancel Order
                     </button>
                 </form>
-
-                {{-- <a href="#" id="write-review" class=" block text-center rounded-md shadow-md font-bold text-lg text-white bg-blue-500 hover:bg-blue-600 active:scale-95 py-2 mb-4 cursor-pointer">
-                    Write a review.
-                </a> --}}
             </div>
 
             <br><br>

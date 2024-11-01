@@ -51,7 +51,7 @@ class OrderController extends Controller
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'address_id' => request()->address_id,
-            //'status' => 'pending',
+            'status' => 'pending',
             'total' => request()->total,
             'prefered_date' => request()->delivery_date,
             'prefered_time' => request()->delivery_time,
@@ -148,9 +148,9 @@ class OrderController extends Controller
     }
 
 
-    function userCancelOrder(OrderItem $item) {
-        if ($item->status == 'pending') {
-            $item->update([
+    function userCancelOrder(Order $order) {
+        if ($order->status == 'pending') {
+            $order->update([
                 'status' => 'canceled'
             ]);
         } else {
