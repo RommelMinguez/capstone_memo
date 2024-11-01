@@ -16,7 +16,7 @@
                 <div class="flex  items-center gap-x-10 gap-y-5 flex-wrap">
                     <a href="/admin/orders?filter=pending" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">{{ $statusCount['pending'] }}</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['pending'] ?? 0 }}</div>
                             <div class="text-xs">Pending Orders</div>
                         </div>
                         <div class="h-full">
@@ -30,7 +30,7 @@
                     </a>
                     <a href="/admin/orders?filter=baking" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">{{ $statusCount['baking'] }}</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['baking'] ?? 0 }}</div>
                             <div class="text-xs">Baking</div>
                         </div>
                         <div class="h-full">
@@ -45,7 +45,7 @@
                     </a>
                     <a href="/admin/orders?filter=receive" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">{{ $statusCount['receive'] }}</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['ready'] ?? 0 }}</div>
                             <div class="text-xs">For Delivery</div>
                         </div>
                         <div class="h-full">
@@ -81,7 +81,7 @@
                     </div> --}}
                     <a href="/admin/orders?filter=completed" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">{{ $statusCount['completed'] }}</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['completed'] ?? 0 }}</div>
                             <div class="text-xs">Completed</div>
                         </div>
                         <div class="h-full">
@@ -97,7 +97,7 @@
                     </a>
                     <a href="/admin/orders?filter=canceled" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
-                            <div class="text-4xl font-bold mb-2">{{ $statusCount['canceled'] }}</div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount['canceled'] ?? 0 }}</div>
                             <div class="text-xs">Canceled</div>
                         </div>
                         <div class="h-full">
@@ -201,10 +201,20 @@
                                 @foreach ($latestOrders as $order)
                                     <tr class="text-center border-b odd:bg-[#feebf2]">
                                         <td >{{ $order->order_id }}</td>
-                                        <td >{{ $order->order->user->last_name }}, {{ $order->order->user->first_name }}</td>
-                                        <td >{{ $order->cake->name }} </td>
+                                        <td>
+                                            <div  class="flex justify-start gap-3 items-center px-5">
+                                                <img src="{{ Storage::url($order->order->user->image_src) }}" alt="Profile Picture" class="aspect-square w-7 rounded-full shadow-md border">
+                                                {{ $order->order->user->last_name }}, {{ $order->order->user->first_name }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="flex justify-start gap-3 items-center px-5">
+                                                <img src="{{ Storage::url($order->cake->image_src) }}" alt="Cake Image" class="aspect-square w-7 rounded-full shadow-md border">
+                                                {{ $order->cake->name }}
+                                            </div>
+                                        </td>
                                         <td >{{ $order->created_at->diffForHumans() }}</td>
-                                        <td >{{ $order->status }}</td>
+                                        <td >{{ $order->order->status }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
