@@ -57,7 +57,7 @@ function showEmptyMsg(selectedTabIndex) {
         }
     }
 }
-showEmptyMsg(-1);
+showEmptyMsg(0);
 
 
 
@@ -85,12 +85,10 @@ function showDetails(data) {
     detailsContent.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 
-    console.log(data);
+    // console.log(data);
 
 
-    orderID.textContent = data['id'];
-    orderStatus.textContent = data['status'];
-    orderStatus.classList.add(bgColorArr[data['status']]);
+    displayOrder(data);
     paymentMethod.children[0].textContent = data['payment_method'];
     displayItems(data);
     displayAddressData(data['address'], data['payment_method']);
@@ -118,10 +116,19 @@ function hideDetails() {
 let bgColorArr = {
     pending: 'bg-yellow-500',
     baking: 'bg-orange-500',
-    receive: 'bg-green-500',
+    ready: 'bg-green-500',
     completed: 'bg-blue-500',
     canceled:'bg-red-500'
 };
+
+
+function displayOrder(order) {
+    orderID.textContent = order['id'];
+    orderStatus.textContent = order['status'].toUpperCase();
+    Object.values(bgColorArr).forEach(color => orderStatus.classList.remove(color));
+    orderStatus.classList.add(bgColorArr[order['status']]);
+}
+
 
 function displayItems(order) {
     let items = order.order_items;
