@@ -104,7 +104,7 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin', [AdminController::class, 'dashboard']);
     Route::get('/admin/orders', [AdminController::class, 'manageOrders']);
     Route::get('/admin/orders/{item}', [AdminController::class, 'showOrder']);
-    Route::patch('/admin/orders/{item}', [AdminController::class, 'updateStatus']);
+    Route::patch('/admin/order/{order}', [AdminController::class, 'updateStatus']);
 
     Route::get('/admin/custom', [CustomOrderController::class, 'manageCustom']);
 

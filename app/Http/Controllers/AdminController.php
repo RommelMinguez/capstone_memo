@@ -61,12 +61,18 @@ class AdminController extends Controller
         ]);
     }
 
-    public function updateStatus(OrderItem $item) {
-        $updated = $item->update([
-            'status' => request()->item,
-        ]);
+    public function updateStatus(Order $order) {
+        DB::transaction(function () use ($order) {
+            $order->update([
+                'status' => request()->item,
+            ]);
 
-        return response()->json(['is_success' => $updated, 'status' => request()->item]);
+            $order->orderItems()->update([
+                'status' => request()->item,
+            ]);
+        });
+
+        return response()->json(['is_success' => 'true', 'status' => request()->item]);
     }
     public function showOrder(OrderItem $item) {
         $all = OrderItem::with('cake', 'order.user', 'order.address', 'order.orderItems.cake')->find($item->id);

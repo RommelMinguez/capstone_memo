@@ -30,10 +30,9 @@
                 <div class="flex text-xs">
                     <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
                     <select id="status-set-all" class="py-1 border bg-[#D9D9D9] border-gray-500 rounded-r-md text-white font-semibold">
-                        <option value="" disabled selected></option>
                         <option value="pending" class="bg-yellow-500 hover:bg-yellow-500">Pending</option>
                         <option value="baking" class="bg-orange-500">Baking</option>
-                        <option value="receive" class="bg-green-500">For Delivery</option>
+                        <option value="ready" class="bg-green-500">For Delivery/Pickup</option>
                         {{-- <option value="review" class="bg-blue-500">To Review</option> --}}
                         <option value="completed" class="bg-blue-500">Completed</option>
                         <option value="canceled" class="bg-red-500">Cancel</option>
@@ -65,11 +64,11 @@
                         <td class="w-32 text-center h-full">
                             <div class="flex flex-col justify-between h-40">
                                 <div class="flex text-xs">
-                                    <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
-                                    <select class="py-1 border border-gray-500 rounded-r-md text-white font-semibold status-item">
+                                    <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md hidden">STATUS</div>
+                                    <select class="py-1 border border-gray-500 rounded-r-md text-white font-semibold status-item hidden">
                                         <option value="pending" class="bg-yellow-500 hover:bg-yellow-500">Pending</option>
                                         <option value="baking" class="bg-orange-500">Baking</option>
-                                        <option value="receive" class="bg-green-500">For Delivery</option>
+                                        <option value="ready" class="bg-green-500">For Delivery/Pickup</option>
                                         {{-- <option value="review" class="bg-blue-500">To Review</option> --}}
                                         <option value="completed" class="bg-blue-500">Completed</option>
                                         <option value="canceled" class="bg-red-500">Cancel</option>
@@ -96,9 +95,36 @@
                     </div>
                     <div class="ml-10">
                         <ul id="customer-info">
-                            <li>Customer Name:</li>
-                            <li>Email:</li>
-                            <li>Contact #:</li>
+                            <li class="flex gap-2 items-center">
+                                <svg
+                                    class='w-3'
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 448 512">
+                                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/>
+                                </svg>
+                                <span>N/A</span>
+                            </li>
+                            <li class="flex gap-2 items-center">
+                                <svg
+                                    class='w-3'
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512">
+                                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+                                </svg>
+                                <span>N/A</span>
+                            </li>
+                            <li class="flex gap-2 items-center">
+                                <svg
+                                    class='w-3'
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512">
+                                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
+                                </svg>
+                                <span>N/A</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
