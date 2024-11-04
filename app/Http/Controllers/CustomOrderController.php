@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CustomImage;
 use App\Models\CustomOrder;
+use App\Models\OrderNote;
 use App\Models\Tag;
 use Auth;
 use Illuminate\Http\Request;
@@ -92,8 +93,65 @@ class CustomOrderController extends Controller
 
 
     public function manageCustom () {
-        $customOrders = CustomOrder::with('tags', 'customImages')->orderBy('updated_at', 'desc')->get();
+        $customOrders = CustomOrder::with('tags', 'customImages', 'user')->orderBy('updated_at', 'desc')->get();
+        // dd($customOrders);
         return view('user.admin.manage-custom', compact('customOrders'));
+    }
+
+    public function show(CustomOrder $order) {
+        $order->load('tags', 'customImages', 'user');
+
+        return response()->json($order);
+    }
+
+    public function approvedUpdate(CustomOrder $order) {
+        // dump($order);
+        // dd(request()->all());
+
+        $validatedData = request()->validate([
+            // 'response_status' => 'required|string',
+            'given_price' => 'required|numeric',
+            'note' => 'required|string'
+        ]);
+
+        if ($order->status == 'new') {
+            $order->update([
+                'status' => 'approved',
+                'given_price' => $validatedData['given_price']
+            ]);
+
+            OrderNote::create([
+                'note_message' => $validatedData['note'],
+                'type' => 'approved-custom-order',
+                'user_id' => Auth::user()->id,
+                'custom_order_id' => $order->id
+            ]);
+
+            return redirect('/admin/custom')->with('success', 'New Design Approved.');
+        }
+        return redirect('/admin/custom')->with('error', '403 FORBIDDEN: Order was Changed or Canceled');
+    }
+    public function rejectedUpdate(CustomOrder $order) {
+        // dump($order);
+        // dd(request()->all());
+
+        if ($order->status == 'new') {
+            $order->update([
+                'status' => 'rejected',
+            ]);
+
+            return redirect('/admin/custom')->with('success', 'New Design Rejected.');
+        }
+        return redirect('/admin/custom')->with('error', '403 FORBIDDEN: Order was Changed or Canceled');
+    }
+
+
+
+    public function statusUpdate(CustomOrder $order) {
+        $order->update([
+            'status' => request()->item,
+        ]);
+        return response()->json(['is_success' => 'true', 'status' => request()->item]);
     }
 }
 

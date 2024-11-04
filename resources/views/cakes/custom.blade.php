@@ -176,7 +176,7 @@
                     {{-- CREATE BUTTON --}}
                     <div class="flex justify-end mt-10 mb-5 gap-5">
                         <button type="reset" class="px-5 py-2 rounded-md border shadow-md font-bold bg-white hover:bg-gray-100 active:scale-95">Reset</button>
-                        <button id="custom-form-submit" type="button" class="px-5 py-2 rounded-md border bg-red-500 shadow-md text-white font-bold hover:bg-red-600 active:scale-95">Create</button>
+                        <button id="custom-form-submit" type="button" class="px-5 py-2 rounded-md border bg-red-500 shadow-md text-white font-bold hover:bg-red-600 active:scale-95">REQUEST NEW DESIGN</button>
                     </div>
                 </form>
             </div>

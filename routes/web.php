@@ -107,6 +107,10 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::patch('/admin/order/{order}', [AdminController::class, 'updateStatus']);
 
     Route::get('/admin/custom', [CustomOrderController::class, 'manageCustom']);
+    Route::patch('/admin/custom/approved/{order}', [CustomOrderController::class, 'approvedUpdate']);
+    Route::patch('/admin/custom/rejected/{order}', [CustomOrderController::class, 'rejectedUpdate']);
+    Route::patch('/admin/custom/{order}', [CustomOrderController::class, 'statusUpdate']);
+    Route::get('/admin/custom/{order}', [CustomOrderController::class, 'show']);
 
     Route::get('/admin/catalog', [CakeController::class, 'create']);
     Route::post('/admin/catalog', [CakeController::class, 'store']);

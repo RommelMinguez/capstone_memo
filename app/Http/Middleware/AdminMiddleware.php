@@ -22,6 +22,6 @@ class AdminMiddleware
         }
 
         // If not an admin, redirect to a forbidden page or another route
-        return redirect('/')->with('error', '403 FORBIDDEN: You do not have ADMIN access.');
+        return redirect('/login')->with('error', '403 FORBIDDEN: You do not have ADMIN access.');
     }
 }
