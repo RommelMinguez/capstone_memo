@@ -70,8 +70,12 @@
                     </li>
                     <li class="bg-[#fbefd2] rounded-t-lg order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         Canceled
+                        @php
+                            $crc = ((int) $statusCount['canceled'] + (int) $statusCount['rejected']);
+                            $cancelAndRejectCount = $crc == 0 ? '':$crc;
+                        @endphp
                         <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
-                            {{ ((int) $statusCount['canceled'] + (int) $statusCount['rejected']) }}
+                            {{ $cancelAndRejectCount }}
                         </d>
                     </li>
                     <li class="border-2 border-[#ffdab9] border-dashed"></li>
@@ -170,6 +174,7 @@
     @endsession
 
     <x-track-custom-details></x-track-custom-details>
+    <x-track-custom-cancel-confirmation></x-track-custom-cancel-confirmation>
 
     <script src="/js/track_custom.js" defer></script>
 </x-layout>

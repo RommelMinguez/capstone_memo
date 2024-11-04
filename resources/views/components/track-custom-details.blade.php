@@ -21,6 +21,9 @@
 
             <div class="flex justify-between  py-5">
                 <div class="font-bold text-xl ">Order # <span id="order-id">0</span></div>
+                <div id="status-display" class="flex items-center h-full font-semibold text-yellow-600">
+                    N/A
+                </div>
             </div>
 
             <table id="display-order-item" class="table-fixed w-full">
@@ -35,9 +38,8 @@
                             <ol>
                                 <li class="flex gap-5">
                                     <span>Cake Name</span>
-                                    <span class="text-base italic">xN</span>
                                 </li>
-                                <li class="text-xs text-red-500"> &#8369; <span>00.00</span></li>
+                                <li class="text-base italic">xN</li>
                                 <br>
                                 <li>Age: <span>1</span></li>
                                 <li>Candle: <span>none</span></li>
@@ -47,13 +49,16 @@
                                 </li>
                             </ol>
                         </td>
-                        <td class="w-32 text-center h-full">
+                        <td class="w-40 text-center h-full">
                             <div class="flex flex-col justify-between h-40">
                                 <div class="flex text-xs">
                                     {{-- <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
                                     <div class="py-1 px-2 border border-gray-500 rounded-r-md text-white" >Pending</div> --}}
                                 </div>
-                                <div class="font-bold text-red-500">&#8369; <span>00.00</span></div>
+                                <div>
+                                    <div class="font-semibold mb-3">Allocated Budget</div>
+                                    <div class="font-bold text-red-500 text-lg"> &#8369; <span>00.00</span></div>
+                                </div>
                                 <div></div>
                             </div>
                         </td>
@@ -95,62 +100,68 @@
                 </div>
             </div>
 
-            {{-- DATE --}}
-            <div class="mb-5">
+
+            {{-- SHOW GIVEN PRICE AND NOTES --}}
+            <div id="total-display">
+                <br><br>
+                <hr class="border-b-2 ">
+                <br>
+
                 <div class="font-bold mb-5">
-                    Delivery Date
+                    Custom Cake Price
+                    <span class="bg-[#ffdd55] ml-10 border py-1 px-4 rounded-md font-normal text-sm group relative inline-block cursor-pointer">
+                        <div class="flex justify-center gap-2">
+                            <svg
+                                class="w-3"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512">
+                                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l224 0 0-112c0-26.5 21.5-48 48-48l112 0 0-224c0-35.3-28.7-64-64-64L64 32zM448 352l-45.3 0L336 352c-8.8 0-16 7.2-16 16l0 66.7 0 45.3 32-32 64-64 32-32z"/>
+                            </svg>
+                            <span>
+                                See Note
+                            </span>
+                        </div>
+                        <div id="total-note" class="p-5 rounded-lg border absolute left-1/2 -translate-x-1/2 bottom-full hidden group-hover:inline-block w-[300%] text-white bg-gray-800 shadow-md">
+                            notes here
+                        </div>
+                    </span>
                 </div>
-                <div class="ml-10">
-                    <ul id="delivery-date">
-                        <li>N/A</li>
-                    </ul>
+                <div class="flex justify-between mx-10">
+                    <div class="font-bold">
+                        Total
+                    </div>
+                    <div class="font-bold text-2xl"> &#8369; <span id="total-price">00.00</span></div>
                 </div>
             </div>
 
 
+            <br><br>
+            <hr class="border-b-2">
+            <br><br><br>
 
-            {{-- PAYMENT --}}
-            <div class="mb-5">
-                <div class="font-bold mb-5">
-                    Payment Method
+
+            {{-- ORDER BUTTON --}}
+            <div id="buttons-response" class="flex flex-col gap-5">
+                <div id="response-status-order-btn" class="border-2 border-red-600 bg-red-500 text-white font-bold p-3 text-center rounded-sm hover:bg-red-600 active:scale-y-95 cursor-pointer">
+                    PLACE ORDER
                 </div>
-                <div class="ml-10">
-                    <ul id="payment-method">
-                        <li>N/A</li>
-                    </ul>
+                <div id="response-status-reject-btn" class="border-2 border-black font-bold p-3 text-center rounded-sm hover:bg-gray-100 active:scale-y-95 cursor-pointer">
+                    CANCEL ORDER
                 </div>
             </div>
-
 
 
             <br><hr><br>
-
-            {{-- <div class="flex justify-between w-3/4 m-auto">
-                <div class="text-xl font-bold">TOTAL</div>
-                <div>
-                    <div class="text-3xl font-bold">
-                        &#8369;
-                        <span class="ml-2" id="total">00.00</span>
-                    </div>
-                </div>
-            </div> --}}
-            <br><br>
-
-            <div>
-                {{-- <form action="" class="w-full" method="POST" id="cancel-order-form">
-                    @csrf
-                    @method('PATCH') --}}
-                    <button class="w-full text-center rounded-md shadow-md font-bold text-lg text-white bg-red-500 hover:bg-red-600 active:scale-95 py-2 mb-4 cursor-pointer">
-                        Cancel Order
-                    </button>
-                {{-- </form> --}}
-
-                {{-- <a href="#" id="write-review" class=" block text-center rounded-md shadow-md font-bold text-lg text-white bg-blue-500 hover:bg-blue-600 active:scale-95 py-2 mb-4 cursor-pointer">
-                    Write a review.
-                </a> --}}
-            </div>
-
-            <br><br>
         </div>
     </div>
+</div>
+
+
+
+<div class="hidden">
+    <form action="/user/custom-order/order/" method="POST" id="place-order-form">
+        @csrf
+        @method('PATCH')
+    </form>
 </div>

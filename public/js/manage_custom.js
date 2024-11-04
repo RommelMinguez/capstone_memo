@@ -215,7 +215,10 @@ function displayDateData(dateData) {
         deliveryDate.parentNode.parentNode.classList.add('hidden');
     } else {
         deliveryDate.parentNode.parentNode.classList.remove('hidden');
-        deliveryDate.children[0].innerHTML= 'todo';
+        // deliveryDate.children[0].innerHTML= 'todo';
+
+        const date = new Date(dateData.replace(" ", "T"));
+        deliveryDate.children[0].innerHTML= formatDateTime(date);
     }
 }
 
@@ -231,15 +234,15 @@ function displayPaymentMethod(payMethod) {
     }
 }
 
-// function formatDateTime(date) {
-//     const optionsDate = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-//     const optionsTime = { hour: 'numeric', minute: 'numeric', hour12: true };
+function formatDateTime(date) {
+    const optionsDate = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+    const optionsTime = { hour: 'numeric', minute: 'numeric', hour12: true };
 
-//     const formattedDate = date.toLocaleDateString('en-US', optionsDate);
-//     const formattedTime = date.toLocaleTimeString('en-US', optionsTime);
+    const formattedDate = date.toLocaleDateString('en-US', optionsDate);
+    const formattedTime = date.toLocaleTimeString('en-US', optionsTime);
 
-//     return formattedDate + "<br>" + formattedTime;
-// }
+    return formattedDate + "<br>" + formattedTime;
+}
 function toTitleCase(str) {
     return str
         .toLowerCase() // Convert the string to lowercase first

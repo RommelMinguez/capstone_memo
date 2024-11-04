@@ -81,17 +81,81 @@ class CustomOrderController extends Controller
             $customOrder->tags()->sync($request->input('selected-tag'));
         }
 
-        return redirect('/user/custom-order')->with('success', 'Custom order created successfully!');
+        session(['customOrder' => $customOrder->id, 'customOrderUser' => Auth::user()->id]);
+        return redirect('/cakes/custom/order')->with('success', 'Please add Your Details!');
     }
 
 
-
+    // CUSTOMER
     public function trackCustom () {
         $customOrders = Auth::user()->customOrders()->with('tags', 'customImages')->orderBy('updated_at', 'desc')->get()->groupBy('status');;
         return view('user.track-custom', compact('customOrders'));
     }
 
+    public function trackCustomCancelOrder(CustomOrder $order) {
+        // dd($order);
 
+        if ($order->status == 'new' || $order->status == 'approved' || $order->status == 'pending') {
+            $order->update([
+                'status' => 'canceled'
+            ]);
+
+            return redirect('/user/custom-order')->with('success', 'Order Canceled Successfully.');
+        }
+        return redirect('/user/custom-order')->with('error', 'Something Went Wrong');
+    }
+    public function trackCustomPlaceOrder(CustomOrder $order) {
+        // dd($order);
+
+        if ($order->status == 'approved') {
+            $order->update([
+                'status' => 'pending'
+            ]);
+
+            return redirect('/user/custom-order')->with('success', 'Order is now in queue to bake.');
+        }
+        return redirect('/user/custom-order')->with('error', 'Something Went Wrong');
+    }
+
+
+
+    function orderDetailsCreate() {
+        if(!session('customOrder') || !(session('customOrderUser') == Auth::user()->id)) {
+            return redirect('/cakes')->with('error', "403 FORBIDDEN: custom order doesn't exist.");
+        }
+
+        $item = CustomOrder::find(session('customOrder'));
+
+        return view('cakes.order', compact('item'));
+    }
+    function orderDetailsUpdate(CustomOrder $order) {
+
+        // dd(request()->all());
+
+        request()->validate([
+            'delivery_date' => ['required', 'date', 'after_or_equal:today'],
+            'delivery_time' => ['required', 'date_format:H:i'],
+            'payment_method' => ['required'],
+            'address_id' => ['nullable', 'required_if:payment_method,cash on DELIVERY']
+        ]);
+
+        $datetime = request()->delivery_date . ' ' . request()->delivery_time . ':00';
+
+        $order->update([
+            'prefered_datetime' => $datetime,
+            'payment_method' => request()->payment_method,
+            'address_id' => request()->address_id
+        ]);
+
+        return redirect('/user/custom-order')->with('success', 'Custom order created successfully!');;
+    }
+
+
+
+
+
+
+    // ADMIN
     public function manageCustom () {
         $customOrders = CustomOrder::with('tags', 'customImages', 'user')->orderBy('updated_at', 'desc')->get();
 

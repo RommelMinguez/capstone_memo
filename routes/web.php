@@ -45,6 +45,8 @@ Route::get('/cakes', [CakeController::class, 'index']);
 Route::get('/cakes/search', [CakeController::class, 'search']);
 Route::get('/cakes/custom', [CustomOrderController::class, 'create'])->middleware([CustomerMiddleware::class]);
 Route::post('/cakes/custom', [CustomOrderController::class, 'store'])->middleware([CustomerMiddleware::class]);
+Route::get('/cakes/custom/order', [CustomOrderController::class, 'orderDetailsCreate'])->middleware([CustomerMiddleware::class]);
+Route::patch('/cakes/custom/order/{order}', [CustomOrderController::class, 'orderDetailsUpdate'])->middleware([CustomerMiddleware::class]);
 Route::get('/cakes/{cake}', [CakeController::class, 'show']);
 
 
@@ -97,6 +99,8 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);
 
     Route::get('/user/custom-order', [CustomOrderController::class, 'trackCustom']);
+    Route::patch('/user/custom-order/cancel/{order}', [CustomOrderController::class, 'trackCustomCancelOrder']);
+    Route::patch('/user/custom-order/order/{order}', [CustomOrderController::class, 'trackCustomPlaceOrder']);
 });
 
 
