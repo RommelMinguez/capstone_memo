@@ -265,6 +265,38 @@
                 </div>
             </div>
 
+
+
+
+            <div id="total-display">
+                <div class="font-bold mb-5">
+                    Custom Cake Price
+                    <span class="bg-[#ffdd55] ml-10 border py-1 px-4 rounded-md font-normal text-sm group relative inline-block cursor-pointer">
+                        <div class="flex justify-center gap-2">
+                            <svg
+                                class="w-3"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512">
+                                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l224 0 0-112c0-26.5 21.5-48 48-48l112 0 0-224c0-35.3-28.7-64-64-64L64 32zM448 352l-45.3 0L336 352c-8.8 0-16 7.2-16 16l0 66.7 0 45.3 32-32 64-64 32-32z"/>
+                            </svg>
+                            <span>
+                                See Note
+                            </span>
+                        </div>
+                        <div id="total-note" class="p-5 rounded-lg border absolute left-1/2 -translate-x-1/2 bottom-full hidden group-hover:inline-block w-[300%] text-white bg-gray-800 shadow-md">
+                            notes here
+                        </div>
+                    </span>
+                </div>
+                <div class="flex justify-between mx-10">
+                    <div class="font-bold">
+                        Total
+                    </div>
+                    <div class="font-bold text-2xl"> &#8369; <span id="total-price">00.00</span></div>
+                </div>
+            </div>
+
             <br><br><br>
 
         </div>

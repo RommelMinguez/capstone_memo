@@ -76,3 +76,67 @@ function displayImages(images) {
     }
 }
 
+
+
+
+
+// TABS
+document.addEventListener('DOMContentLoaded', function()
+{
+    tabs[1].classList.remove('bg-[#fbefd2]');
+    tabs[1].classList.add('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'text-red-500');
+});
+
+let tabs = document.querySelectorAll('.order-tab');
+let contents = document.querySelectorAll('.order-content');
+
+let empty = document.querySelector('#empty-msg');
+// let countIndicator = document.querySelectorAll('.number-indicator');
+
+tabs.forEach((element, index) => {
+    element.addEventListener('click', function() {
+        tabs.forEach((e, i) => {
+            e.classList.remove('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'text-red-500');
+            e.classList.add('bg-[#fbefd2]');
+        });
+        element.classList.remove('bg-[#fbefd2]');
+        element.classList.add('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'text-red-500');
+
+        hideContents();
+        showContent(index);
+        showEmptyMsg(index);
+    });
+});
+tabs[1].dispatchEvent(new Event('click'));
+
+function hideContents() {
+    contents.forEach(element => {
+        element.classList.add('hidden');
+    });
+}
+function showContent(selectedTabIndex) {
+    if (selectedTabIndex === 7) {
+        contents.forEach(element => {
+            element.classList.remove('hidden');
+        });
+    } else {
+        contents[selectedTabIndex].classList.remove('hidden');
+    }
+}
+
+function showEmptyMsg(selectedTabIndex) {
+    empty.classList.remove('hidden');
+    if (selectedTabIndex == 7) {
+        for(let i = 0; i < contents.length; i++) {
+            let content = contents[i];
+            if (content.children.length != 0) {
+                empty.classList.add('hidden');
+                break;
+            }
+        }
+    } else {
+        if (contents[selectedTabIndex].children.length != 0) {
+            empty.classList.add('hidden');
+        }
+    }
+}

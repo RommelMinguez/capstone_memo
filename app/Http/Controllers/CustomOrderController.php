@@ -87,14 +87,14 @@ class CustomOrderController extends Controller
 
 
     public function trackCustom () {
-        $customOrders = Auth::user()->customOrders()->with('tags', 'customImages')->orderBy('updated_at', 'desc')->get();
+        $customOrders = Auth::user()->customOrders()->with('tags', 'customImages')->orderBy('updated_at', 'desc')->get()->groupBy('status');;
         return view('user.track-custom', compact('customOrders'));
     }
 
 
     public function manageCustom () {
         $customOrders = CustomOrder::with('tags', 'customImages', 'user')->orderBy('updated_at', 'desc')->get();
-        // dd($customOrders);
+
         return view('user.admin.manage-custom', compact('customOrders'));
     }
 
@@ -117,15 +117,16 @@ class CustomOrderController extends Controller
         if ($order->status == 'new') {
             $order->update([
                 'status' => 'approved',
-                'given_price' => $validatedData['given_price']
+                'given_price' => $validatedData['given_price'],
+                'given_note' => $validatedData['note']
             ]);
 
-            OrderNote::create([
-                'note_message' => $validatedData['note'],
-                'type' => 'approved-custom-order',
-                'user_id' => Auth::user()->id,
-                'custom_order_id' => $order->id
-            ]);
+            // OrderNote::create([
+            //     'note_message' => $validatedData['note'],
+            //     'type' => 'approved-custom-order',
+            //     'user_id' => Auth::user()->id,
+            //     'custom_order_id' => $order->id
+            // ]);
 
             return redirect('/admin/custom')->with('success', 'New Design Approved.');
         }

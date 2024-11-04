@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_notes', function (Blueprint $table) {
-            $table->id();
-            $table->text('note_message');
-            $table->string('type');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('order_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('custom_order_id')->nullable()->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
+        // Schema::create('order_notes', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->text('note_message');
+        //     $table->string('type');
+        //     $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        //     $table->foreignId('order_id')->nullable()->constrained()->onDelete('cascade');
+        //     $table->foreignId('custom_order_id')->nullable()->constrained()->onDelete('cascade');
+        //     $table->timestamps();
+        // });
     }
 
     /**

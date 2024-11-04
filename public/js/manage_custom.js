@@ -54,15 +54,20 @@ async function getOrderData(id) {
         statusDisplay.classList.add('text-yellow-600');
         if (data.status == 'new') {
             newRequest.classList.remove('hidden');
+            document.getElementById('total-display').classList.add('hidden');
         } else if (data.status == 'approved')  {
-
+            document.getElementById('total-display').classList.remove('hidden');
         } else {
             status_all.parentNode.classList.remove('hidden');
             status_all.value = data.status;
             status_all.classList.add(bgColorArr[status_all.selectedIndex]);
             statusDisplay.classList.remove('text-yellow-600');
             statusDisplay.classList.add(textColorArr[status_all.selectedIndex]);
+            document.getElementById('total-display').classList.remove('hidden');
         }
+
+        document.getElementById('total-note').textContent = data['given_note'];
+        document.getElementById('total-price').textContent = data['given_price'];
 
         // hide loading show details
         document.getElementById('detail-loading').classList.add('hidden');
