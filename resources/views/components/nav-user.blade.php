@@ -56,7 +56,7 @@
                     </li>
                 </a>
 
-                <a href="/user/message">
+                <a href="/chatify">
                     <li class="{{ request()->is('user/message') ? 'bg-[#D9D9D9] font-bold border-l-4 pl-9 border-red-500 ':'' }}  hover:bg-[#D9D9D9] px-10 py-3 flex items-center gap-5">
                         <svg
                             class="aspect-square h-6"

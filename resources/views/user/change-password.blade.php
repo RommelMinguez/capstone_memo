@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="flex gap-5 items-center">
-                        <label for="password" class="font-semibold">Password</label>
+                        <label for="password" class="font-semibold">New Password</label>
                         @error('new_password')
                             <div class="italic text-red-600 text-xs">{{ $message }}.</div>
                         @enderror
@@ -76,7 +76,7 @@
                         </div>
                     </div>
 
-                    <label for="new_password" class="font-semibold">New Password</label>
+                    <label for="new_password" class="font-semibold">Confirm Password</label>
                     <div class="relative mb-8 mt-1 rounded-sm shadow-md shadow-gray-400 overflow-hidden">
                         <input autocomplete="nope" type="password" id="new_password" name="new_password_confirmation"  required minlength="6" class="border rounded-sm w-full h-10 bg-[#F5D2D2] p-5 toggle-password">
                         <div class="absolute h-full w-10  right-3 top-0">

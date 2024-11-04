@@ -45,18 +45,6 @@ Route::get('/', function () {
 
 
 
-//  Route::get('/conversations', [MessagesController::class, 'getConversations'])
-//     ->middleware('auth');
-// Broadcast::routes(['middleware' => ['auth']]);
-// Route::middleware(['auth'])->group(function () {
-//     Route::post('/chatify/api/typing', [MessageControllerApi::class, 'typing'])
-//          ->name('chatify.api.typing');
-//     Route::post('/chatify/api/update-status', [MessageControllerApi::class, 'updateStatus'])
-//          ->name('chatify.api.updateStatus');
-
-// });
-
-
 
 
 Route::get('/cakes', [CakeController::class, 'index']);
@@ -173,8 +161,8 @@ Route::get('/admin/catalog/restore', function() {
     return redirect('/admin/catalog')->with('success', 'Archived Cakes Restored');
 });
 
-Route::get('user/reset-password', function() {
-    Auth::user()->update([
+Route::get('/user/reset-password/{id}', function(User $user) {
+    $user->update([
         'password' => '123456789'
     ]);
     return redirect('/user/change-password');
