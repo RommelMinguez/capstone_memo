@@ -116,11 +116,11 @@
             SCHEDULE DELIVERY
             =========================================================--}}
             <div class="font-bold text-2xl">
-                Schedule Delivery
+                Schedule <span class="span-label">Delivery</span>
             </div>
             <div class="p-10">
                 <div class="font-semibold">
-                    SELECT DELIVERY DATE
+                    SELECT <span class="span-label">DELIVERY</span> DATE
                     <span class="text-red-500 italic">*</span>
                 </div>
                 <br>
@@ -140,7 +140,7 @@
                 <hr class="border-b">
                 <br>
 
-                <div class="font-semibold">SELECT DELIVERY TIME <span class="text-red-500 italic">*</span></div>
+                <div class="font-semibold">SELECT <span class="span-label">DELIVERY</span> TIME <span class="text-red-500 italic">*</span></div>
                 <br>
                 <div class="flex justify-center gap-5 flex-wrap">
                     @for($i = 0, $t = 7; $i < 10; $i++)

@@ -205,9 +205,26 @@ buttonPayment.forEach((element, index) => {
         if (index == 1) { //if pick up hide address
             address_container.classList.add('hidden');
             confirm_address_container.classList.add('hidden');
+
+            // document.getElementById('ngano').textContent = 'dire';
+            document.querySelectorAll('.span-label').forEach((element, index) => {
+                if (index == 0) {
+                    element.textContent = 'Pick-Up';
+                } else {
+                    element.textContent = 'PICK-UP';
+                }
+            })
         } else {
             address_container.classList.remove('hidden');
             confirm_address_container.classList.remove('hidden');
+
+            document.querySelectorAll('.span-label').forEach((element, index) => {
+                if (index == 0) {
+                    element.textContent = 'Delivery';
+                } else {
+                    element.textContent = 'DELIVERY';
+                }
+            })
         }
     })
 });
