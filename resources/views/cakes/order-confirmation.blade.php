@@ -1,9 +1,3 @@
-@props([
-    'items',
-    'total' => '00.00',
-    'address'
-])
-
 <div id="confirmation" class="hidden fixed inset-0 bg-black bg-opacity-50 w-full h-screen z-50 overflow-auto py-10">
     {{-- <div class="absolute w-full h-full border-8"></div> --}}
     <div class="w-3/5 overflow-auto bg-gray-50 m-auto  relative shadow-xl shadow-black border-2 rounded-md">
@@ -23,26 +17,22 @@
         </div>
         <div class="px-20 py-5">
             <table class="table-fixed w-full">
-                @foreach ($items as $item)
-                    <tr class="border-y-2">
-                        <td class="w-72 p-2">
-                            <div class="w-60 h-60 m-auto shadow-md border rounded-sm">
-                                <img src="{{ Storage::url($item->cake->image_src) }}" alt="cake" class="w-full h-full object-cover " >
-                            </div>
-                        </td>
-                        <td class="w-auto px-5">
-                            <ol>
-                                <li>{{ $item->cake->name }} &nbsp;&nbsp; <span class="text-base italic">x{{ $item->quantity }}</span></li>
-                                <li class="text-xs text-red-500"> &#8369; {{ number_format($item->cake->price, 2) }}</li>
-                                <br>
-                                <li>Age: {{ $item->age }}</li>
-                                <li>Candle: {{ $item->candle_type }}</li>
-                                <li>Dedication: {{ $item->dedication }}</li>
-                            </ol>
-                        </td>
-                    </tr>
-                    <input form="form-place-order" type="hidden" name="items[]" value="{{ $item->id }}">
-                @endforeach
+                <tr class="border-y-2">
+                    <td class="w-72 p-2">
+                        <div class="w-60 h-60 m-auto shadow-md border rounded-sm">
+                            <img src="{{ Storage::url($item->image_src) }}" alt="cake" class="w-full h-full object-cover " >
+                        </div>
+                    </td>
+                    <td class="w-auto px-5">
+                        <ol>
+                            <li>{{ $item->cake_name }} &nbsp;&nbsp; <span class="text-base italic">x{{ $item->quantity }}</span></li>
+                            <br>
+                            <li>Age: {{ $item->age }}</li>
+                            <li>Candle: {{ $item->candle_type }}</li>
+                            <li>Dedication: {{ $item->dedication }}</li>
+                        </ol>
+                    </td>
+                </tr>
             </table>
             <br>
 
@@ -83,30 +73,31 @@
             <hr class="border-b-2">
             <br><br>
 
-            @foreach ($items as $item)
+            {{-- @foreach ($items as $item)
                 <div class="flex justify-between w-3/4 m-auto">
                     <div class="text-xs text-gray-500">{{ $item->cake->name }} (x{{ $item->quantity }})</div>
                     <div class="text-xs text-gray-500">&#8369; {{ number_format($item->cake->price * $item->quantity, 2) }}</div>
                 </div>
-            @endforeach
+            @endforeach --}}
             <br>
             <div class="flex justify-between w-3/4 m-auto">
                 <div class="text-xl font-bold">TOTAL</div>
                 <div>
                     <div class="text-3xl font-bold">
                         &#8369;
-                        <span class="ml-2"> {{ $total }}</span>
+                        <span class="ml-2"> {{ $item->budget }}</span>
                     </div>
                 </div>
             </div>
 
         </div>
         <div class="p-3">
-            <form action="/user/order" method="POST" id="form-place-order">
+            <form action="/cakes/custom/order/{{ $item->id }}" method="POST" id="form-place-order">
                 @csrf
-                <input type="hidden" name="total" value="{{ str_replace(',', '', $total) }}">
+                @method('PATCH')
+                {{-- <input type="hidden" name="total" value="{{ str_replace(',', '', $total) }}"> --}}
                 <div id="confirm-order-btn">
-                    <x-nav-link :isButton='true' type='button' class="w-full">
+                    <x-nav-link :isButton='true' class="w-full">
                         CONFIRM ORDER
                     </x-nav-link>
                 </div>

@@ -54,21 +54,28 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         else {
-            today.setDate(today.getDate() + index + 2);
-            dayLabel = daysOfWeek[today.getDay()];
+            today.setDate(today.getDate() + index + 1);
+            switch (index) {
+                case 0:
+                    dayLabel = 'Tommorow';
+                    break;
+                default:
+                    dayLabel = daysOfWeek[today.getDay()];
+            }
         }
-
 
         element.children[0].textContent = dayLabel;
         element.children[1].textContent = monthsOfYear[(today.getMonth())] + '/' + today.getDate() + '/' + today.getFullYear();
 
-        element.addEventListener('click', function() { // button is clicked
-            const formattedDate = today.toISOString().split('T')[0];
-            deliveryDate.value = formattedDate;
-            confirmDate.textContent = today.toLocaleDateString('en-US', {
+        element.addEventListener('click', function() {
+            // set input
+            deliveryDate.value = formatDateForInp(today);
+            // set confirmation modal content
+            confirmDate.textContent = today.toLocaleDateString('en-PH', {
                 year: 'numeric',
                 month: 'long',
-                day: 'numeric'
+                day: 'numeric',
+                timeZone: 'Asia/Manila'
             });
 
             buttonDate.forEach((button, i) => {
@@ -111,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 deliveryDate.addEventListener('input', function() {
 
     let currentDate = new Date(deliveryDate.value);
-    confirmDate.textContent = currentDate.toLocaleDateString('en-US', {
+    confirmDate.textContent = currentDate.toLocaleDateString('en-PH', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -132,6 +139,12 @@ deliveryTime.addEventListener('input', function() {
     })
 });
 
+function formatDateForInp(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    return `${date.getFullYear()}-${month}-${day}`;
+}
+
 function formatTime(time) {
     let [hours, minutes] = time.split(':').map(Number);
     let ampm = hours >= 12 ? 'PM' : 'AM';
@@ -144,11 +157,10 @@ function setDateTimeDefault() {
     let defaultDate = new Date();
 
     if (isAdmin) defaultDate.setDate(defaultDate.getDate());
-    else defaultDate.setDate(defaultDate.getDate() + 2);
+    else defaultDate.setDate(defaultDate.getDate() + 1);
 
-    let formattedDate = defaultDate.toISOString().split('T')[0];
-    deliveryDate.setAttribute('min',  formattedDate);
-    deliveryDate.value = formattedDate;
+    deliveryDate.setAttribute('min',  formatDateForInp(defaultDate));
+    deliveryDate.value = formatDateForInp(defaultDate);
     buttonDate[0].classList.add('bg-[#F44336]');
     buttonDate[0].classList.add('text-white');
 
@@ -156,25 +168,28 @@ function setDateTimeDefault() {
     deliveryTime.value = '12:00';
     buttonTime[4].classList.add('bg-[#F44336]', 'text-white');
 
-    buttonPayment[1].classList.add('bg-[#F44336]');
-    buttonPayment[1].classList.add('text-white');
+    // buttonPayment[1].classList.add('bg-[#F44336]');
+    // buttonPayment[1].classList.add('text-white');
 
-    confirmDate.textContent = defaultDate.toLocaleDateString('en-US', {
+    confirmDate.textContent = defaultDate.toLocaleDateString('en-PH', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
     confirmTime.textContent = '12:00 PM';
-    confirmPayment.textContent = paymentMethod.value;
+    // confirmPayment.textContent = paymentMethod.value;
 }
 
 
 //PAYMENT METHOD INPUT
 let buttonPayment = document.querySelectorAll('.inp_payment');
 let paymentMethod = document.getElementById('payment_method');
+let address_container = document.getElementById('delivery_address_container');
+let confirm_address_container = document.getElementById('confirm-address-container');
+
 buttonPayment.forEach((element, index) => {
     element.addEventListener('click', function() {
-        paymentMethod.value = index == 0 ? 'COD':'PICK UP';
+        paymentMethod.value = index == 0 ? 'cash on DELIVERY':'cash on PICK UP';
         confirmPayment.textContent = paymentMethod.value;
 
         buttonPayment.forEach((button, i) => {
@@ -186,8 +201,17 @@ buttonPayment.forEach((element, index) => {
                 button.classList.remove('text-white');
             }
         });
+
+        if (index == 1) { //if pick up hide address
+            address_container.classList.add('hidden');
+            confirm_address_container.classList.add('hidden');
+        } else {
+            address_container.classList.remove('hidden');
+            confirm_address_container.classList.remove('hidden');
+        }
     })
 });
+buttonPayment[1].dispatchEvent(new Event('click'));
 
 
 //ADDRESS
@@ -238,3 +262,52 @@ if (address_inp) {
         displayedAddress_confirmation.children[2].textContent = newAddress['province'] + ', ' + newAddress['city_municipality'] + ', ' + newAddress['barangay'];
     });
 }
+
+
+// CONFIRM ORDER
+let confirm_button = document.getElementById('confirm-order-btn');
+let confirm_form = document.getElementById('form-place-order');
+let isOrderSubmitted = false;
+
+confirm_button.addEventListener('click', function() {
+    console.log(address_inp);
+    // console.log(address_inp.value !== '');
+    // console.log(address_inp.value !== null);
+    console.log(paymentMethod.value == 'cash on DELIVERY');
+
+
+    if (!isOrderSubmitted) {
+        if (paymentMethod.value == 'cash on DELIVERY') {
+            if (address_inp && (address_inp.value !== '' && address_inp.value !== null)) {
+                confirm_form.submit();
+                isOrderSubmitted = true;
+            } else {
+                alert('Please add and select an address.');
+            }
+        } else {
+            confirm_form.submit();
+            isOrderSubmitted = true;
+        }
+    }
+
+
+
+
+
+
+
+
+    // if (!isOrderSubmitted) {
+    //     if (address_inp) {
+    //         if (address_inp.value !== '' && address_inp.value !== null) {
+    //             confirm_form.submit();
+    //             isOrderSubmitted = true;
+    //         } else {
+    //             alert('Please add and select an address.');
+    //         }
+    //     } else {
+    //         confirm_form.submit();
+    //         isOrderSubmitted = true;
+    //     }
+    // }
+});

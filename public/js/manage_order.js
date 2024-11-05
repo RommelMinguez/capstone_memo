@@ -65,12 +65,17 @@ async function getOrderData(id, element) {
         paymentMethod.children[0].textContent = orderData['order']['payment_method'];
         displayItems(orderData['order']['order_items'], element);
         displayUserData(orderData['order']['user']);
-        displayAddressData(orderData['order']['address']);
+        displayAddressData(orderData['order']['address'], orderData['order']);
         displayDateData(orderData['order']);
         totalOrder_label.textContent = totalOrderAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         document.getElementById('detail-loading').classList.add('hidden');
         document.getElementById('detail-content-load').classList.remove('hidden');
+
+        openedOrderId = orderData['order']['id'];
+        status_all.value = orderData['order']['status'];
+        //status_all.dispatchEvent(new Event('change'));
+
 
         return true;
     } catch (error) {
@@ -81,12 +86,12 @@ async function getOrderData(id, element) {
 
 
 
-
+let openedOrderId = null;
 status_all.addEventListener('change', function() {
     bgColorArr.forEach(bg => {
         this.classList.remove(bg);
     });
-    this.classList.add(bgColorArr[this.selectedIndex-1]);
+    this.classList.add(bgColorArr[this.selectedIndex]);
 
     status_items.forEach((element, index) => {
         element.value = this.value;
@@ -95,8 +100,7 @@ status_all.addEventListener('change', function() {
         element.dispatchEvent(new Event('change'));
     });
 
-
-
+    updateStatus(openedOrderId, {item: this.value});
 });
 
 function displayItems(items, row) {
@@ -126,8 +130,6 @@ function displayItems(items, row) {
             this.classList.add(bgColorArr[this.selectedIndex]);
 
             if (!isSettingDefault) {
-                updateStatus(values['id'], {item: this.value});
-
                 var row = table.row(function(idx, data, node) {
                     return data[0] == values['id'].toString();
                 });
@@ -138,28 +140,35 @@ function displayItems(items, row) {
         });
         clone.children[2].children[0].children[0].children[1].value = values['status'];
         clone.children[2].children[0].children[0].children[1].dispatchEvent(new Event('change'));
-        status_items[n++] = clone.children[2].children[0].children[0].children[1];
+        status_items[n++] = clone.children[2].children[0].children[0].children[1]; //items select element
 
 
         isSettingDefault = false;
         orderItem_display.appendChild(clone);
     });
 
+    // console.log(items);
+
     updateStatusAll();
     n = 0;
 }
 
 function displayUserData(userData) {
-    customerInfo.children[0].textContent = toTitleCase(userData['first_name'] + ' ' + userData['last_name']);
-    customerInfo.children[1].textContent = userData['email'];
-    customerInfo.children[2].textContent = userData['phone_number'];
+    customerInfo.children[0].children[1].textContent = toTitleCase(userData['first_name'] + ' ' + userData['last_name']);
+    customerInfo.children[1].children[1].textContent = userData['email'];
+    customerInfo.children[2].children[1].textContent = userData['phone_number'];
 }
 
-function displayAddressData(addressData) {
-    address.children[0].children[0].textContent = toTitleCase(addressData['name']);
-    address.children[0].children[1].textContent = addressData['phone_number'];
-    address.children[1].textContent = addressData['street_building'] + ((addressData['unit_floor']) ? ', '+addressData['unit_floor']:'');
-    address.children[2].textContent = addressData['province'] + ', ' + addressData['city_municipality'] + ', ' + addressData['barangay'];
+function displayAddressData(addressData, order) {
+    if (order.payment_method == 'cash on PICK UP') {
+        address.parentNode.parentNode.classList.add('hidden');
+    } else {
+        address.parentNode.parentNode.classList.remove('hidden');
+        address.children[0].children[0].textContent = toTitleCase(addressData['name']);
+        address.children[0].children[1].textContent = addressData['phone_number'];
+        address.children[1].textContent = addressData['street_building'] + ((addressData['unit_floor']) ? ', '+addressData['unit_floor']:'');
+        address.children[2].textContent = addressData['province'] + ', ' + addressData['city_municipality'] + ', ' + addressData['barangay'];
+    }
 }
 
 function displayDateData(dateData) {
@@ -192,7 +201,7 @@ async function updateStatus(id, data) {
     // console.log(data);
 
     try {
-        const response = await fetch('/admin/orders/' + id, {
+        const response = await fetch('/admin/order/' + id, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -223,7 +232,7 @@ function updateStatusAll() {
         bgColorArr.forEach(bg => {
             status_all.classList.remove(bg);
         });
-        status_all.classList.add(bgColorArr[status_all.selectedIndex-1]);
+        status_all.classList.add(bgColorArr[status_all.selectedIndex]);
     } else {
         for(let i = 0; i < status_items.length-1; i++) {
             if (status_items[i].value == status_items[i+1].value) {
@@ -231,7 +240,7 @@ function updateStatusAll() {
                 bgColorArr.forEach(bg => {
                     status_all.classList.remove(bg);
                 });
-                status_all.classList.add(bgColorArr[status_all.selectedIndex-1]);
+                status_all.classList.add(bgColorArr[status_all.selectedIndex]);
             } else {
                 status_all.value = '';
                 bgColorArr.forEach(bg => {
@@ -285,7 +294,7 @@ $(document).ready(function() {
         table.column(6).search('baking').draw();
     });
     $('#filter-receive').on('click', function() {
-        table.column(6).search('receive').draw();
+        table.column(6).search('ready').draw();
     });
     // $('#filter-review').on('click', function() {
     //     table.column(6).search('review').draw();
@@ -298,6 +307,7 @@ $(document).ready(function() {
     });
 
     updateFilterCount();
+    defaultFilter();
 });
 
 
@@ -306,44 +316,42 @@ function updateFilterCount() {
     let countStatus = {
         pending: 0,
         baking: 0,
-        receive: 0,
+        ready: 0,
         // review: 0,
         completed: 0,
         canceled: 0,
     }
+
+    // count status
+    const uniqueEntries = {};
     data.each(function(row) {
-        switch (row[6]) {
-            case 'pending':
-                countStatus['pending']++;
-                break;
-            case 'baking':
-                countStatus['baking']++;
-                break;
-            case 'receive':
-                countStatus['receive']++;
-                break;
-            // case 'review':
-            //     countStatus['review']++;
-            //     break;
-            case 'completed':
-                countStatus['completed']++;
-                break;
-            default:
-                countStatus['canceled']++;
+        const status = row[6];
+        const uniqueKey = row[1];
+
+        if (!uniqueEntries[status]) {
+            uniqueEntries[status] = new Set();
+        }
+
+        if (!uniqueEntries[status].has(uniqueKey)) {
+            uniqueEntries[status].add(uniqueKey);
+            countStatus[status]++;
         }
     });
+
+    // display status count
     document.getElementById('filter-pending').children[0].textContent = countStatus['pending'];
     document.getElementById('filter-baking').children[0].textContent = countStatus['baking'];
-    document.getElementById('filter-receive').children[0].textContent = countStatus['receive'];
+    document.getElementById('filter-receive').children[0].textContent = countStatus['ready'];
     // document.getElementById('filter-review').children[0].textContent = countStatus['review'];
     document.getElementById('filter-completed').children[0].textContent = countStatus['completed'];
     document.getElementById('filter-canceled').children[0].textContent = countStatus['canceled'];
 
+    // show/hide red dot
     if (countStatus['pending'] > 0) document.getElementById('filter-pending').children[0].classList.remove('hidden');
     else document.getElementById('filter-pending').children[0].classList.add('hidden');
     if (countStatus['baking'] > 0) document.getElementById('filter-baking').children[0].classList.remove('hidden');
     else document.getElementById('filter-baking').children[0].classList.add('hidden');
-    if (countStatus['receive'] > 0) document.getElementById('filter-receive').children[0].classList.remove('hidden');
+    if (countStatus['ready'] > 0) document.getElementById('filter-receive').children[0].classList.remove('hidden');
     else document.getElementById('filter-receive').children[0].classList.add('hidden');
     // if (countStatus['review'] > 0) document.getElementById('filter-review').children[0].classList.remove('hidden');
     // else document.getElementById('filter-review').children[0].classList.add('hidden');
@@ -352,7 +360,6 @@ function updateFilterCount() {
     if (countStatus['canceled'] > 0) document.getElementById('filter-canceled').children[0].classList.remove('hidden');
     else document.getElementById('filter-canceled').children[0].classList.add('hidden');
 
-    defaultFilter();
 }
 
 

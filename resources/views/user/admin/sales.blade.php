@@ -49,23 +49,21 @@
                     <br><br><br>
 
                     <div class="flex">
-                        <div class="w-5/12 p-5 flex flex-col gap-10">
+                        <div class="w-6/12 p-5 flex flex-col gap-10">
                             <div>
                                 <div class="font-bold mb-2">Total Orders</div>
-                                <div class="border p-5 rounded-xl">
-                                    <div class="m-auto h-40">
-                                        <canvas id="total-orders"></canvas>
-                                    </div>
+                                <div class="border-2 rounded-xl px-5 max-h-72 flex justify-center">
+                                    <canvas class="h-full" id="totalOrders"></canvas>
                                 </div>
                             </div>
                             <div>
                                 <div class="font-bold mb-2">Total Sales</div>
-                                <div class="border p-5 rounded-xl">
-                                    order
+                                <div class="border-2 rounded-xl px-5 max-h-72 flex justify-center">
+                                    <canvas class="h-full" id="totalSales"></canvas>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-7/12 p-5">
+                        <div class="w-6/12 p-5">
                             <div class="border-2 rounded-lg overflow-auto h-full">
                                 <table class="w-full table-fixed">
                                     <thead class="border-b-4">
@@ -93,8 +91,18 @@
 
 
                 {{-- Side Panel --}}
-                <div class="w-2/12">
+                <div class="w-2/12 px-5">
+                    <div>Profit Made</div>
+                    <div class="border-2 rounded-xl p-5 flex justify-center items-center font-bold h-20">
+                        Profit here
+                    </div>
 
+                    <br>
+
+                    <div>Top Costumers</div>
+                    <div class="">
+
+                    </div>
                 </div>
 
             </div>
@@ -139,36 +147,88 @@
 
 
 
-        const DATA_COUNT = 5;
-        const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
-
-        const data = {
-        labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-        datasets: [
-            {
-            label: 'Dataset 1',
-            data: Utils.numbers(NUMBER_CFG),
-            backgroundColor: Object.values(Utils.CHART_COLORS),
-            }
-        ]
-        };
-
-        new Chart(totalOrders, {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Doughnut Chart'
-                }
-                }
+        const ctxTotalOrder = document.getElementById('totalOrders').getContext('2d');
+        const myDoughnutChart = new Chart(ctxTotalOrder, {
+            type: 'doughnut', // Specify the chart type as doughnut
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green'], // Labels for each segment
+                datasets: [{
+                    label: 'My First Dataset', // Dataset label
+                    data: [300, 50, 100, 75], // Data points for each segment
+                    backgroundColor: [ // Colors for each segment
+                        'rgb(24, 119, 242)',
+                        'rgb(249, 168, 37)',
+                        'rgb(229, 115, 115)',
+                        'rgb(153, 204, 152)'
+                    ],
+                    borderColor: [ // Border colors for each segment
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 0 // Border width for each segment
+                }]
             },
+            options: {
+                responsive: true, // Make the chart responsive
+                plugins: {
+                    legend: {
+                        position: 'right', // Position of the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (tooltipItem) => {
+                                return tooltipItem.label + ': ' + tooltipItem.raw; // Custom tooltip format
+                            }
+                        }
+                    }
+                }
+            }
         });
+
+        const ctxTotalSales = document.getElementById('totalSales').getContext('2d');
+        const myDoughnutChart2 = new Chart(ctxTotalSales, {
+            type: 'doughnut', // Specify the chart type as doughnut
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green'], // Labels for each segment
+                datasets: [{
+                    label: 'My First Dataset', // Dataset label
+                    data: [300, 50, 100, 75], // Data points for each segment
+                    backgroundColor: [ // Colors for each segment
+                        'rgb(24, 119, 242)',
+                        'rgb(249, 168, 37)',
+                        'rgb(229, 115, 115)',
+                        'rgb(153, 204, 152)'
+                    ],
+                    borderColor: [ // Border colors for each segment
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 0 // Border width for each segment
+                }]
+            },
+            options: {
+                responsive: true, // Make the chart responsive
+                plugins: {
+                    legend: {
+                        position: 'right', // Position of the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (tooltipItem) => {
+                                return tooltipItem.label + ': ' + tooltipItem.raw; // Custom tooltip format
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+
 
 
     </script>

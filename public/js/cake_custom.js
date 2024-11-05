@@ -124,6 +124,9 @@ async function getPollinationAI(dsc, display) {
         updatePromt();
     } catch (error) {
         console.error("Error fetching the image:", error);
+        display.children[1].innerHTML = "Something went wrong.";
+        isPollinationsDone = true;
+        updatePromt();
     }
 }
 async function getHordeAI(dsc, display) {

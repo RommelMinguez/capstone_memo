@@ -51,6 +51,8 @@ Route::get('/cakes', [CakeController::class, 'index']);
 Route::get('/cakes/search', [CakeController::class, 'search']);
 Route::get('/cakes/custom', [CustomOrderController::class, 'create'])->middleware([CustomerMiddleware::class]);
 Route::post('/cakes/custom', [CustomOrderController::class, 'store'])->middleware([CustomerMiddleware::class]);
+Route::get('/cakes/custom/order', [CustomOrderController::class, 'orderDetailsCreate'])->middleware([CustomerMiddleware::class]);
+Route::patch('/cakes/custom/order/{order}', [CustomOrderController::class, 'orderDetailsUpdate'])->middleware([CustomerMiddleware::class]);
 Route::get('/cakes/{cake}', [CakeController::class, 'show']);
 
 
@@ -93,7 +95,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::get('/user', [UserController::class, 'showtrackOrder']);
-    Route::patch('/user/cancel-order/{item}', [OrderController::class, 'userCancelOrder']);
+    Route::patch('/user/cancel-order/{order}', [OrderController::class, 'userCancelOrder']);
     Route::get('/user/message', [UserController::class, 'showMessage']);
 
     Route::get('/user/cart', [CartController::class, 'index']);
@@ -103,6 +105,8 @@ Route::middleware([CustomerMiddleware::class])->group(function () {
     Route::post('/user/cart/check-out', [CartController::class, 'checkOut']);
 
     Route::get('/user/custom-order', [CustomOrderController::class, 'trackCustom']);
+    Route::patch('/user/custom-order/cancel/{order}', [CustomOrderController::class, 'trackCustomCancelOrder']);
+    Route::patch('/user/custom-order/order/{order}', [CustomOrderController::class, 'trackCustomPlaceOrder']);
 });
 
 
@@ -110,9 +114,13 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin', [AdminController::class, 'dashboard']);
     Route::get('/admin/orders', [AdminController::class, 'manageOrders']);
     Route::get('/admin/orders/{item}', [AdminController::class, 'showOrder']);
-    Route::patch('/admin/orders/{item}', [AdminController::class, 'updateStatus']);
+    Route::patch('/admin/order/{order}', [AdminController::class, 'updateStatus']);
 
     Route::get('/admin/custom', [CustomOrderController::class, 'manageCustom']);
+    Route::patch('/admin/custom/approved/{order}', [CustomOrderController::class, 'approvedUpdate']);
+    Route::patch('/admin/custom/rejected/{order}', [CustomOrderController::class, 'rejectedUpdate']);
+    Route::patch('/admin/custom/{order}', [CustomOrderController::class, 'statusUpdate']);
+    Route::get('/admin/custom/{order}', [CustomOrderController::class, 'show']);
 
     Route::get('/admin/catalog', [CakeController::class, 'create']);
     Route::post('/admin/catalog', [CakeController::class, 'store']);

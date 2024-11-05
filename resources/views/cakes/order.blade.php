@@ -7,18 +7,33 @@
             <h2 class="text-xl font-bold my-10">Order Summary</h2>
 
             <table class="table-fixed border-collapse w-3/4  m-auto ">
-                @php
-                    $total = 0;
-                @endphp
-                @foreach ($items as $item)
-                        <x-order-item :item="$item"></x-order-item>
-                        @php
-                            $total += $item->cake->price * $item->quantity;
-                        @endphp
-                @endforeach
-                @php
-                    $total = number_format($total, 2);
-                @endphp
+                <tr class="border-t-2">
+                    <td class="w-52 p-2">
+                        <div class="w-40 h-40 m-auto shadow-md border rounded-sm">
+                            <img src="{{ Storage::url($item->image_src) }}" alt="cake" class="w-full h-full object-cover " >
+                        </div>
+                    </td>
+                    <td class="w-auto px-5">
+                        <ol>
+                            <li>
+                                <span class="hover:underline  text-xl">{{ $item->cake_name }}</span>
+                                &nbsp;&nbsp;
+                                <span class="italic">x{{ $item->quantity }}</span>
+                            </li>
+                            <br>
+                            <li>Age: <i>{{ $item->age }}</i></li>
+                            <li>Candle: <i>{{ $item->candle_type }}</i></li>
+                            <li>Dedication: <i>{{ $item->dedication }}</i></li>
+                        </ol>
+                    </td>
+                    <td class="w-40 text-center">
+                        <div class="text-xl font-bold text-[#F44336]">
+                            &#8369;
+                            <span class="ml-2">{{ number_format( $item->budget, 2) }}</span>
+                        </div>
+                    </td>
+                </tr>
+
             </table>
 
             <br><hr class="border-b-2"><br><br>
@@ -28,7 +43,7 @@
                 <div>
                     <div class="text-3xl font-bold">
                         &#8369;
-                        <span class="ml-2"> {{ $total }} </span>
+                        <span class="ml-2"> {{ $item->budget }} </span>
                     </div>
                 </div>
             </div>
@@ -173,16 +188,24 @@
     </main>
 
 
-    <x-order-confirmation :items="$items" total="{{ $total }}" :address="$address"></x-order-confirmation>
+    {{-- <x-order-confirmation :items="$item" total="{{ $item->budget }}" :address="$address"></x-order-confirmation> --}}
+
 
 
     <x-footer></x-footer>
+
+
+    @include('cakes.order-confirmation');
 
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <x-response-failed>{{ $error }}</x-response-failed>
         @endforeach
     @endif
+
+    @session('success')
+        <x-response-success>{{ session('success') }}</x-response-success>
+    @endsession
 
     <script src="/js/order.js" defer></script>
 </x-layout>

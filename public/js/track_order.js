@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function()
 {
-    tabs[0].classList.add('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'rounded-t-lg', 'text-red-500');
+    tabs[1].classList.remove('bg-[#fbefd2]');
+    tabs[1].classList.add('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'text-red-500');
 });
 
 let tabs = document.querySelectorAll('.order-tab');
@@ -12,15 +13,18 @@ let countIndicator = document.querySelectorAll('.number-indicator');
 tabs.forEach((element, index) => {
     element.addEventListener('click', function() {
         tabs.forEach((e, i) => {
-            e.classList.remove('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'rounded-t-lg', 'text-red-500');
+            e.classList.remove('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'text-red-500');
+            e.classList.add('bg-[#fbefd2]');
         });
-        element.classList.add('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'rounded-t-lg', 'text-red-500');
+        element.classList.remove('bg-[#fbefd2]');
+        element.classList.add('border-b-2', 'border-red-500',  'bg-[#eaeaea]', 'text-red-500');
 
         hideContents();
         showContent(index-1);
         showEmptyMsg(index-1);
     });
 });
+tabs[1].dispatchEvent(new Event('click'));
 
 function hideContents() {
     contents.forEach(element => {
@@ -53,7 +57,7 @@ function showEmptyMsg(selectedTabIndex) {
         }
     }
 }
-showEmptyMsg(-1);
+showEmptyMsg(0);
 
 
 
@@ -66,31 +70,33 @@ let orderItem = document.getElementById('order-item').cloneNode(true);
 let orderItem_display = document.getElementById('display-order-item');
 
 let deliveryDate = document.getElementById('delivery-date');
-let address = document.getElementById('address');
+let addressParent = document.getElementById('address').parentNode;
+let addressOrigin = document.getElementById('address').cloneNode(true);
 let paymentMethod = document.getElementById('payment-method');
 let total = document.getElementById('total');
 let getTotal = 0;
 
 let cancelOrder_form = document.getElementById('cancel-order-form');
-let isPending = true;
-// let writeReview = document.getElementById('write-review');
+let orderStatus = document.getElementById('order-status');
+
 // let isCompleted = true;
 
 function showDetails(data) {
     detailsContent.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 
-    orderID.textContent = data['order']['id'];
-    paymentMethod.children[0].textContent = data['order']['payment_method'];
-    displayItems(data['order']['order_items']);
-    displayAddressData(data['order']['address']);
-    displayDateData(data['order']);
+    // console.log(data);
+
+
+    displayOrder(data);
+    paymentMethod.children[0].textContent = data['payment_method'];
+    displayItems(data);
+    displayAddressData(data['address'], data['payment_method']);
+    displayDateData(data);
     total.textContent = getTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     cancelOrder_form.classList.remove('hidden');
-    // writeReview.classList.remove('hidden');
-
-    if (isPending) {
+    if (data.status == 'pending') {
         cancelOrder_form.action = '/user/cancel-order/' + data['id'];
     } else {
         cancelOrder_form.classList.add('hidden');
@@ -110,15 +116,25 @@ function hideDetails() {
 let bgColorArr = {
     pending: 'bg-yellow-500',
     baking: 'bg-orange-500',
-    receive: 'bg-green-500',
+    ready: 'bg-green-500',
     completed: 'bg-blue-500',
     canceled:'bg-red-500'
 };
 
-function displayItems(items) {
+
+function displayOrder(order) {
+    orderID.textContent = order['id'];
+    orderStatus.textContent = order['status'].toUpperCase();
+    Object.values(bgColorArr).forEach(color => orderStatus.classList.remove(color));
+    orderStatus.classList.add(bgColorArr[order['status']]);
+}
+
+
+function displayItems(order) {
+    let items = order.order_items;
     orderItem_display.innerHTML = '';
     getTotal = 0;
-    isPending = true;
+    // isPending = true;
     // isCompleted = true;
     Object.values(items).forEach(values => {
         let clone = orderItem.cloneNode(true);
@@ -133,24 +149,38 @@ function displayItems(items) {
         clone.children[1].children[0].children[4].children[0].textContent =  values['candle_type'];
         clone.children[1].children[0].children[5].children[0].textContent =  values['dedication'];
         clone.children[2].children[0].children[1].children[0].textContent =  subTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        clone.children[2].children[0].children[0].children[1].textContent = values['status'];
-        clone.children[2].children[0].children[0].children[1].classList.add(bgColorArr[values['status']]);
+        // clone.children[2].children[0].children[0].children[1].textContent = values['status'];
+        // clone.children[2].children[0].children[0].children[1].classList.add(bgColorArr[values['status']]);
 
-        if (values['status'] != 'pending' && isPending) isPending = false;
+        // if (values['status'] != 'pending' && isPending) isPending = false;
         // if (values['status'] != 'completed' && isCompleted) isCompleted = false;
-        if (values['status'] == 'completed') {
+        if (order['status'] == 'completed') {
             clone.children[1].children[0].children[6].children[0].href = '/cakes/' + values['cake']['id'] + '#ratingAndReviews';
             clone.children[1].children[0].children[6].children[0].classList.remove('hidden');
+            if (reviewsArr.includes(values.cake.id))
+            clone.children[1].children[0].children[6].children[0].children[0].classList.add('hidden');
         }
 
         orderItem_display.appendChild(clone);
     });
 }
-function displayAddressData(addressData) {
-    address.children[0].children[0].textContent = toTitleCase(addressData['name']);
-    address.children[0].children[1].textContent = addressData['phone_number'];
-    address.children[1].textContent = addressData['street_building'] + ((addressData['unit_floor']) ? ', '+addressData['unit_floor']:'');
-    address.children[2].textContent = addressData['province'] + ', ' + addressData['city_municipality'] + ', ' + addressData['barangay'];
+function displayAddressData(addressData, payMethod) {
+    addressParent.innerHTML = '';
+    let address = addressOrigin.cloneNode(true);
+
+    if (payMethod == 'cash on DELIVERY') {
+        address.children[0].children[0].textContent = toTitleCase(addressData['name']);
+        address.children[0].children[1].textContent = addressData['phone_number'];
+        address.children[1].textContent = addressData['street_building'] + ((addressData['unit_floor']) ? ', '+addressData['unit_floor']:'');
+        address.children[2].textContent = addressData['province'] + ', ' + addressData['city_municipality'] + ', ' + addressData['barangay'];
+        addressParent.appendChild(address);
+        addressParent.parentNode.classList.remove('hidden');
+    } else {
+        let textElement = document.createElement('span');
+        textElement.textContent = 'N/A';
+        addressParent.appendChild(textElement);
+        addressParent.parentNode.classList.add('hidden');
+    }
 }
 function displayDateData(dateData) {
     const date = new Date(dateData['prefered_date']+'T'+dateData['prefered_time']);

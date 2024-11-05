@@ -50,7 +50,7 @@ use Carbon\Carbon;
                                     <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
                                 </li>
                                 <li id="filter-receive" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative">
-                                    For Delivery
+                                    For Delivery/Pick-Up
                                     <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center hidden number-indicator">0</d>
                                 </li>
                                 {{-- <li id="filter-review" class="order-tab px-5 pt-2 pb-4 font-semibold hover:text-[#F55447] z-20 relative ">
@@ -88,7 +88,7 @@ use Carbon\Carbon;
                                     $bgStatus = [
                                         'pending' => 'text-yellow-500',
                                         'baking' => 'text-orange-500',
-                                        'receive' => 'text-green-500',
+                                        'ready' => 'text-green-500',
                                         'completed' => 'text-blue-500',
                                         'canceled' => 'text-red-500',
                                     ]

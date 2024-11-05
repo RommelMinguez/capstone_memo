@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CustomImage;
 use App\Models\CustomOrder;
+use App\Models\OrderNote;
 use App\Models\Tag;
 use Auth;
 use Illuminate\Http\Request;
@@ -80,20 +81,142 @@ class CustomOrderController extends Controller
             $customOrder->tags()->sync($request->input('selected-tag'));
         }
 
-        return redirect('/user/custom-order')->with('success', 'Custom order created successfully!');
+        session(['customOrder' => $customOrder->id, 'customOrderUser' => Auth::user()->id]);
+        return redirect('/cakes/custom/order')->with('success', 'Please add Your Details!');
     }
 
 
-
+    // CUSTOMER
     public function trackCustom () {
-        $customOrders = Auth::user()->customOrders()->with('tags', 'customImages')->orderBy('updated_at', 'desc')->get();
+        $customOrders = Auth::user()->customOrders()->with('tags', 'customImages')->orderBy('updated_at', 'desc')->get()->groupBy('status');;
         return view('user.track-custom', compact('customOrders'));
     }
 
+    public function trackCustomCancelOrder(CustomOrder $order) {
+        // dd($order);
 
+        if ($order->status == 'new' || $order->status == 'approved' || $order->status == 'pending') {
+            $order->update([
+                'status' => 'canceled'
+            ]);
+
+            return redirect('/user/custom-order')->with('success', 'Order Canceled Successfully.');
+        }
+        return redirect('/user/custom-order')->with('error', 'Something Went Wrong');
+    }
+    public function trackCustomPlaceOrder(CustomOrder $order) {
+        // dd($order);
+
+        if ($order->status == 'approved') {
+            $order->update([
+                'status' => 'pending'
+            ]);
+
+            return redirect('/user/custom-order')->with('success', 'Order is now in queue to bake.');
+        }
+        return redirect('/user/custom-order')->with('error', 'Something Went Wrong');
+    }
+
+
+
+    function orderDetailsCreate() {
+        if(!session('customOrder') || !(session('customOrderUser') == Auth::user()->id)) {
+            return redirect('/cakes')->with('error', "403 FORBIDDEN: custom order doesn't exist.");
+        }
+
+        $item = CustomOrder::find(session('customOrder'));
+
+        return view('cakes.order', compact('item'));
+    }
+    function orderDetailsUpdate(CustomOrder $order) {
+
+        // dd(request()->all());
+
+        request()->validate([
+            'delivery_date' => ['required', 'date', 'after_or_equal:today'],
+            'delivery_time' => ['required', 'date_format:H:i'],
+            'payment_method' => ['required'],
+            'address_id' => ['nullable', 'required_if:payment_method,cash on DELIVERY']
+        ]);
+
+        $datetime = request()->delivery_date . ' ' . request()->delivery_time . ':00';
+
+        $order->update([
+            'prefered_datetime' => $datetime,
+            'payment_method' => request()->payment_method,
+            'address_id' => request()->address_id
+        ]);
+
+        return redirect('/user/custom-order')->with('success', 'Custom order created successfully!');;
+    }
+
+
+
+
+
+
+    // ADMIN
     public function manageCustom () {
-        $customOrders = CustomOrder::with('tags', 'customImages')->orderBy('updated_at', 'desc')->get();
+        $customOrders = CustomOrder::with('tags', 'customImages', 'user')->orderBy('updated_at', 'desc')->get();
+
         return view('user.admin.manage-custom', compact('customOrders'));
+    }
+
+    public function show(CustomOrder $order) {
+        $order->load('tags', 'customImages', 'user');
+
+        return response()->json($order);
+    }
+
+    public function approvedUpdate(CustomOrder $order) {
+        // dump($order);
+        // dd(request()->all());
+
+        $validatedData = request()->validate([
+            // 'response_status' => 'required|string',
+            'given_price' => 'required|numeric',
+            'note' => 'required|string'
+        ]);
+
+        if ($order->status == 'new') {
+            $order->update([
+                'status' => 'approved',
+                'given_price' => $validatedData['given_price'],
+                'given_note' => $validatedData['note']
+            ]);
+
+            // OrderNote::create([
+            //     'note_message' => $validatedData['note'],
+            //     'type' => 'approved-custom-order',
+            //     'user_id' => Auth::user()->id,
+            //     'custom_order_id' => $order->id
+            // ]);
+
+            return redirect('/admin/custom')->with('success', 'New Design Approved.');
+        }
+        return redirect('/admin/custom')->with('error', '403 FORBIDDEN: Order was Changed or Canceled');
+    }
+    public function rejectedUpdate(CustomOrder $order) {
+        // dump($order);
+        // dd(request()->all());
+
+        if ($order->status == 'new') {
+            $order->update([
+                'status' => 'rejected',
+            ]);
+
+            return redirect('/admin/custom')->with('success', 'New Design Rejected.');
+        }
+        return redirect('/admin/custom')->with('error', '403 FORBIDDEN: Order was Changed or Canceled');
+    }
+
+
+
+    public function statusUpdate(CustomOrder $order) {
+        $order->update([
+            'status' => request()->item,
+        ]);
+        return response()->json(['is_success' => 'true', 'status' => request()->item]);
     }
 }
 

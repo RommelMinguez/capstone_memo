@@ -39,10 +39,9 @@ class OrderController extends Controller
         request()->validate([
             'delivery_date' => ['required', 'date', 'after_or_equal:today'],
             'delivery_time' => ['required', 'date_format:H:i'],
-            //'address' => ['required'],
             'payment_method' => ['required'],
             'total' => ['required', 'numeric'],
-            'address_id' => 'required'
+            'address_id' => ['nullable', 'required_if:payment_method,cash on DELIVERY']
         ]);
 
         //get the items in order
@@ -52,7 +51,7 @@ class OrderController extends Controller
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'address_id' => request()->address_id,
-            //'status' => 'pending',
+            'status' => 'pending',
             'total' => request()->total,
             'prefered_date' => request()->delivery_date,
             'prefered_time' => request()->delivery_time,
@@ -149,9 +148,9 @@ class OrderController extends Controller
     }
 
 
-    function userCancelOrder(OrderItem $item) {
-        if ($item->status == 'pending') {
-            $item->update([
+    function userCancelOrder(Order $order) {
+        if ($order->status == 'pending') {
+            $order->update([
                 'status' => 'canceled'
             ]);
         } else {

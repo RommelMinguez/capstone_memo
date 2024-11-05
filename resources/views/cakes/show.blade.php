@@ -147,9 +147,9 @@
             @auth
                 @php
                     $hasOrder = Auth::user()->orders()
+                        ->where('status', 'completed')
                         ->whereHas('orderItems', function ($query) use ($cake) {
-                            $query->where('cake_id', $cake->id)
-                                ->where('status', 'completed');
+                            $query->where('cake_id', $cake->id);
                         })
                         ->exists();
 

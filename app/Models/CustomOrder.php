@@ -19,4 +19,13 @@ class CustomOrder extends Model
     public function customImages() {
         return $this->hasMany(CustomImage::class);
     }
+
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function address() {
+        return $this->belongsTo(Address::class, 'address_id');
+    }
 }

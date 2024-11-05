@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('status');
             $table->dateTime('prefered_datetime')->nullable();
             $table->string('payment_method')->nullable();
+            $table->decimal('given_price')->nullable();
+            $table->text('given_note')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('address_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();

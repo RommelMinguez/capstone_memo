@@ -2,13 +2,13 @@
     $statusCount = [
         'pending' => '',
         'baking' => '',
-        'receive' => '',
+        'ready' => '',
         'review' => '',
         'completed' => '',
         'canceled' => '',
     ];
 
-    foreach ($allItems as $status => $items) {
+    foreach ($orders as $status => $items) {
         $statusCount[$status] = count($items);
     }
 @endphp
@@ -26,41 +26,41 @@
                 My Orders
             </div>
             <div class="px-10 py-5">
-                <ul class="flex cursor-pointer border-b-2 w-fit relative">
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] z-20">
+                <ul class="flex cursor-pointer border-b-2 w-fit relative gap-2">
+                    <li class="order-tab bg-[#fbefd2] rounded-t-lg  px-5 py-2 font-semibold hover:text-[#F55447] z-20">
                         All Orders
                     </li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                    <li class="order-tab bg-[#fbefd2] rounded-t-lg  px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         Pending
                         <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
                             {{ $statusCount['pending'] }}
                         </d>
                     </li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                    <li class="order-tab bg-[#fbefd2] rounded-t-lg  px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         Baking
                         <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
                             {{ $statusCount['baking'] }}
                         </d>
                     </li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                    <li class="order-tab bg-[#fbefd2] rounded-t-lg  px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         To Receive
                         <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
-                            {{ $statusCount['receive'] }}
+                            {{ $statusCount['ready'] }}
                         </d>
                     </li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                    <li class="order-tab bg-[#fbefd2] rounded-t-lg  px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         To Review
                         <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
                             {{ $statusCount['review'] == 0 ? '':$statusCount['review'] }}
                         </d>
                     </li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                    <li class="order-tab bg-[#fbefd2] rounded-t-lg  px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         Completed
                         <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
                             {{ $statusCount['completed'] == 0 ? '':$statusCount['completed'] }}
                         </d>
                     </li>
-                    <li class="order-tab px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
+                    <li class="order-tab bg-[#fbefd2] rounded-t-lg  px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
                         Canceled
                         <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
                             {{ $statusCount['canceled'] }}
@@ -87,50 +87,63 @@
                         @endforeach
                     @endforeach --}}
                     <tbody class="order-content">
-                        @if (isset($allItems['pending']))
-                            @foreach ($allItems['pending'] as $item)
-                                <x-track-order-item :item="$item"></x-track-order-item>
+                        @if (isset($orders['pending']))
+                            @foreach ($orders['pending'] as $order)
+                                @foreach ($order->orderItems as $item)
+                                    <x-track-order-item :item="$item" :order="$order"></x-track-order-item>
+                                @endforeach
                             @endforeach
                         @endif
                     </tbody>
                     <tbody class="order-content">
-                        @if (isset($allItems['baking']))
-                            @foreach ($allItems['baking'] as $item)
-                                <x-track-order-item :item="$item"></x-track-order-item>
+                        @if (isset($orders['baking']))
+                            @foreach ($orders['baking'] as $order)
+                                @foreach ($order->orderItems as $item)
+                                    <x-track-order-item :item="$item" :order="$order"></x-track-order-item>
+                                @endforeach
                             @endforeach
                         @endif
                     </tbody>
                     <tbody class="order-content">
-                        @if (isset($allItems['receive']))
-                            @foreach ($allItems['receive'] as $item)
-                                <x-track-order-item :item="$item"></x-track-order-item>
+                        @if (isset($orders['ready']))
+                            @foreach ($orders['ready'] as $order)
+                                @foreach ($order->orderItems as $item)
+                                    <x-track-order-item :item="$item" :order="$order"></x-track-order-item>
+                                @endforeach
                             @endforeach
                         @endif
                     </tbody>
                     <tbody class="order-content">
-                        @if (isset($allItems['review']))
-                            @foreach ($allItems['review'] as $item)
-                                <x-track-order-item :item="$item" :toReview='true'></x-track-order-item>
+                        @if (isset($orders['review']))
+                            @foreach ($orders['review'] as $order)
+                                @foreach ($order->orderItems as $item)
+                                    <x-track-order-item :item="$item" :order="$order"></x-track-order-item>
+                                @endforeach
                             @endforeach
                         @endif
                     </tbody>
                     <tbody class="order-content">
-                        @if (isset($allItems['completed']))
-                            @foreach ($allItems['completed'] as $item)
-                                <x-track-order-item :item="$item"></x-track-order-item>
+                        @if (isset($orders['completed']))
+                            @foreach ($orders['completed'] as $order)
+                                @foreach ($order->orderItems as $item)
+                                    <x-track-order-item :item="$item" :order="$order"></x-track-order-item>
+                                @endforeach
                             @endforeach
                         @endif
                     </tbody>
                     <tbody class="order-content">
-                        @if (isset($allItems['canceled']))
-                            @foreach ($allItems['canceled'] as $item)
-                                <x-track-order-item :item="$item"></x-track-order-item>
+                        @if (isset($orders['canceled']))
+                            @foreach ($orders['canceled'] as $order)
+                                @foreach ($order->orderItems as $item)
+                                    <x-track-order-item :item="$item" :order="$order"></x-track-order-item>
+                                @endforeach
                             @endforeach
                         @endif
                     </tbody>
+
                 </table>
 
-                <div id="empty-msg" class="{{ count($allItems) == 0 ? '':'hidden' }}">
+                <div id="empty-msg" class="{{ count($orders) == 0 ? '':'hidden' }}">
                     <br>
                     <div class="text-center mt-10 italic text-xl">
                         Your Order List is empty ;(
@@ -152,6 +165,10 @@
 
     <x-order-details></x-order-details>
 
+
+    <script>
+        let reviewsArr = {!! json_encode($reviews) !!};
+    </script>
     <script src="/js/track_order.js" defer></script>
 
 </x-layout>

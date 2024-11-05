@@ -1,20 +1,17 @@
 @props(['item', 'toReview' => false])
 
-@php
-    $statusColor = [
-        'new' => 'text-yellow-600',
-        'approved' => 'text-yellow-600',
-        'pending' => 'text-yellow-500',
-        'baking' => 'text-orange-500',
-        'ready' => 'text-green-500',
-        'completed' => 'text-blue-500',
-        'canceled' => 'text-red-500',
-        'rejected' => 'text-red-500',
+{{-- @php
+    $bgStatus = [
+        'pending' => 'bg-yellow-500',
+        'baking' => 'bg-orange-500',
+        'receive' => 'bg-green-500',
+        'completed' => 'bg-blue-500',
+        'canceled' => 'bg-red-500',
     ]
-@endphp
+@endphp --}}
 
 {{-- <tr {{ $attributes->merge(['class' => 'border-y-2'])}}> --}}
-<tr class="border-y-2 hover:bg-[#fdf2d8] cursor-pointer max-h-52 overflow-hidden" onclick="showDetails({{ json_encode($item->toArray()) }})">
+<tr class="border-y-2 hover:bg-[#fff8e8] cursor-pointer max-h-52 overflow-hidden" onclick="showDetails({{ $item->id }})">
     <td class="w-20 p-2 font-bold text-center">
         {{ $item->id }}
     </td>
@@ -43,8 +40,9 @@
 
     <td class="w-40 h-40">
         <div class="w-full h-full flex flex-col justify-between items-center py-2">
-            <div class="font-semibold {{ $statusColor[$item->status] }}">
-                {{ Str::upper($item->status) }}
+            <div class="flex text-xs">
+                {{-- <div class="py-1 px-2 bg-[#D9D9D9] border border-r-0 border-gray-500 rounded-l-md">STATUS</div>
+                <div class="py-1 px-2 border border-gray-500 rounded-r-md text-white {{ $bgStatus[$item->status] }}" >{{ Str::upper($item->status) }}</div> --}}
             </div>
             <div class="text-xl font-bold text-[#F44336]">
                 &#8369;
@@ -53,4 +51,9 @@
             <div></div>
         </div>
     </td>
+    <td>
+        {{ $item->status }}
+    </td>
 </tr>
+
+
