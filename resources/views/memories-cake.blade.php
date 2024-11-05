@@ -25,7 +25,7 @@
         {{-- ABOUT SECTION --}}
         <div class="w-full min-h-screen md:h-[900px] flex flex-col md:flex-row items-center justify-center relative overflow-hidden p-4 md:p-0">
             <div id="about-img" class="w-full md:w-[500px] h-[400px] md:h-[720px] bg-gray-400 relative shadow-lg shadow-gray-600 mb-8 md:mb-0">
-                <img src="images/cake-sample-1.jpeg" alt="bakeshop" class="w-full h-full object-cover">
+                <img src="images/cake5.png" alt="bakeshop" class="w-full h-full object-cover">
             </div>
             <div id="about-def" class="w-full md:w-[600px] md:h-[720px] flex flex-col md:-left-5 relative">
                 <div class="w-full h-[100px] md:h-[150px] text-3xl md:text-5xl font-localLobster px-4 md:px-20 flex items-center">
