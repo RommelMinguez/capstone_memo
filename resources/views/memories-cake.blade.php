@@ -8,7 +8,7 @@
             <img src="images/cake-sample-1.jpeg" alt="featured background cake" class="absolute top-0 left-0 w-full h-full object-cover z-[0]">
             <div class="bg-[#050505] w-full h-full absolute top-0 left-0 opacity-70 z-10"></div>
             <div class="relative flex flex-col items-start justify-center px-4 md:px-40 z-20 w-full h-full">
-                <h1 class="text-4xl md:text-8xl text-white font-localLobster">
+                <h1 class="text-3xl md:text-8xl text-white font-localLobster">
                     Good Cakes create <br>
                     Lasting Memories!
                 </h1>
@@ -25,7 +25,7 @@
         {{-- ABOUT SECTION --}}
         <div class="w-full min-h-screen md:h-[900px] flex flex-col md:flex-row items-center justify-center relative overflow-hidden p-4 md:p-0">
             <div id="about-img" class="w-full md:w-[500px] h-[400px] md:h-[720px] bg-gray-400 relative shadow-lg shadow-gray-600 mb-8 md:mb-0">
-                <img src="images/cake5.png" alt="bakeshop" class="w-full h-full object-cover">
+                <img src="images/choco cake.jpg" alt="bakeshop" class="w-full h-full object-cover">
             </div>
             <div id="about-def" class="w-full md:w-[600px] md:h-[720px] flex flex-col md:-left-5 relative">
                 <div class="w-full h-[100px] md:h-[150px] text-3xl md:text-5xl font-localLobster px-4 md:px-20 flex items-center">
@@ -50,7 +50,7 @@
                 <p class="text-2xl md:text-3xl font-localLobster" id="featured-title">
                     Hot Selling Cakes
                 </p>
-                <span>more</span>
+                {{-- <span>more</span> --}}
             </div>
             <div class="flex overflow-x-auto md:flex-wrap gap-6 mt-10 pb-4 snap-x snap-mandatory" id="featured-card">
                 @foreach ($cakes as $cake)

@@ -39,8 +39,14 @@ Route::get('/about', function() {
 });
 
 Route::get('/', function () {
-    return view('memories-cake', ['cakes' => Cake::limit(4)->latest()->get()]);
+    return view('memories-cake', ['cakes' => Cake::withAvg('reviews', 'rating')
+        ->orderByDesc('reviews_avg_rating')
+        ->limit(4)
+        ->get()
+    ]);
 });
+
+Route::get('/about', [ReviewController::class, 'getAboutPageReviews']);
 
 
 

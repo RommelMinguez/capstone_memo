@@ -3,59 +3,56 @@
 
 
     {{-- Main Content --}}
+<div class="w-full flex justify-center items-start min-h-screen mb-10 pt-5"  style="margin-top: 100px">
+    <div class="mx-4 bg-white max-w-7xl h-auto border border-gray-300 shadow-lg p-5 rounded-lg  flex flex-wrap" data-aos="fade-up">
+        <!-- Left Text Section -->
+        <div class="w-full lg:w-1/2 p-6" data-aos="fade-right">
+            <h1 class="text-4xl font-localLobster text-black mb-10">We Bake Every Cake From the Core of Our Hearts</h1>
+            <p class="text-gray-700 leading-relaxed mb-7">
+                At Memories Cake, we believe that every special occasion deserves to be celebrated with the perfect cake.
+                Founded with a passion for crafting unique, beautiful, and delicious cakes, we have made it our mission to
+                help you create sweet memories that last a lifetime.
+            </p>
+            <p class="text-gray-700 leading-relaxed mb-6">
+                Memories Cake began with a simple idea: to bring joy and happiness through cakes that not only taste amazing but
+                also reflect the individuality of each celebration. From birthdays to weddings, and every moment in between,
+                we aim to make each event more memorable with a cake that is as special as the occasion itself.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+                Each cake is handcrafted with care, combining the finest ingredients with our team's creativity and expertise.
+                Whether you're looking for a classic flavor or a custom-designed cake, we're here to bring your vision to life.
+                Our commitment to quality ensures that every bite is a delightful experience.
+            </p>
+        </div>
 
-    <div class="flex justify-center items-start min-h-screen mb-10 pt-5 pl-8" data-aos="fade-up" style="margin-top: 100px">
-
-
-        <div class="bg-white w-[1300px] h-auto border border-gray-300 shadow-lg p-5 rounded-lg flex flex-wrap">
-            <!-- Left Text Section -->
-            <div class="w-full lg:w-1/2 p-6" data-aos="fade-right">
-                <h1 class="text-4xl font-localLobster text-black mb-10">We Bake Every Cake From the Core of Our Hearts</h1>
-                <p class="text-gray-700 leading-relaxed mb-7">
-                    At Memories Cake, we believe that every special occasion deserves to be celebrated with the perfect cake.
-                    Founded with a passion for crafting unique, beautiful, and delicious cakes, we have made it our mission to
-                    help you create sweet memories that last a lifetime.
-                </p>
-                <p class="text-gray-700 leading-relaxed mb-6">
-                    Memories Cake began with a simple idea: to bring joy and happiness through cakes that not only taste amazing but
-                    also reflect the individuality of each celebration. From birthdays to weddings, and every moment in between,
-                    we aim to make each event more memorable with a cake that is as special as the occasion itself.
-                </p>
-                <p class="text-gray-700 leading-relaxed">
-                    Each cake is handcrafted with care, combining the finest ingredients with our team’s creativity and expertise.
-                    Whether you're looking for a classic flavor or a custom-designed cake, we’re here to bring your vision to life.
-                    Our commitment to quality ensures that every bite is a delightful experience.
-                </p>
+        <!-- Right Image Section -->
+        <div class="w-full lg:w-1/2 flex flex-col justify-between items-center p-6" data-aos="fade-left">
+            <div class="w-full">
+                <img class="w-full h-auto rounded-lg object-cover" src="images/baking-hands.jpg" alt="Baking Image">
             </div>
 
-            <!-- Right Image Section -->
-            <div class="w-full lg:w-1/2 flex flex-col justify-between items-center p-6" data-aos="fade-left">
-                <div class="w-full">
-                    <img class="w-full h-auto rounded-lg object-cover" src="images/baking-hands.jpg" alt="Baking Image">
+            <!-- Statistics Section -->
+            <div class="grid grid-cols-2 gap-6 mt-8 w-full" data-aos="zoom-in">
+                <div class="bg-pink-100 text-center p-6 rounded-lg">
+                    <h2 class="text-3xl font-bold" style="color:#F44336;">5</h2>
+                    <p class="text-gray-700">Years Experience</p>
                 </div>
-
-                <!-- Statistics Section -->
-                <div class="grid grid-cols-2 gap-6 mt-8 w-full" data-aos="zoom-in">
-                    <div class="bg-pink-100 text-center p-6 rounded-lg">
-                        <h2 class="text-3xl font-bold" style="color:#F44336;">5</h2>
-                        <p class="text-gray-700">Years Experience</p>
-                    </div>
-                    <div class="bg-pink-100 text-center p-6 rounded-lg">
-                        <h2 class="text-3xl font-bold" style="color:#F44336;">50</h2>
-                        <p class="text-gray-700">Total Products</p>
-                    </div>
-                    <div class="bg-pink-100 text-center p-6 rounded-lg">
-                        <h2 class="text-3xl font-bold" style="color:#F44336;">100</h2>
-                        <p class="text-gray-700">Order Monthly</p>
-                    </div>
-                    <div class="bg-pink-100 text-center p-6 rounded-lg">
-                        <h2 class="text-3xl font-bold" style="color:#F44336;">99%</h2>
-                        <p class="text-gray-700">Customer Satisfaction</p>
-                    </div>
+                <div class="bg-pink-100 text-center p-6 rounded-lg">
+                    <h2 class="text-3xl font-bold" style="color:#F44336;">50</h2>
+                    <p class="text-gray-700">Total Products</p>
+                </div>
+                <div class="bg-pink-100 text-center p-6 rounded-lg">
+                    <h2 class="text-3xl font-bold" style="color:#F44336;">100</h2>
+                    <p class="text-gray-700">Order Monthly</p>
+                </div>
+                <div class="bg-pink-100 text-center p-6 rounded-lg">
+                    <h2 class="text-3xl font-bold" style="color:#F44336;">99%</h2>
+                    <p class="text-gray-700">Customer Satisfaction</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
    <!-- New Section: I am the Baker -->
 <div class="bg-gray-100 mt-20 p-8 w-full border  border-gray-300 flex flex-col md:flex-row items-start space-x-0 md:space-x-6 h-auto md:h-[450px]" data-aos="fade-up">
@@ -226,58 +223,38 @@
 
 
 
-    <script>
-       // Testimonial data
-const testimonials = [
-    {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        author: "Edward Abunda Jr.",
-        stars: 5
-    },
-    {
-        text: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        author: "John Doe",
-        stars: 4
-    },
-    {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam.",
-        author: "Jane Smith",
-        stars: 5
-    },
-    {
-        text: "Ut enim ad minim veniam, quis nostrud exercitation.",
-        author: "Mark Spencer",
-        stars: 5
-    }
-];
+<script>
+// Get the reviews data and map it correctly
+const testimonials = @json($reviews).map(review => ({
+    text: review.comment,
+    author: review.user.first_name,
+    stars: review.rating
+}));
 
-// Get DOM elements
-let currentIndex = 1;
+// Initialize carousel elements
+let currentIndex = 0;
 const leftCard = document.getElementById('leftCard');
 const centerCard = document.getElementById('centerCard');
 const rightCard = document.getElementById('rightCard');
 const nextTestimonial = document.getElementById('nextTestimonial');
+const prevTestimonial = document.getElementById('prevTestimonial');
 
-// Function to generate stars
+// Your existing functions remain the same
 function generateStars(count) {
     return '★'.repeat(count);
 }
 
-// Function to update cards content
 function updateCards() {
     const prevIndex = (currentIndex === 0) ? testimonials.length - 1 : currentIndex - 1;
     const nextIndex = (currentIndex === testimonials.length - 1) ? 0 : currentIndex + 1;
 
-    // Update left card
     leftCard.querySelector('p:first-child').textContent = `"${testimonials[prevIndex].text}"`;
     leftCard.querySelector('.font-bold').textContent = testimonials[prevIndex].author;
 
-    // Update center card
     centerCard.querySelector('.text-red-500').textContent = generateStars(testimonials[currentIndex].stars);
     centerCard.querySelector('p:nth-child(2)').textContent = `"${testimonials[currentIndex].text}"`;
     centerCard.querySelector('.font-bold').textContent = testimonials[currentIndex].author;
 
-    // Update right card
     rightCard.querySelector('p:first-child').textContent = `"${testimonials[nextIndex].text}"`;
     rightCard.querySelector('.font-bold').textContent = testimonials[nextIndex].author;
 }
@@ -301,20 +278,45 @@ function smoothTransition() {
     }, 300); // Match this with CSS transition duration
 }
 
-// Add click event listener for next button
+// Update the click handlers
 nextTestimonial.addEventListener('click', () => {
-    smoothTransition();
+    currentIndex = (currentIndex + 1) % testimonials.length;
+    updateCards();
 });
 
-// Optional: Add auto-play functionality
+prevTestimonial.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+    updateCards();
+});
+
+// Add this after your click event listeners
+
+function smoothTransition() {
+    // Add fade-out effect
+    centerCard.classList.add('opacity-0');
+    leftCard.classList.add('opacity-0');
+    rightCard.classList.add('opacity-0');
+
+    // Update index and content after fade-out
+    setTimeout(() => {
+        currentIndex = (currentIndex + 1) % testimonials.length;
+        updateCards();
+
+        // Add fade-in effect
+        centerCard.classList.remove('opacity-0');
+        leftCard.classList.remove('opacity-0');
+        rightCard.classList.remove('opacity-0');
+    }, 300);
+}
+
+// Start autoplay
 function startAutoPlay(interval = 5000) {
     setInterval(smoothTransition, interval);
 }
 
-// Initialize the carousel
+// Initialize carousel and start autoplay
 updateCards();
-// Uncomment the next line if you want auto-play
- startAutoPlay();
+startAutoPlay();
 
       function restartTypingAnimation() {
     const typingElement = document.getElementById('typingText');

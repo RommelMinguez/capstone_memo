@@ -153,6 +153,9 @@ class OrderController extends Controller
             $order->update([
                 'status' => 'canceled'
             ]);
+            $order->orderItems()->update([
+                'status' => 'canceled'
+            ]);
         } else {
             return redirect()->back()->with('error', '403 FORBIDDEN: action not allowed.');
         }

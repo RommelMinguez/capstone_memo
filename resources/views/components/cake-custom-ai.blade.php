@@ -71,7 +71,7 @@
 
                 {{-- PREVIOUS PROMPT --}}
                 <div class="font-semibold text-lg">
-                    Recent Designs by other Customer
+                    Recent Designs by other Customers
                 </div>
                 <div class="flex flex-wrap gap-y-2">
                     @foreach ($generatedImages as $image)
