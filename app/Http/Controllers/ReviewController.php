@@ -36,22 +36,18 @@ class ReviewController extends Controller
         return redirect()->back()->with('success', 'Review Updated Successfully.');
     }
 
-    public function user()
-{
-    return $this->belongsTo(User::class);
-}
 
 
-public function getAboutPageReviews()
-{
-    $reviews = Review::with('user')
-                    ->where('rating', '>=', 4)
-                    ->latest()
-                    ->take(5)
-                    ->get();
-                    
-    return view('about', compact('reviews'));
-}
+    public function getAboutPageReviews()
+    {
+        $reviews = Review::with('user')
+                        ->where('rating', '>=', 4)
+                        ->latest()
+                        ->take(5)
+                        ->get();
+
+        return view('about', compact('reviews'));
+    }
 
 
 
