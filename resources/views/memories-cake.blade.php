@@ -52,7 +52,7 @@
                 </p>
                 {{-- <span>more</span> --}}
             </div>
-            <div class="flex overflow-x-auto md:flex-wrap gap-6 mt-10 pb-4 snap-x snap-mandatory" id="featured-card">
+            <div class="flex overflow-x-auto md:flex-wrap gap-6 mt-10 pb-4 snap-x snap-mandatory justify-evenly" id="featured-card">
                 @foreach ($cakes as $cake)
                     <div class="snap-center shrink-0">
                         <x-cake-card :cake="$cake">
