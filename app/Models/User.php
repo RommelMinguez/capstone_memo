@@ -6,10 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Chatify\Traits\UUID;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+
 
     public function carts() {
         return $this->hasMany(Cart::class);
@@ -30,6 +32,13 @@ class User extends Authenticatable
         return $this->hasMany(CustomOrder::class);
     }
 
+    // In User.php
+public function favorites()
+{
+    return $this->belongsToMany(User::class, 'favorites', 'user_id', 'favorite_user_id');
+}
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -45,6 +54,7 @@ class User extends Authenticatable
         'image_src',
         'gender',
         'birthday'
+
     ];
 
     /**
@@ -56,6 +66,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
 
 
 
@@ -71,4 +83,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+        // app/Models/User.php
+
+    public function getNameAttribute()
+{
+    return $this->first_name . ' ' . $this->last_name;
+}
+
+
+
+
 }

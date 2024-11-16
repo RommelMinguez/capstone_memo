@@ -60,6 +60,7 @@
                         <div class="font-semibold mb-2 text-center">AI Horde</div>
                         <div class="loading-box w-full h-72 rounded-lg overflow-hidden">
                             <img src="" alt="" class="object-cover h-full cursor-pointer generated-recent" id="generated-hordeAI">
+
                         </div>
                     </div>
 
@@ -70,19 +71,21 @@
 
                 {{-- PREVIOUS PROMPT --}}
                 <div class="font-semibold text-lg">
-                    Recent Designs by Users
+                    Recent Designs by other Customers
                 </div>
                 <div class="flex flex-wrap gap-y-2">
                     @foreach ($generatedImages as $image)
                         <div class="w-1/4 p-2">
-                            <div class="w-full h-60 rounded-lg overflow-hidden">
-                                <img src="{{ Storage::url($image->path) }}" data-id="{{ $image->id }}" alt="generated images" class="object-cover h-full generated-recent cursor-pointer">
+                            <div class="w-full h-60 rounded-lg overflow-hidden relative group">
+                               <img src="{{ Storage::url($image->path) }}" data-id="{{ $image->id }}" alt="generated images" class="object-cover h-full">
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button class="generated-recent bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md" data-id="{{ $image->id }}">Use this Design</button>
+                                </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
-
         </div>
     </div>
 </div>
