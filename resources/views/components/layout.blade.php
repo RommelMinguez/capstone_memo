@@ -17,9 +17,11 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/custom-animation.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('fonts/custom-fonts.css') }}">
 
-    @if (request()->is('about'))
+    {{-- @if (request()->is('about'))
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    @endif
+    @endif --}}
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 
 

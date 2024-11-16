@@ -1,13 +1,13 @@
 <div id="response" class="fixed z-50 top-10 right-10 bg-green-500 border rounded-md overflow-hidden p-5 shadow-sm shadow-black transition-opacity active:scale-95 cursor-pointer">
     <div class="flex items-center gap-5">
         <svg
-            class="w-10"
+            class="w-10  fill-white"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512">
             <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
             <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"/>
         </svg>
-        <div class="font-semibold ">
+        <div class="font-semibold text-white">
             {{ $slot }}
         </div>
     </div>

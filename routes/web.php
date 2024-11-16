@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomOrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CustomerMiddleware;
 use App\Models\ArchivedCake;
@@ -26,6 +27,8 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\Vendor\Chatify\MessagesController;
+
 
 
 
@@ -36,8 +39,17 @@ Route::get('/about', function() {
 });
 
 Route::get('/', function () {
-    return view('memories-cake', ['cakes' => Cake::limit(4)->latest()->get()]);
+    return view('memories-cake', ['cakes' => Cake::withAvg('reviews', 'rating')
+        ->orderByDesc('reviews_avg_rating')
+        ->limit(4)
+        ->get()
+    ]);
 });
+
+Route::get('/about', [ReviewController::class, 'getAboutPageReviews']);
+
+
+
 
 
 
@@ -163,8 +175,8 @@ Route::get('/admin/catalog/restore', function() {
     return redirect('/admin/catalog')->with('success', 'Archived Cakes Restored');
 });
 
-Route::get('user/reset-password', function() {
-    Auth::user()->update([
+Route::get('/user/reset-password/{id}', function(User $user) {
+    $user->update([
         'password' => '123456789'
     ]);
     return redirect('/user/change-password');

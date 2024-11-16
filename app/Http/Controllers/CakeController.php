@@ -34,6 +34,7 @@ class CakeController extends Controller
             'count' => $cake->reviews()->count(),
         ];
 
+
         return view('cakes.show', [
             'cake' => $cake,
             'show_modal' => session('showModal'),
