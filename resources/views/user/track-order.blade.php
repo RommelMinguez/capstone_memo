@@ -43,7 +43,7 @@
                         </d>
                     </li>
                     <li class="order-tab bg-[#fbefd2] rounded-t-lg  px-5 py-2 font-semibold hover:text-[#F55447] relative z-20">
-                        To Receive
+                        To Receive/Pick-up
                         <div class="absolute rounded-full bg-red-500 px-1 top-0 right-1 text-xs font-light text-white  h-fit min-w-4 text-center  number-indicator">
                             {{ $statusCount['ready'] }}
                         </d>
