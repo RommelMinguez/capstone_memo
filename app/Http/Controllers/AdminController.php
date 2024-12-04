@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Notifications\OrderStatusUpdated;
 use DB;
 use Illuminate\Http\Request;
 
@@ -71,6 +72,15 @@ class AdminController extends Controller
                 'status' => request()->item,
             ]);
         });
+
+
+        // notification
+        $user = $order->user;
+        $details = [
+            'item_id' => $order->id,
+            'status' => $order->status,
+        ];
+        $user->notify(new OrderStatusUpdated($details));
 
         return response()->json(['is_success' => 'true', 'status' => request()->item]);
     }

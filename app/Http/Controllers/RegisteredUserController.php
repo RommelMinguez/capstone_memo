@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\NewCakeOrder;
+use App\Notifications\NewUserRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +48,16 @@ class RegisteredUserController extends Controller
             Session::forget('url.intended');
             return redirect($path);
         }
+
+
+         // notification
+         $user = User::where('is_admin', true)->first();
+        //  $details = [
+        //      'title' => 'New User Registered',
+        //      'message' => 'New User Registered!',
+        //      'url' => '/admin/orders'
+        //  ];
+         $user->notify(new NewUserRegistered());
 
         return redirect('user');
     }

@@ -32,11 +32,22 @@ class User extends Authenticatable
         return $this->hasMany(CustomOrder::class);
     }
 
+    public function notifications()
+    {
+        return $this->morphMany(CustomDatabaseNotification::class, 'notifiable')
+                    ->orderBy('created_at', 'desc');
+    }
+
+    // public function getDatabaseNotificationModel()
+    // {
+    //     return CustomDatabaseNotification::class;
+    // }
+
     // In User.php
-public function favorites()
-{
-    return $this->belongsToMany(User::class, 'favorites', 'user_id', 'favorite_user_id');
-}
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'user_id', 'favorite_user_id');
+    }
 
 
     /**

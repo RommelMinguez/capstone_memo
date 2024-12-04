@@ -13,7 +13,7 @@
         <div></div>
 
         <!-- Right side: Sign Up Button -->
-        <div class="flex">
+        <div class="flex relative">
             <div class="hidden md:flex">
                 @guest
                     <a href="/login" class="rounded-l-full">
@@ -63,16 +63,31 @@
                             </a>
                         @endif
 
-                        <a href="#" class="{{ request()->is('#') ? 'text-[#F55447] bg-[#eec9a8] font-semibold': '' }} hover:bg-[#eec9a8] rounded-lg flex gap-0 h-12 p-3 fill-[#F55447] text-[#F55447]">
-                            <svg
-                                class="aspect-square h-full"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 576 512">
-                                <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                                <path d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
-                            </svg>
-                            <div>Notification</div>
-                        </a>
+                        <div class="">
+
+                            @php
+                                $isNotifPage = request()->is('notification');
+                            @endphp
+
+                            <div id="notification-btn" class="{{ $isNotifPage ? 'text-[#F55447] bg-[#eec9a8] font-semibold': '' }} hover:bg-[#eec9a8] rounded-lg flex gap-0 h-12 p-3 fill-[#F55447] text-[#F55447] cursor-pointer relative" data-isNotifPage='{{ $isNotifPage }}'>
+                                <svg
+                                    class="aspect-square h-full"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 576 512">
+                                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
+                                </svg>
+                                <div>Notification</div>
+                                <div class="absolute bg-red-600 text-white font-light px-1 min-w-4 max-w-10 overflow-hidden text-center rounded-full left-1 bottom-1 shadow-md" style="font-size:.6rem;">
+                                    @php
+                                        $unreadNotifs = Auth::user()->unreadNotifications->count();
+                                        echo $unreadNotifs > 0 ? $unreadNotifs:'';
+                                    @endphp
+                                </div>
+
+                            </div>
+                            <x-notif-dropdown></x-notif-dropdown>
+                        </div>
                         <div class="relative group">
                             <a
                                 href="{{ (Auth::user()->is_admin) ? '/admin' : '/user' }}"

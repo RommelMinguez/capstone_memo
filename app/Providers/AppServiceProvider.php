@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,5 +24,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::preventLazyLoading();
+
+         // Bind the custom notification model
+        // DatabaseNotification::resolveRelationUsing('sender', function ($notification) {
+        //     return $notification->belongsTo(\App\Models\User::class, 'sender_id', 'id');
+        // });
     }
 }

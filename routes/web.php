@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\CustomerMiddleware;
 use App\Models\ArchivedCake;
+use App\Models\CustomDatabaseNotification;
 use App\Models\Tag;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -97,6 +98,24 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/user/review', [ReviewController::class, 'store']);
     Route::patch('/user/review/{review}', [ReviewController::class, 'update']);
+
+    Route::get('/notification', function() {
+        $user = Auth::user();
+
+        $notifications = CustomDatabaseNotification::where('notifiable_id', $user->id)
+            ->with('sender')
+            ->latest()
+            ->paginate(50);
+
+        return view('notification', compact(
+            'notifications'
+        ));
+    });
+
+    Route::patch('/notification', function () {
+        Auth::user()->unreadNotifications->markAsRead();
+        return redirect('/notification');
+    });
 });
 
 

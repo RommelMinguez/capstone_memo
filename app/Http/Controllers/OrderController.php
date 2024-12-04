@@ -6,6 +6,9 @@ use App\Models\Order;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\OrderItem;
+use App\Models\User;
+use App\Notifications\NewCakeOrder;
+use App\Notifications\OrderCanceled;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -109,6 +112,14 @@ class OrderController extends Controller
             return redirect('/admin/orders')->with('success', 'You have place an Order Successfully');
         }
 
+
+        // notification
+        $user = User::where('is_admin', true)->first();
+        $details = [
+            'item_id' => $order->id
+        ];
+        $user->notify(new NewCakeOrder($details));
+
         return redirect('/user')->with('success', 'Your Order in now waiting for Confirmation');
     }
 
@@ -160,6 +171,13 @@ class OrderController extends Controller
         } else {
             return redirect()->back()->with('error', '403 FORBIDDEN: action not allowed.');
         }
+
+         // notification
+         $user = User::where('is_admin', true)->first();
+         $details = [
+            'item_id' => $order->id
+         ];
+         $user->notify(new OrderCanceled($details));
 
         return redirect()->back()->with('success', 'Order was Canceled.');
     }

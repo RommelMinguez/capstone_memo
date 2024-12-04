@@ -6,6 +6,14 @@ use App\Models\CustomImage;
 use App\Models\CustomOrder;
 use App\Models\OrderNote;
 use App\Models\Tag;
+use App\Models\User;
+use App\Notifications\CustomOrderApproved;
+use App\Notifications\CustomOrderCanceled;
+use App\Notifications\CustomOrderPlaceOrder;
+use App\Notifications\CustomOrderRejected;
+use App\Notifications\CustomOrderStatusUpdated;
+use App\Notifications\NewCustomCakeOrder;
+use App\Notifications\OrderRejected;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -81,6 +89,14 @@ class CustomOrderController extends Controller
             $customOrder->tags()->sync($request->input('selected-tag'));
         }
 
+        // notification
+        $user = User::where('is_admin', true)->first();
+        $details = [
+            'item_id' => $customOrder->id
+        ];
+        $user->notify(new NewCustomCakeOrder($details));
+
+
         session(['customOrder' => $customOrder->id, 'customOrderUser' => Auth::user()->id]);
         return redirect('/cakes/custom/order')->with('success', 'Please add Your Details!');
     }
@@ -100,6 +116,14 @@ class CustomOrderController extends Controller
                 'status' => 'canceled'
             ]);
 
+            // notification
+            $user = User::where('is_admin', true)->first();
+            $details = [
+                'item_id' => $order->id
+            ];
+            $user->notify(new CustomOrderCanceled($details));
+
+
             return redirect('/user/custom-order')->with('success', 'Order Canceled Successfully.');
         }
         return redirect('/user/custom-order')->with('error', 'Something Went Wrong');
@@ -111,6 +135,13 @@ class CustomOrderController extends Controller
             $order->update([
                 'status' => 'pending'
             ]);
+
+            // notification
+            $user = User::where('is_admin', true)->first();
+            $details = [
+                'item_id' => $order->id
+            ];
+            $user->notify(new CustomOrderPlaceOrder($details));
 
             return redirect('/user/custom-order')->with('success', 'Order is now in queue to bake.');
         }
@@ -192,6 +223,16 @@ class CustomOrderController extends Controller
             //     'custom_order_id' => $order->id
             // ]);
 
+
+            // notification
+            $user = $order->user;
+            $details = [
+                'item_id' => $order->id,
+                'given_price' => $validatedData['given_price'],
+                'given_note' => $validatedData['note']
+            ];
+            $user->notify(new CustomOrderApproved($details));
+
             return redirect('/admin/custom')->with('success', 'New Design Approved.');
         }
         return redirect('/admin/custom')->with('error', '403 FORBIDDEN: Order was Changed or Canceled');
@@ -205,6 +246,13 @@ class CustomOrderController extends Controller
                 'status' => 'rejected',
             ]);
 
+            // notification
+            $user = $order->user;
+            $details = [
+                'item_id' => $order->id
+            ];
+            $user->notify(new CustomOrderRejected($details));
+
             return redirect('/admin/custom')->with('success', 'New Design Rejected.');
         }
         return redirect('/admin/custom')->with('error', '403 FORBIDDEN: Order was Changed or Canceled');
@@ -216,6 +264,15 @@ class CustomOrderController extends Controller
         $order->update([
             'status' => request()->item,
         ]);
+
+        // notification
+        $user = $order->user;
+        $details = [
+            'item_id' => $order->id,
+            'status' => $order->status
+        ];
+        $user->notify(new CustomOrderStatusUpdated($details));
+
         return response()->json(['is_success' => 'true', 'status' => request()->item]);
     }
 }
