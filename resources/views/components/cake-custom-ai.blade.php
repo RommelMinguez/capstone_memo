@@ -19,6 +19,9 @@
                         </svg>
                     </div>
                 </div>
+                <div class="text-sm text-gray-500">
+                    This design is for inspiration purposes only and may not be replicated exactly as shown.
+                </div>
                 <hr><br>
 
                 {{-- prompt --}}
