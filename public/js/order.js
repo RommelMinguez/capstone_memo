@@ -70,11 +70,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     dayLabel = daysOfWeek[today.getDay()];
             }
         } else {
-            today.setDate(today.getDate() + index + 1);
+            today.setDate(today.getDate() + index + 2);
             switch (index) {
-                case 0:
-                    dayLabel = "Tommorow";
-                    break;
+                // case 0:
+                //     dayLabel = "Tommorow";
+                //     break;
                 default:
                     dayLabel = daysOfWeek[today.getDay()];
             }
@@ -179,7 +179,7 @@ function setDateTimeDefault() {
     let defaultDate = new Date();
 
     if (isAdmin) defaultDate.setDate(defaultDate.getDate());
-    else defaultDate.setDate(defaultDate.getDate() + 1);
+    else defaultDate.setDate(defaultDate.getDate() + 2);
 
     deliveryDate.setAttribute("min", formatDateForInp(defaultDate));
     deliveryDate.value = formatDateForInp(defaultDate);
