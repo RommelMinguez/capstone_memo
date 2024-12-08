@@ -381,7 +381,7 @@ function defaultFilter() {
     switch (filterWord) {
         case 'approved':
             tabs[1].dispatchEvent(new Event('click'));
-            document.getElementById('filter-pending').dispatchEvent(new Event('click'));
+            document.getElementById('filter-approved').dispatchEvent(new Event('click'));
             break;
         case 'pending':
             tabs[2].dispatchEvent(new Event('click'));

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomOrder;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Notifications\OrderStatusUpdated;
@@ -43,19 +44,27 @@ class AdminController extends Controller
 
         $latestOrders = OrderItem::with('order.user', 'cake')->latest()->limit(10)->get();
 
+        $countPerStatus_custom = CustomOrder::select('status', DB::raw('count(*) as count'))
+            ->groupBy('status')
+            ->pluck('count', 'status');
+
+        $totalOrder_custom = CustomOrder::count();
+
         return view('user.admin.dashboard', [
             'statusCount' => $countPerStatus,
             'totalOrder' => $totalOrder,
             'bestSeller' => $bestSeller,
             'income' => $income,
-            'latestOrders' => $latestOrders
+            'latestOrders' => $latestOrders,
+            'statusCount_custom' => $countPerStatus_custom,
+            'totalOrder_custom' => $totalOrder_custom
         ]);
     }
 
 
     public function manageOrders() {
 
-        $all = OrderItem::latest()->with('cake', 'order.user', 'order.address', 'order.orderItems.cake')->get();
+        $all = OrderItem::latest()->with('cake', 'order', 'order.user', 'order.address', 'order.orderItems.cake')->get();
 
         return view('user.admin.manage-orders', [
             'allOrders' => $all,

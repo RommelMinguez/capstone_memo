@@ -12,6 +12,7 @@
                 Dashboard
             </div>
 
+            {{-- ORDERS --}}
             <div class="p-10">
                 <div class="flex  items-center gap-x-10 gap-y-5 flex-wrap">
                     <a href="/admin/orders?filter=pending" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
@@ -31,7 +32,7 @@
                     <a href="/admin/orders?filter=baking" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['baking'] ?? 0 }}</div>
-                            <div class="text-xs">Baking</div>
+                            <div class="text-xs">Baking Orders</div>
                         </div>
                         <div class="h-full">
                             <svg
@@ -46,7 +47,7 @@
                     <a href="/admin/orders?filter=receive" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['ready'] ?? 0 }}</div>
-                            <div class="text-xs">For Delivery</div>
+                            <div class="text-xs">For Delivery/Pickup Orders</div>
                         </div>
                         <div class="h-full">
                             <svg
@@ -79,7 +80,7 @@
                             </svg>
                         </div>
                     </div> --}}
-                    <a href="/admin/orders?filter=completed" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                    {{-- <a href="/admin/orders?filter=completed" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $statusCount['completed'] ?? 0 }}</div>
                             <div class="text-xs">Completed</div>
@@ -112,8 +113,90 @@
                                 </g>
                             </svg>
                         </div>
+                    </a> --}}
+                </div>
+
+
+                {{-- CUSTOM ORDERS --}}
+                <br><br><hr class="border-b-2"><br><br>
+                <div class="flex items-center gap-x-10 gap-y-5 flex-wrap">
+                    <div class="w-full flex items-center gap-x-10">
+                        <a href="/admin/custom?filter=new" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                            <div>
+                                <div class="text-4xl font-bold mb-2">{{ $statusCount_custom['new'] ?? 0 }}</div>
+                                <div class="text-xs">New Custom Orders</div>
+                            </div>
+                            <div class="h-full">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="48" height="48"
+                                    viewBox="0 0 24 24">
+                                    <path fill="#F55447" d="M17 22q-2.075 0-3.537-1.463T12 17t1.463-3.537T17 12t3.538 1.463T22 17t-1.463 3.538T17 22m1.675-2.625l.7-.7L17.5 16.8V14h-1v3.2zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h4.175q.275-.875 1.075-1.437T12 1q1 0 1.788.563T14.85 3H19q.825 0 1.413.588T21 5v6.25q-.45-.325-.95-.55T19 10.3V5h-2v3H7V5H5v14h5.3q.175.55.4 1.05t.55.95zm7-16q.425 0 .713-.288T13 4t-.288-.712T12 3t-.712.288T11 4t.288.713T12 5"/>
+                                </svg>
+                            </div>
+                        </a>
+                        <a href="/admin/custom?filter=approved" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                            <div>
+                                <div class="text-4xl font-bold mb-2">{{ $statusCount_custom['approved'] ?? 0 }}</div>
+                                <div class="text-xs">Approved Custom Orders</div>
+                            </div>
+                            <div class="h-full">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="48" height="48"
+                                    viewBox="0 0 24 24">
+                                    <path fill="#F55447" d="M17 22q-2.075 0-3.537-1.463T12 17t1.463-3.537T17 12t3.538 1.463T22 17t-1.463 3.538T17 22m1.675-2.625l.7-.7L17.5 16.8V14h-1v3.2zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h4.175q.275-.875 1.075-1.437T12 1q1 0 1.788.563T14.85 3H19q.825 0 1.413.588T21 5v6.25q-.45-.325-.95-.55T19 10.3V5h-2v3H7V5H5v14h5.3q.175.55.4 1.05t.55.95zm7-16q.425 0 .713-.288T13 4t-.288-.712T12 3t-.712.288T11 4t.288.713T12 5"/>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                    <a href="/admin/custom?filter=pending" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                        <div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount_custom['pending'] ?? 0 }}</div>
+                            <div class="text-xs">Pending Custom Orders</div>
+                        </div>
+                        <div class="h-full">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="48" height="48"
+                                viewBox="0 0 24 24">
+                                <path fill="#F55447" d="M17 22q-2.075 0-3.537-1.463T12 17t1.463-3.537T17 12t3.538 1.463T22 17t-1.463 3.538T17 22m1.675-2.625l.7-.7L17.5 16.8V14h-1v3.2zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h4.175q.275-.875 1.075-1.437T12 1q1 0 1.788.563T14.85 3H19q.825 0 1.413.588T21 5v6.25q-.45-.325-.95-.55T19 10.3V5h-2v3H7V5H5v14h5.3q.175.55.4 1.05t.55.95zm7-16q.425 0 .713-.288T13 4t-.288-.712T12 3t-.712.288T11 4t.288.713T12 5"/>
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="/admin/custom?filter=baking" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                        <div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount_custom['baking'] ?? 0 }}</div>
+                            <div class="text-xs">Baking Custom Orders</div>
+                        </div>
+                        <div class="h-full">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="48"
+                                height="48"
+                                viewBox="0 0 36 36">
+                                <path fill="#F55447" d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5m-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3m6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0M9 23v-6h14v6zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5z"/>
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="/admin/custom?filter=receive" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                        <div>
+                            <div class="text-4xl font-bold mb-2">{{ $statusCount_custom['ready'] ?? 0 }}</div>
+                            <div class="text-xs">For Delivery/Pickup Custom Orders</div>
+                        </div>
+                        <div class="h-full">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="48"
+                                height="48"
+                                viewBox="0 0 24 24">
+                                <path fill="#F55447" d="m9.564 8.73l.515 1.863c.485 1.755.727 2.633 1.44 3.032c.713.4 1.618.164 3.428-.306l1.92-.5c1.81-.47 2.715-.705 3.127-1.396c.412-.692.17-1.57-.316-3.325l-.514-1.862c-.485-1.756-.728-2.634-1.44-3.033c-.714-.4-1.619-.164-3.429.307l-1.92.498c-1.81.47-2.715.706-3.126 1.398c-.412.691-.17 1.569.315 3.324"/>
+                                <path fill="#F55447" d="M2.277 5.247a.75.75 0 0 1 .924-.522l1.703.472A2.71 2.71 0 0 1 6.8 7.075l2.151 7.786l.158.547a2.96 2.96 0 0 1 1.522 1.267l.31-.096l8.87-2.305a.75.75 0 1 1 .378 1.452l-8.837 2.296l-.33.102c-.006 1.27-.883 2.432-2.21 2.776c-1.59.414-3.225-.502-3.651-2.044s.518-3.129 2.108-3.542q.119-.03.237-.052L5.354 7.474a1.21 1.21 0 0 0-.85-.831L2.8 6.17a.75.75 0 0 1-.523-.923"/>
+                            </svg>
+                        </div>
                     </a>
                 </div>
+
 
                 {{-- OVERALL SUMMARY --}}
                 <br><br><hr class="border-b-2"><br><br>
@@ -124,6 +207,24 @@
                         <div>
                             <div class="text-4xl font-bold mb-2">{{ $totalOrder }}</div>
                             <div class="text-xs">Total Orders</div>
+                        </div>
+                        <div class="h-full">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="3em"
+                                height="3em"
+                                viewBox="0 0 48 48">
+                                <g fill='none' stroke="#F55447" stroke-linejoin="round" stroke-width="4">
+                                    <rect width="30" height="36" x="9" y="8" rx="2"/>
+                                    <path stroke-linecap="round" d="M18 4v6m12-6v6m-14 9h16m-16 8h12m-12 8h8"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="/admin/custom" class="w-60 h-32 rounded-sm shadow-md shadow-gray-400 bg-white flex justify-between items-center p-7 cursor-pointer">
+                        <div>
+                            <div class="text-4xl font-bold mb-2">{{ $totalOrder_custom }}</div>
+                            <div class="text-xs">Total Custom Orders</div>
                         </div>
                         <div class="h-full">
                             <svg
@@ -225,6 +326,9 @@
                         @endif
                     </div>
                 </div>
+
+
+
 
 
             </div>

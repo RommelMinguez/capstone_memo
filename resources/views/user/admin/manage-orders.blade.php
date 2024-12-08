@@ -77,6 +77,7 @@ use Carbon\Carbon;
                                         <th class=" w-auto">Customer Name</th>
                                         <th class=" w-auto">Cake Name</th>
                                         <th class=" w-auto">Date Ordered</th>
+                                        <th class=" w-auto">Delivery/Pickup Date</th>
                                         <th class=" w-28">Total</th>
                                         <th class=" w-28">Status</th>
                                         {{-- <th class=" w-auto">Delivery Date</th> --}}
@@ -124,7 +125,25 @@ use Carbon\Carbon;
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td class="cursor-pointer text-center font-semibold">{{ $order->created_at->diffForHumans() }}</td>
+                                            <td class="cursor-pointer text-center">{{ $order->created_at->diffForHumans() }}</td>
+                                            {{-- <td class="cursor-pointer text-center font-semibold">{{ $order->order->prefered_date.' '.$order->order->prefered_time }}</td> --}}
+                                            @php
+                                                $expectedDate = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', "{$order->order->prefered_date} {$order->order->prefered_time}");
+                                                $now = \Carbon\Carbon::now();
+                                                $daysDifference = ceil($expectedDate->diffInDays($now));
+                                                $displayMsg = '';
+
+                                                if ($daysDifference < 0) {
+                                                    $displayMsg = abs($daysDifference) . ' days before due';
+                                                } elseif ($daysDifference == 0) {
+                                                    $displayMsg = " Today’s Due";
+                                                } elseif ($daysDifference > 0) {
+                                                    $displayMsg = 'Due '.$daysDifference.' day/s ago';
+                                                }
+                                            @endphp
+                                            <td class="cursor-pointer text-center font-semibold" data-sort="{{ $daysDifference }}">
+                                               {{ $displayMsg }}
+                                            </td>
                                             <td class="cursor-pointer text-center">&#8369; &nbsp;{{ number_format($order->sub_total, 2) }}</td>
                                             <td class="cursor-pointer text-center {{ $bgStatus[$order->status] }}">{{ $order->status }}</td>
                                             {{-- <td class="cursor-pointer text-center">{{ $formattedDate }} <br> {{ $formattedTime }}</td> --}}

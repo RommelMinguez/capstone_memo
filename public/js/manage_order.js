@@ -279,31 +279,31 @@ $(document).ready(function() {
 
     //Button to reset filter and show all records
     $('#reset-filter').on('click', function() {
-        table.column(6).search('').draw(); // Clear the search to show all records
+        table.column(7).search('').draw(); // Clear the search to show all records
     });
 
     // Button to filter by  status
     $('#filter-pending').on('click', function() {
-        table.column(6).search('pending').draw();
+        table.column(7).search('pending').draw();
         // let rowCount = table.rows({ filter: 'applied' }).count();
         // let filterPending = document.getElementById('filter-pending');
         // filterPending.children[0].textContent = rowCount;
         // filterPending.children[0].classList.remove('hidden');
     });
     $('#filter-baking').on('click', function() {
-        table.column(6).search('baking').draw();
+        table.column(7).search('baking').draw();
     });
     $('#filter-receive').on('click', function() {
-        table.column(6).search('ready').draw();
+        table.column(7).search('ready').draw();
     });
     // $('#filter-review').on('click', function() {
-    //     table.column(6).search('review').draw();
+    //     table.column(7).search('review').draw();
     // });
     $('#filter-completed').on('click', function() {
-        table.column(6).search('completed').draw();
+        table.column(7).search('completed').draw();
     });
     $('#filter-canceled').on('click', function() {
-        table.column(6).search('canceled').draw();
+        table.column(7).search('canceled').draw();
     });
 
     updateFilterCount();
@@ -325,7 +325,7 @@ function updateFilterCount() {
     // count status
     const uniqueEntries = {};
     data.each(function(row) {
-        const status = row[6];
+        const status = row[7];
         const uniqueKey = row[1];
 
         if (!uniqueEntries[status]) {

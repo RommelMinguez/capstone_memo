@@ -35,7 +35,19 @@
         <script>
             $(document).ready(function () {
                 $('#order_all').DataTable({
-                    "order": [[0, "desc"]]
+                    "order": [[0, "desc"]],
+                    "columns": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        { "orderDataType": "data" }, // This tells DataTables to sort based on the `data-sort` attribute
+                        null,
+                        null,
+                        null
+                    ]
+
                 });
 
 
