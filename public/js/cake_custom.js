@@ -48,6 +48,8 @@ function selectGeneratedImage(imgEl) {
 
     ai_image_inp.value = imgEl.getAttribute("data-id");
     imageInput.value = null;
+
+    document.getElementById('description').value = imgEl.getAttribute('data-prompt');;
 }
 
 aiShow_btn.addEventListener("click", function () {
@@ -116,6 +118,7 @@ async function getPollinationAI(dsc, display) {
         const imgElement = display.children[1].children[0];
         imgElement.src = imageUrl;
         imgElement.setAttribute("data-id", storedData.id);
+        imgElement.setAttribute("data-prompt", dsc);
         display.children[1].classList.remove("loading-box");
         imgElement.addEventListener("click", function () {
             selectGeneratedImage(this);
@@ -209,6 +212,7 @@ async function displayHordeImage(url, dsc, display) {
         const imgElement = display.children[1].children[0];
         imgElement.src = imageUrl;
         imgElement.setAttribute("data-id", storedData.id);
+        imgElement.setAttribute("data-prompt", dsc);
         display.children[1].classList.remove("loading-box");
         imgElement.addEventListener("click", function () {
             selectGeneratedImage(this);
@@ -301,93 +305,93 @@ imageInput.addEventListener("change", function () {
 });
 
 // CUSTOM CAKE ADDITIONAL OPTION
-let additionalOption = document.getElementById("additionalOption");
+// let additionalOption = document.getElementById("additionalOption");
 
-additionalOption.children[0].addEventListener("click", function () {
-    if (additionalOption.children[1].classList.contains("hidden")) {
-        this.children[1].classList.add("-rotate-90");
-        additionalOption.children[1].classList.remove("hidden");
-    } else {
-        this.children[1].classList.remove("-rotate-90");
+// additionalOption.children[0].addEventListener("click", function () {
+//     if (additionalOption.children[1].classList.contains("hidden")) {
+//         this.children[1].classList.add("-rotate-90");
+//         additionalOption.children[1].classList.remove("hidden");
+//     } else {
+//         this.children[1].classList.remove("-rotate-90");
 
-        additionalOption.children[1].classList.add("hidden");
-        // additionalOption.children[1].classList.('translate-y-0');
-    }
-});
+//         additionalOption.children[1].classList.add("hidden");
+//         // additionalOption.children[1].classList.('translate-y-0');
+//     }
+// });
 
-additionalOption.children[0].dispatchEvent(new Event("click"));
+// additionalOption.children[0].dispatchEvent(new Event("click"));
 
 // ADDITIONAL IMAGE
-const imageUpload = document.getElementById("image-upload");
-const previewContainer = document.getElementById("preview");
-const previewPlaceholder = document
-    .getElementById("preview-placeholder")
-    .cloneNode(true);
+// const imageUpload = document.getElementById("image-upload");
+// const previewContainer = document.getElementById("preview");
+// const previewPlaceholder = document
+//     .getElementById("preview-placeholder")
+//     .cloneNode(true);
 
-// Use DataTransfer to manage the input files
-const dataTransfer = new DataTransfer();
+// // Use DataTransfer to manage the input files
+// const dataTransfer = new DataTransfer();
 
-const imageClasses = [
-    "w-24",
-    "h-24",
-    "object-cover",
-    "rounded-lg",
-    "cursor-pointer",
-];
+// const imageClasses = [
+//     "w-24",
+//     "h-24",
+//     "object-cover",
+//     "rounded-lg",
+//     "cursor-pointer",
+// ];
 
-// Function to update the previews
-function updatePreviews() {
-    previewContainer.innerHTML = ""; // Clear previous previews
+// // Function to update the previews
+// function updatePreviews() {
+//     previewContainer.innerHTML = ""; // Clear previous previews
 
-    if (dataTransfer.files.length === 0) {
-        previewContainer.appendChild(previewPlaceholder);
-    }
+//     if (dataTransfer.files.length === 0) {
+//         previewContainer.appendChild(previewPlaceholder);
+//     }
 
-    Array.from(dataTransfer.files).forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const img = document.createElement("img");
-            img.src = e.target.result;
-            img.title = "click to remove image";
-            imageClasses.forEach((cls) => img.classList.add(cls));
+//     Array.from(dataTransfer.files).forEach((file, index) => {
+//         const reader = new FileReader();
+//         reader.onload = (e) => {
+//             const img = document.createElement("img");
+//             img.src = e.target.result;
+//             img.title = "click to remove image";
+//             imageClasses.forEach((cls) => img.classList.add(cls));
 
-            // Remove image on click
-            img.addEventListener("click", () => {
-                dataTransfer.items.remove(index); // Remove from DataTransfer
-                imageUpload.files = dataTransfer.files; // Sync input files with DataTransfer
-                updatePreviews();
-            });
+//             // Remove image on click
+//             img.addEventListener("click", () => {
+//                 dataTransfer.items.remove(index); // Remove from DataTransfer
+//                 imageUpload.files = dataTransfer.files; // Sync input files with DataTransfer
+//                 updatePreviews();
+//             });
 
-            previewContainer.appendChild(img);
-        };
-        reader.readAsDataURL(file);
-    });
-}
+//             previewContainer.appendChild(img);
+//         };
+//         reader.readAsDataURL(file);
+//     });
+// }
 
-// Event listener for file input
-imageUpload.addEventListener("change", (event) => {
-    const files = Array.from(event.target.files);
+// // Event listener for file input
+// imageUpload.addEventListener("change", (event) => {
+//     const files = Array.from(event.target.files);
 
-    // Cancel selection if no files are chosen
-    if (files.length === 0) return;
+//     // Cancel selection if no files are chosen
+//     if (files.length === 0) return;
 
-    // Add selected files to DataTransfer, limited to 5
-    files.slice(0, 5 - dataTransfer.files.length).forEach((file) => {
-        dataTransfer.items.add(file);
-    });
+//     // Add selected files to DataTransfer, limited to 5
+//     files.slice(0, 5 - dataTransfer.files.length).forEach((file) => {
+//         dataTransfer.items.add(file);
+//     });
 
-    // Check if file limit is exceeded
-    if (dataTransfer.files.length > 5) {
-        alert("You can upload a maximum of 5 images.");
-        while (dataTransfer.files.length > 5) {
-            dataTransfer.items.remove(dataTransfer.files.length - 1);
-        }
-    }
-    console.log(dataTransfer);
+//     // Check if file limit is exceeded
+//     if (dataTransfer.files.length > 5) {
+//         alert("You can upload a maximum of 5 images.");
+//         while (dataTransfer.files.length > 5) {
+//             dataTransfer.items.remove(dataTransfer.files.length - 1);
+//         }
+//     }
+//     console.log(dataTransfer);
 
-    imageUpload.files = dataTransfer.files; // Sync input files with DataTransfer
-    updatePreviews();
-});
+//     imageUpload.files = dataTransfer.files; // Sync input files with DataTransfer
+//     updatePreviews();
+// });
 
 // Quantity Behavior
 let quantityAdd = document.getElementById("plus-quantity");

@@ -55,7 +55,7 @@
                                 <th class="w-20">ID</th>
                                 <th class="w-52 p-2">Image</th>
                                 <th class="w-auto px-3">Details</th>
-                                <th class="w-40">Budget</th>
+                                <th class="w-40">Given Price</th>
                                 <th class="w-10">Status</th>
                             </tr>
                         </thead>

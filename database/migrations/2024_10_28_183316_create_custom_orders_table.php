@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('image_src');
             $table->string('cake_name');
-            $table->decimal('budget');
+            $table->decimal('budget')->nullable();
             $table->text('description');
             $table->integer('age');
             $table->string('candle_type');

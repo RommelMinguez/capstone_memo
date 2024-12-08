@@ -66,8 +66,8 @@
 
                             <input id="name" name="name" type="text" title="Cake Name" placeholder="Cake Name" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full">
 
-                            <input id="price" name="price" type="number" title="Price" placeholder="Budget" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-36 mr-2">
-                            <label for="price" class="font-semibold">PHP</label>
+                            {{-- <input id="price" name="price" type="number" title="Price" placeholder="Budget" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-36 mr-2">
+                            <label for="price" class="font-semibold">PHP</label> --}}
 
                             <br><br>
                             <label for="description" class="font-semibold">DESCRIPTION:</label>
@@ -111,7 +111,7 @@
 
                     <br><br>
                     {{-- ADDITIONAL OPTION --}}
-                    <div id="additionalOption">
+                    {{-- <div id="additionalOption">
                         <div class="flex justify-between px-5 cursor-pointer">
                             <div class="font-bold test-lg">
                                 Additional Details <span class="text-gray-400 text-sm italic">(Optional)</span>
@@ -129,7 +129,7 @@
                         <div class="m-5 px-10 hidden">
 
                             <div>
-                                {{-- additional image --}}
+                                <!-- additional image -->
                                 <div class="my-5 ">
 
                                     <div class="flex items-center gap-5 my-2">
@@ -171,7 +171,7 @@
                             @endforeach
 
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- CREATE BUTTON --}}
                     <div class="flex justify-end mt-10 mb-5 gap-5">

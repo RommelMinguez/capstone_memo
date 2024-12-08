@@ -72,7 +72,7 @@
                                     <div class="py-1 px-2 border border-gray-500 rounded-r-md text-white" >Pending</div> --}}
                                 </div>
                                 <div>
-                                    <div class="font-semibold mb-3">Allocated Budget</div>
+                                    <div class="font-semibold mb-3">Given Price</div>
                                     <div class="font-bold text-red-500 text-lg"> &#8369; <span>00.00</span></div>
                                 </div>
                                 <div></div>
@@ -94,7 +94,7 @@
                 </div>
             </div>
 
-            <div class="mb-5">
+            {{-- <div class="mb-5">
                 <div class="font-bold mb-5">
                     Tags
                 </div>
@@ -114,7 +114,7 @@
                         <img src="" alt="cakes" class="w-full h-full object-cover">
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
 

@@ -47,8 +47,12 @@
                 {{ Str::upper($item->status) }}
             </div>
             <div class="text-xl font-bold text-[#F44336]">
-                &#8369;
-                <span class="ml-2">{{ number_format($item->budget, 2) }}</span>
+                @if ($item->given_price)
+                    &#8369;
+                    <span class="ml-2">{{ number_format($item->given_price, 2) }}</span>
+                @else
+                    <span class="ml-2 text-base">Not Set</span>
+                @endif
             </div>
             <div></div>
         </div>

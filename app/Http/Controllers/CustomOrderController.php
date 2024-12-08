@@ -31,7 +31,7 @@ class CustomOrderController extends Controller
         // dd(request()->all());
         $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0|max:999999.99',
+            // 'price' => 'required|numeric|min:0|max:999999.99',
             'description' => 'required|string',
             'age' => 'required|integer|min:1',
             'candle' => 'required|string|max:255',
@@ -60,7 +60,7 @@ class CustomOrderController extends Controller
         $customOrder = CustomOrder::create([
             'image_src' => $imagePath,
             'cake_name' => $request->input('name'),
-            'budget' => $request->input('price'),
+            // 'budget' => $request->input('price'),
             'description' => $request->input('description'),
             'age' => $request->input('age'),
             'candle_type' => $request->input('candle'),

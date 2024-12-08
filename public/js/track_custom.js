@@ -34,8 +34,8 @@ function showDetails(data) {
     displayStatus(data);
     displayItems(data);
     cakeDescription.textContent = data['description'];
-    displayTags(data['tags']);
-    displayImages(data['custom_images']);
+    // displayTags(data['tags']);
+    // displayImages(data['custom_images']);
     displayGivenPrice(data.given_price, data.given_note, data.status);
     displayButtons(data.status);
 
@@ -64,39 +64,45 @@ function displayItems(item) {
     orderItem.children[1].children[0].children[3].children[0].textContent =  item['age'];
     orderItem.children[1].children[0].children[4].children[0].textContent =  item['candle_type'];
     orderItem.children[1].children[0].children[5].children[0].textContent =  item['dedication'];
-    orderItem.children[2].children[0].children[1].children[1].children[0].textContent =  Number(item.budget).toLocaleString('en-US');
-}
 
-
-let tagTemplate = document.getElementById('tag-template').cloneNode(true);
-
-function displayTags(tags) {
-    let tagsContainer = document.getElementById('tags-container');
-    tagsContainer.innerHTML = '';
-    tags.forEach(tag => {
-        let clone = tagTemplate.cloneNode(true);
-        clone.textContent = tag.name;
-        tagsContainer.appendChild(clone);
-    });
-    if (tags.length == 0) {
-        tagsContainer.innerHTML = '<div class="flex justify-center items-center h-full">No tags</div>';
+    if (item['given_price']) {
+        orderItem.children[2].children[0].children[1].classList.remove('hidden');
+        orderItem.children[2].children[0].children[1].children[1].children[0].textContent =  Number(item.given_price).toLocaleString('en-US');
+    } else {
+        orderItem.children[2].children[0].children[1].classList.add('hidden');
     }
 }
 
-let imageTemplate = document.getElementById('image-template').cloneNode(true);
 
-function displayImages(images) {
-    let imagesContainer = document.getElementById('images-container');
-    imagesContainer.innerHTML = '';
-    images.forEach(image => {
-        let clone = imageTemplate.cloneNode(true);
-        clone.children[0].src = image.path.replace('public/', '/storage/');
-        imagesContainer.appendChild(clone);
-    });
-    if (images.length == 0) {
-        imagesContainer.innerHTML = '<div class="flex justify-center items-center h-full">No images</div>';
-    }
-}
+// let tagTemplate = document.getElementById('tag-template').cloneNode(true);
+
+// function displayTags(tags) {
+//     let tagsContainer = document.getElementById('tags-container');
+//     tagsContainer.innerHTML = '';
+//     tags.forEach(tag => {
+//         let clone = tagTemplate.cloneNode(true);
+//         clone.textContent = tag.name;
+//         tagsContainer.appendChild(clone);
+//     });
+//     if (tags.length == 0) {
+//         tagsContainer.innerHTML = '<div class="flex justify-center items-center h-full">No tags</div>';
+//     }
+// }
+
+// let imageTemplate = document.getElementById('image-template').cloneNode(true);
+
+// function displayImages(images) {
+//     let imagesContainer = document.getElementById('images-container');
+//     imagesContainer.innerHTML = '';
+//     images.forEach(image => {
+//         let clone = imageTemplate.cloneNode(true);
+//         clone.children[0].src = image.path.replace('public/', '/storage/');
+//         imagesContainer.appendChild(clone);
+//     });
+//     if (images.length == 0) {
+//         imagesContainer.innerHTML = '<div class="flex justify-center items-center h-full">No images</div>';
+//     }
+// }
 
 let total_display = document.getElementById('total-display');
 let total_note = document.getElementById('total-note');
