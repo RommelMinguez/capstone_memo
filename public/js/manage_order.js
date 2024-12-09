@@ -133,7 +133,7 @@ function displayItems(items, row) {
                 var row = table.row(function(idx, data, node) {
                     return data[0] == values['id'].toString();
                 });
-                table.cell(row, 6).data(this.value).draw();
+                table.cell(row, 7).data(this.value).draw();
 
                 updateStatusAll();
             }
