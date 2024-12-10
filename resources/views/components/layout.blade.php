@@ -1,6 +1,5 @@
 @props([
     'useDatatableCDN' => false,
-    'category' => [],
 ])
 
 <!DOCTYPE html>
@@ -49,17 +48,6 @@
                     ]
 
                 });
-
-
-                let categoryArr = {!! json_encode($category) !!};
-
-
-                for (let i = 0; i < categoryArr.length; i++) {
-                    $('#' + categoryArr[i]).DataTable({
-                        "order": [[0, "asc"]]
-                    });
-                }
-
             });
         </script>
     @endif

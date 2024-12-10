@@ -1,4 +1,4 @@
-<x-layout :useDatatableCDN="true" :category="$categoryArr">
+<x-layout :useDatatableCDN="true">
 
     <x-header></x-header>
 
@@ -37,7 +37,7 @@
                             </div>
 
                             <div class="bg-gray-100 rounded-xl border shadow-md p-3">
-                                <table id="{{ $category }}" class="display border-collapse w-full table-fixed">
+                                <table id="{{ str_replace(' ', '_', $category) }}" class="display border-collapse w-full table-fixed">
                                     <thead>
                                         <tr class="border-y-2">
                                             <th class=" w-auto">Tag Name</th>
@@ -94,7 +94,16 @@
     @enderror
 
 
-
+    <script>
+        $(document).ready(function () {
+            let categoryArr = {!! json_encode($categoryArr) !!};
+            for (let i = 0; i < categoryArr.length; i++) {
+                $('#' + categoryArr[i].replace(/ /g, "_")).DataTable({
+                    "order": [[0, "asc"]]
+                });
+            }
+        });
+    </script>
     <script>
         let tagCreateForm = document.getElementById('tagCreateForm');
         let closeTagCreate = document.getElementById('closeCreate');
