@@ -105,9 +105,10 @@ use Carbon\Carbon;
                                         <tr class="orderDetails border-b" data-id="{{ $order->id }}">
                                             <td class="cursor-pointer text-center">{{ $order->id }}</td>
                                             <td class="cursor-pointer text-center">{{ $order->order->id }}</td>
+                                            {{-- user name and image --}}
                                             <td class="cursor-pointer ">
                                                 <div class="flex items-center gap-2">
-                                                    <div class="w-6 aspect-square rounded-full shadow-md overflow-hidden inline-block border">
+                                                    <div class="min-w-7 max-w-7 aspect-square rounded-full shadow-md overflow-hidden inline-block border">
                                                         <img src="{{ Storage::url($order->order->user->image_src) }}" alt="profile pic" class="object-cover">
                                                     </div>
                                                     <div class="inline-block">
@@ -115,9 +116,10 @@ use Carbon\Carbon;
                                                     </div>
                                                 </div>
                                             </td>
+                                            {{-- cake image and name --}}
                                             <td class="cursor-pointer">
                                                 <div class="flex items-center gap-2">
-                                                    <div class="w-6 aspect-square rounded-full border shadow-md overflow-hidden inline-block">
+                                                    <div class="min-w-7 max-w-7 aspect-square rounded-full border shadow-md overflow-hidden inline-block">
                                                         <img src="{{ Storage::url($order->cake->image_src) }}" alt="profile pic" class="object-cover">
                                                     </div>
                                                     <span>
