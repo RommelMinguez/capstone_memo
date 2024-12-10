@@ -15,6 +15,9 @@ let newRequest = document.getElementById('new-request');
 
 let status_all = document.getElementById('status-set-all');
 
+let addCake_btn = document.getElementById('add-cake-btn');
+let addCake_details = document.getElementById('add-cake-details');
+
 
 function showDetails(id) {
     detailsContent.classList.remove('hidden');
@@ -52,12 +55,20 @@ async function getOrderData(id) {
         newRequest.classList.add('hidden');
         status_all.parentNode.classList.add('hidden');
         statusDisplay.classList.add('text-yellow-600');
+        addCake_btn.classList.add('hidden');
         if (data.status == 'new') {
             newRequest.classList.remove('hidden');
             document.getElementById('total-display').classList.add('hidden');
         } else if (data.status == 'approved')  {
             document.getElementById('total-display').classList.remove('hidden');
         } else {
+            if (data.status == 'completed') {
+                addCake_btn.classList.remove('hidden');
+                addCake_btn.setAttribute('data-id', data.id);
+                addCake_details.children[0].value = data.cake_name;
+                addCake_details.children[1].value = data.description;
+                addCake_details.children[2].value = data.given_price;
+            }
             status_all.parentNode.classList.remove('hidden');
             status_all.value = data.status;
             status_all.classList.add(bgColorArr[status_all.selectedIndex]);
@@ -255,14 +266,6 @@ function toTitleCase(str) {
         .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
         .join(' ');    // Join the words back into a single string
 }
-
-
-
-
-
-
-
-
 
 
 

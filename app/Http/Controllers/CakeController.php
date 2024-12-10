@@ -91,7 +91,7 @@ class CakeController extends Controller
         }
 
         $selectedTags = Tag::whereIn('id', $tagIds)->get();
-        $cakes = $cakes->simplePaginate(21);
+        $cakes = $cakes->simplePaginate(24);
         $tagGroups = Tag::all()->groupBy('category');
 
         //dd(request()->all(), $cakes, request('selected-tag'), empty(request('selected-tag')));
@@ -134,6 +134,14 @@ class CakeController extends Controller
         ]);
 
         $cake->tags()->sync(request('attached-tag'));
+
+        if (request()->ai_generated == 'ai_generated') {
+            $tag_ai = Tag::firstOrCreate([
+                'name' => 'AI Generated',
+                'category' => 'AI GENERATED'
+            ]);
+            $cake->tags()->syncWithoutDetaching($tag_ai->id);
+        }
 
         return redirect()->back()->with('success', "New Cake is Added Successfully.");
     }

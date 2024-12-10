@@ -1,6 +1,6 @@
 @props(['tagGroups'])
 
-<div id="createForm" class="hidden fixed inset-0 bg-black bg-opacity-50 w-screen h-screen z-50 overflow-auto">
+<div id="createForm" class="{{ session('name_ai_gen') ? '':'hidden' }} fixed inset-0 bg-black bg-opacity-50 w-screen h-screen z-50 overflow-auto">
     <div class="w-full h-full flex justify-center py-10 overflow-auto">
         <div class="border shadow-md p-5 w-[900px] h-fit rounded-md bg-[#FFEFF5]">
             {{-- message - close --}}
@@ -22,6 +22,7 @@
                 <form action="/admin/catalog" method="POST" enctype="multipart/form-data">
 
                     @csrf
+                    <input type="hidden" name="ai_generated" value="{{ session('name_ai_gen') ? 'ai_generated':'' }}">
 
                     <div class="flex gap-5">
                         {{-- IMAGE INPUT --}}
@@ -48,14 +49,14 @@
                         {{-- CAKE DETAILS INPUTS --}}
                         <div class="w-1/2  bg-[#FEF6E4] shadow-md border p-5 rounded-sm overflow-auto">
 
-                            <input id="name" name="name" type="text" title="Cake Name" placeholder="Chiffon Cake" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full">
+                            <input id="name" name="name" type="text" title="Cake Name" placeholder="Chiffon Cake" required value="{{ session('name_ai_gen') ?? '' }}" class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full">
 
-                            <input id="price" name="price" type="number" step="0.01" title="Price" placeholder="500.00" required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-32 mr-2">
+                            <input id="price" name="price" type="number" step="0.01" title="Price" placeholder="500.00" required value="{{ session('price_ai_gen') ?? '' }}" class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-32 mr-2">
                             <label for="price" class="font-semibold">PHP</label>
 
                             <br><br>
                             <label for="description" class="font-semibold">DESCRIPTION:</label>
-                            <textarea name="description" id="description" cols="30" rows="5" title="Cake Description" placeholder="type here..." required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full"></textarea>
+                            <textarea name="description" id="description" cols="30" rows="5" title="Cake Description" placeholder="type here..." required class="p-2 mb-2 rounded-md shadow-sm shadow-gray-400 border bg-[#EDE7E7] w-full">{{ session('description_ai_gen') ?? '' }}</textarea>
 
                             <br><br>
                             <div class="mb-3 flex justify-between items-end">
