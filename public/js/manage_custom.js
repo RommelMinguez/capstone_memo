@@ -114,6 +114,13 @@ status_all.addEventListener('change', function() {
     table.cell(row, 4).data(this.value).draw(); // update and redraw
     // console.log(row);
 
+    //show hide add to explore button
+    if (this.value == 'completed') {
+        addCake_btn.classList.remove('hidden');
+    } else {
+        addCake_btn.classList.add('hidden');
+    }
+
     updateStatus(currentOrderId, {item: this.value});
 });
 
