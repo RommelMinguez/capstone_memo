@@ -25,8 +25,8 @@ Route::post('/generate-horde', function(Request $request) {
             'width' => 512,
             'height' => 512,
             "karras" => true,
-            "steps" => 30,
-            "n" => 1
+            "steps" => 25,
+            "n" => 2
         ],
         "nsfw" => false,
         "slow_workers" => true,

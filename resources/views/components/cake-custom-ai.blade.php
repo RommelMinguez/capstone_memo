@@ -65,6 +65,9 @@
                             <img src="" alt="" class="object-cover h-full cursor-pointer generated-recent" id="generated-hordeAI">
 
                         </div>
+                        <div class="mt-2 text-sm text-gray-400 text-center">
+                            Wait Time: <span>0</span>s
+                        </div>
                     </div>
 
                 </div>

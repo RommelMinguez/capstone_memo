@@ -17,9 +17,12 @@ let generated_pollination = document.getElementById("generated-pollinationsAI");
 let generated_horde = document.getElementById("generated-hordeAI");
 let generatedRecent = document.querySelectorAll(".generated-recent");
 
-let checkStatus_interval = null;
+// let checkStatus_interval = null;
 let isPollinationsDone = true;
 let isHordeDone = true;
+
+
+
 
 generatedRecent.forEach((element, index) => {
     element.addEventListener("click", function () {
@@ -73,18 +76,21 @@ generate_btn.addEventListener("click", function () {
 
         let clone_pol = display_pollinations.cloneNode(true);
         let clone_hor = display_horde.cloneNode(true);
+        let clone_hor2 = display_horde.cloneNode(true);
 
         displayResult_parent.appendChild(clone_pol);
         displayResult_parent.appendChild(clone_hor);
+        displayResult_parent.appendChild(clone_hor2);
         clone_pol.classList.remove("hidden");
         clone_hor.classList.remove("hidden");
+        clone_hor2.classList.remove("hidden");
 
         isPollinationsDone = false;
         isHordeDone = false;
         updatePromt();
 
         getPollinationAI(prompt_inp.textContent, clone_pol);
-        getHordeAI(prompt_inp.textContent, clone_hor);
+        getHordeAI(prompt_inp.textContent, clone_hor, clone_hor2);
     }
 });
 
@@ -132,7 +138,7 @@ async function getPollinationAI(dsc, display) {
         updatePromt();
     }
 }
-async function getHordeAI(dsc, display) {
+async function getHordeAI(dsc, display, display2) {
     const csrfToken = document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");
@@ -149,14 +155,39 @@ async function getHordeAI(dsc, display) {
             }),
         });
 
+        // if (!response.ok) {
+        //     const errorDetails = await response.json();
+        //     throw new Error(`Error ${response.status}: ${errorDetails.error}`);
+        // }
         if (!response.ok) {
-            const errorDetails = await response.json();
-            throw new Error(`Error ${response.status}: ${errorDetails.error}`);
+            // Parse the error response as text
+            const html = await response.text();
+
+            // Display the HTML in a new window for easier reading
+            const errorWindow = window.open();
+            errorWindow.document.write(html);
+            errorWindow.document.close();
+
+            // Optionally, throw an error for additional handling
+            throw new Error(`HTTP Error: ${response.status}`);
         }
 
         const data = await response.json();
-        checkStatus_interval = setInterval(() => {
-            checkHordeStatus(data.id, dsc, display);
+        // checkStatus_interval = setInterval(() => {
+        //     checkHordeStatus(data.id, dsc, display, display2);
+        // }, 5000);
+        let isChecking = false; // Flag to prevent overlapping calls
+        const checkStatusInterval = setInterval(async () => {
+            if (isChecking) return; // Skip if already running
+
+            isChecking = true; // Set the flag to true
+            const status = await checkHordeStatus(data.id, dsc, display, display2); // Wait for the result
+            isChecking = false; // Reset the flag after completion
+
+            if (status) {
+                clearInterval(checkStatusInterval); // Stop the interval if the condition is met
+                console.log("Horde status resolved.");
+            }
         }, 5000);
 
         console.log("Generation Queued: " + data.id);
@@ -167,54 +198,87 @@ async function getHordeAI(dsc, display) {
     }
 }
 
-async function checkHordeStatus(id, dsc, display) {
+async function checkHordeStatus(id, dsc, display, display2) {
     try {
         const response = await fetch("/api/generate-horde/status/" + id);
 
+        // if (!response.ok) {
+        //     const errorDetails = await response.json();
+        //     throw new Error(
+        //         `Error ${response.status}: ${
+        //             errorDetails.message || errorDetails.error
+        //         }`
+        //     );
+        // }
         if (!response.ok) {
-            const errorDetails = await response.json();
-            throw new Error(
-                `Error ${response.status}: ${
-                    errorDetails.message || errorDetails.error
-                }`
-            );
+            // Parse the error response as text
+            const html = await response.text();
+
+            // Display the HTML in a new window for easier reading
+            const errorWindow = window.open();
+            errorWindow.document.write(html);
+            errorWindow.document.close();
+
+            // Optionally, throw an error for additional handling
+            throw new Error(`HTTP Error: ${response.status}`);
         }
 
         const data = await response.json();
         console.log("ETA: " + data.wait_time + "s");
+        display.children[2].children[0].textContent = data.wait_time;
+        display2.children[2].children[0].textContent = data.wait_time;
 
         if (data.faulted || !data.is_possible) {
-            clearInterval(checkStatus_interval);
+            // clearInterval(checkStatus_interval);
             console.error("Something went wrong, image failed to generate.");
             isHordeDone = true;
             updatePromt();
+            return true;
         }
         if (data.done) {
-            clearInterval(checkStatus_interval);
+            // clearInterval(checkStatus_interval);
             console.log("AI Horde success: showing result");
-            displayHordeImage(data.generations[0].img, dsc, display);
+            displayHordeImage(data.generations, dsc, display, display2);
+            return true;
         }
+        return false
     } catch (error) {
         console.error("Error checking generation status:", error);
     }
+    return false;
 }
-async function displayHordeImage(url, dsc, display) {
+async function displayHordeImage(gen, dsc, display, display2) {
     try {
-        const response = await fetch(url);
+        const response = await fetch(gen[0].img);
+        const response2 = await fetch(gen[1].img);
 
         if (!response.ok) throw new Error("Network response was not ok");
+        if (!response2.ok) throw new Error("Network response was not ok");
 
         const blob = await response.blob();
         const imageUrl = URL.createObjectURL(blob);
+        const blob2 = await response2.blob();
+        const imageUrl2 = URL.createObjectURL(blob2);
 
         const storedData = await storeImage(blob, dsc, "AI_Horde");
+        const storedData2 = await storeImage(blob2, dsc, "AI_Horde");
 
         const imgElement = display.children[1].children[0];
         imgElement.src = imageUrl;
         imgElement.setAttribute("data-id", storedData.id);
         imgElement.setAttribute("data-prompt", dsc);
         display.children[1].classList.remove("loading-box");
+        display.children[2].classList.add('hidden')
         imgElement.addEventListener("click", function () {
+            selectGeneratedImage(this);
+        });
+        const imgElement2 = display2.children[1].children[0];
+        imgElement2.src = imageUrl2;
+        imgElement2.setAttribute("data-id", storedData2.id);
+        imgElement2.setAttribute("data-prompt", dsc);
+        display2.children[1].classList.remove("loading-box");
+        display2.children[2].classList.add("hidden");
+        imgElement2.addEventListener("click", function () {
             selectGeneratedImage(this);
         });
         isHordeDone = true;
