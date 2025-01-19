@@ -65,9 +65,7 @@ class AdminController extends Controller
 
 
     public function manageOrders() {
-
         $all = OrderItem::latest()->with('cake', 'order', 'order.user', 'order.address', 'order.orderItems.cake')->get();
-
         return view('user.admin.manage-orders', [
             'allOrders' => $all,
         ]);
@@ -78,14 +76,11 @@ class AdminController extends Controller
             $order->update([
                 'status' => request()->item,
             ]);
-
             $order->orderItems()->update([
                 'status' => request()->item,
             ]);
         });
 
-
-        // notification
         $user = $order->user;
         $details = [
             'item_id' => $order->id,
